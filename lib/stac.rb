@@ -2,7 +2,7 @@
 
 require_relative "stac/version"
 
-module Stac
+module STAC
   class Error < StandardError; end
   # Your code goes here...
 end

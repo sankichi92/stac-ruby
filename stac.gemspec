@@ -4,7 +4,7 @@ require_relative "lib/stac/version"
 
 Gem::Specification.new do |spec|
   spec.name = "stac"
-  spec.version = Stac::VERSION
+  spec.version = STAC::VERSION
   spec.authors = ["Takahiro Miyoshi"]
   spec.email = ["takahiro-miyoshi@sankichi.net"]
 
