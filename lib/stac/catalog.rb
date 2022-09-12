@@ -2,6 +2,7 @@
 
 require "json"
 require_relative "errors"
+require_relative "link"
 require_relative "spec_version"
 
 module STAC
@@ -24,7 +25,7 @@ module STAC
           id: hash.delete("id"),
           title: hash.delete("title"),
           description: hash.delete("description"),
-          links: hash.delete("links"),
+          links: hash.delete("links").map { |link| Link.from_hash(link) },
           stac_extensions: hash.delete("stac_extensions"),
           extra_fields: hash.except("stac_version")
         )
@@ -50,7 +51,7 @@ module STAC
         "id" => id,
         "title" => title,
         "description" => description,
-        "links" => links
+        "links" => links.map(&:to_h)
       }.merge(extra_fields).compact
     end
 

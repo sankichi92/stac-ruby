@@ -26,5 +26,8 @@ Metrics:
 RSpec/DescribedClass:
   EnforcedStyle: explicit
 
+RSpec/ExampleLength:
+  Enabled: false
+
 RSpec/MultipleExpectations:
   Enabled: false

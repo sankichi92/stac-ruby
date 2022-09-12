@@ -9,7 +9,7 @@ RSpec.describe STAC::Catalog do
     it "reads a JSON file and returns a Catalog instance" do
       catalog = STAC::Catalog.from_file(catalog_path)
 
-      expect(catalog).to be_an_instance_of(STAC::Catalog)
+      expect(catalog).to be_an_instance_of STAC::Catalog
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe STAC::Catalog do
     it "returns a Catalog instance based on the given Hash" do
       catalog = STAC::Catalog.from_hash(hash)
 
-      expect(catalog).to be_an_instance_of(STAC::Catalog)
+      expect(catalog).to be_an_instance_of STAC::Catalog
       expect(catalog.id).to eq "20201211_223832_CS2"
       expect(catalog.description).to eq "A simple catalog example"
     end
@@ -37,7 +37,7 @@ RSpec.describe STAC::Catalog do
       let(:type) { "INVALID" }
 
       it "raises STACTypeError" do
-        expect { STAC::Catalog.from_hash(hash) }.to raise_error(STAC::STACTypeError)
+        expect { STAC::Catalog.from_hash(hash) }.to raise_error STAC::STACTypeError
       end
     end
   end
