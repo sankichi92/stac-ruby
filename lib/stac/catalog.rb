@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "json"
-require_relative "errors"
-require_relative "link"
-require_relative "spec_version"
+require 'json'
+require_relative 'errors'
+require_relative 'link'
+require_relative 'spec_version'
 
 module STAC
   class Catalog
@@ -17,17 +17,17 @@ module STAC
       def from_hash(hash)
         hash = hash.dup
 
-        if (type = hash.delete("type")) != "Catalog"
+        if (type = hash.delete('type')) != 'Catalog'
           raise STACTypeError, "Type value is not \"Catalog\": \"#{type}\""
         end
 
         new(
-          id: hash.delete("id"),
-          title: hash.delete("title"),
-          description: hash.delete("description"),
-          links: hash.delete("links").map { |link| Link.from_hash(link) },
-          stac_extensions: hash.delete("stac_extensions"),
-          extra_fields: hash.except("stac_version")
+          id: hash.delete('id'),
+          title: hash.delete('title'),
+          description: hash.delete('description'),
+          links: hash.delete('links').map { |link| Link.from_hash(link) },
+          stac_extensions: hash.delete('stac_extensions'),
+          extra_fields: hash.except('stac_version'),
         )
       end
     end
@@ -45,13 +45,13 @@ module STAC
 
     def to_h
       {
-        "stac_version" => SPEC_VERSION,
-        "type" => "Catalog",
-        "stac_extensions" => stac_extensions,
-        "id" => id,
-        "title" => title,
-        "description" => description,
-        "links" => links.map(&:to_h)
+        'stac_version' => SPEC_VERSION,
+        'type' => 'Catalog',
+        'stac_extensions' => stac_extensions,
+        'id' => id,
+        'title' => title,
+        'description' => description,
+        'links' => links.map(&:to_h),
       }.merge(extra_fields).compact
     end
 

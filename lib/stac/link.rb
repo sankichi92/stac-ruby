@@ -5,10 +5,10 @@ module STAC
     class << self
       def from_hash(hash)
         new(
-          rel: hash["rel"],
-          href: hash["href"],
-          type: hash["type"],
-          title: hash["title"]
+          rel: hash['rel'],
+          href: hash['href'],
+          type: hash['type'],
+          title: hash['title'],
         )
       end
     end
@@ -24,10 +24,10 @@ module STAC
 
     def to_h
       {
-        "rel" => rel,
-        "href" => href,
-        "type" => type,
-        "title" => title
+        'rel' => rel,
+        'href' => href,
+        'type' => type,
+        'title' => title,
       }.compact
     end
   end
