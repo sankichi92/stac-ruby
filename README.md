@@ -2,6 +2,8 @@
 
 A Ruby library for working with [SpatioTemporal Asset Catalog (STAC)](https://stacspec.org/)
 
+This gem refers to [pystac](https://github.com/stac-utils/pystac).
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
