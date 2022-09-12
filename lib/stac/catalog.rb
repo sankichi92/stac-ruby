@@ -15,20 +15,18 @@ module STAC
       end
 
       def from_hash(hash)
-        hash = hash.dup
-
-        if (type = hash.delete('type')) != 'Catalog'
-          raise STACTypeError, "Type value is not \"Catalog\": \"#{type}\""
-        end
+        raise TypeError, "type field is not 'Catalog': #{hash['type']}" if hash.fetch('type') != 'Catalog'
 
         new(
-          id: hash.delete('id'),
-          title: hash.delete('title'),
-          description: hash.delete('description'),
-          links: hash.delete('links').map { |link| Link.from_hash(link) },
-          stac_extensions: hash.delete('stac_extensions'),
-          extra_fields: hash.except('stac_version'),
+          id: hash.fetch('id'),
+          description: hash.fetch('description'),
+          links: hash.fetch('links').map { |link| Link.from_hash(link) },
+          title: hash['title'],
+          stac_extensions: hash['stac_extensions'],
+          extra_fields: hash.except(*%w[type stac_version id description links title stac_extensions]),
         )
+      rescue KeyError => e
+        raise MissingRequiredFieldError, "required field not found: #{e.key}"
       end
     end
 

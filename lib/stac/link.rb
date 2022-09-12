@@ -5,11 +5,13 @@ module STAC
     class << self
       def from_hash(hash)
         new(
-          rel: hash['rel'],
-          href: hash['href'],
+          rel: hash.fetch('rel'),
+          href: hash.fetch('href'),
           type: hash['type'],
           title: hash['title'],
         )
+      rescue KeyError => e
+        raise MissingRequiredFieldError, "required field not found: #{e.key}"
       end
     end
 

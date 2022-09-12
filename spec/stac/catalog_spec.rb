@@ -36,8 +36,14 @@ RSpec.describe STAC::Catalog do
     context 'when "type" is not "Catalog"' do
       let(:type) { 'INVALID' }
 
-      it 'raises STACTypeError' do
-        expect { STAC::Catalog.from_hash(hash) }.to raise_error STAC::STACTypeError
+      it 'raises TypeError' do
+        expect { STAC::Catalog.from_hash(hash) }.to raise_error STAC::TypeError
+      end
+    end
+
+    context 'when a required field is missing' do
+      it 'raises MissingRequiredFieldError' do
+        expect { STAC::Catalog.from_hash(hash.except('id')) }.to raise_error STAC::MissingRequiredFieldError
       end
     end
   end
