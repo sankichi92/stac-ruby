@@ -7,6 +7,7 @@ gemspec
 
 gem 'debug'
 gem 'rake'
+gem 'rbs'
 gem 'rspec'
 gem 'rubocop'
 gem 'rubocop-rake'

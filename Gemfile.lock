@@ -33,6 +33,7 @@ GEM
     public_suffix (5.0.0)
     rainbow (3.1.1)
     rake (13.0.6)
+    rbs (2.6.0)
     regexp_parser (2.5.0)
     reline (0.3.1)
       io-console (~> 0.5)
@@ -88,6 +89,7 @@ PLATFORMS
 DEPENDENCIES
   debug
   rake
+  rbs
   rspec
   rubocop
   rubocop-rake
