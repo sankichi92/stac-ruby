@@ -8,8 +8,8 @@ module STAC
     class << self
       def from_hash(hash)
         new(
-          spatial: Spatial.new(**hash.fetch('spatial').transform_keys(&:to_sym)),
-          temporal: Temporal.new(**hash.fetch('temporal').transform_keys(&:to_sym)),
+          spatial: Spatial.new(bbox: hash.fetch('spatial').fetch('bbox')),
+          temporal: Temporal.new(interval: hash.fetch('temporal').fetch('interval')),
         )
       end
     end

@@ -2,6 +2,7 @@
 
 require_relative 'catalog'
 require_relative 'extent'
+require_relative 'provider'
 
 module STAC
   class Collection < Catalog
@@ -17,7 +18,7 @@ module STAC
           extent: Extent.from_hash(hash.fetch('extent')),
           title: hash['title'],
           keywords: hash['keywords'],
-          providers: hash['providers'],
+          providers: hash['providers']&.map { |provider| Provider.from_hash(provider) },
           summaries: hash['summaries'],
           assets: hash['assets'],
           stac_extensions: hash['stac_extensions'],
@@ -75,7 +76,7 @@ module STAC
         'description' => description,
         'keywords' => keywords,
         'license' => license,
-        'providers' => providers,
+        'providers' => providers.map(&:to_h),
         'extent' => extent.to_h,
         'assets' => assets,
         'summaries' => summaries,

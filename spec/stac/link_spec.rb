@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 RSpec.describe STAC::Link do
-  describe '.from_hash' do
-    let(:hash) do
-      {
-        'rel' => 'child',
-        'href' => './extensions-collection/collection.json',
-        'type' => 'application/json',
-        'title' => 'Collection Demonstrating STAC Extensions',
-      }
-    end
+  subject(:link) { STAC::Link.from_hash(hash) }
 
+  let(:hash) do
+    {
+      'rel' => 'child',
+      'href' => './extensions-collection/collection.json',
+      'type' => 'application/json',
+      'title' => 'Collection Demonstrating STAC Extensions',
+    }
+  end
+
+  describe '.from_hash' do
     it 'returns a Link instance based on the given Hash' do
       link = STAC::Link.from_hash(hash)
 
@@ -23,17 +25,6 @@ RSpec.describe STAC::Link do
   end
 
   describe '#to_h' do
-    subject(:link) { STAC::Link.from_hash(hash) }
-
-    let(:hash) do
-      {
-        'rel' => 'child',
-        'href' => './extensions-collection/collection.json',
-        'type' => 'application/json',
-        'title' => 'Collection Demonstrating STAC Extensions',
-      }
-    end
-
     it 'converts self to a Hash' do
       expect(link.to_h).to eq hash
     end
