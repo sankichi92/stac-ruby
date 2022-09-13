@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'asset'
 require_relative 'catalog'
 require_relative 'extent'
 require_relative 'provider'
@@ -20,7 +21,7 @@ module STAC
           keywords: hash['keywords'],
           providers: hash['providers']&.map { |provider| Provider.from_hash(provider) },
           summaries: hash['summaries'],
-          assets: hash['assets'],
+          assets: hash['assets']&.transform_values { |v| Asset.from_hash(v) },
           stac_extensions: hash['stac_extensions'],
           extra_fields: hash.except(
             *%w[
@@ -67,25 +68,17 @@ module STAC
     end
 
     def to_h
-      {
-        'stac_version' => SPEC_VERSION,
-        'type' => 'Collection',
-        'stac_extensions' => stac_extensions,
-        'id' => id,
-        'title' => title,
-        'description' => description,
-        'keywords' => keywords,
-        'license' => license,
-        'providers' => providers.map(&:to_h),
-        'extent' => extent.to_h,
-        'assets' => assets,
-        'summaries' => summaries,
-        'links' => links.map(&:to_h),
-      }.merge(extra_fields).compact
-    end
-
-    def to_json(...)
-      to_h.to_json(...)
+      super.merge(
+        {
+          'type' => 'Collection',
+          'keywords' => keywords,
+          'license' => license,
+          'providers' => providers.map(&:to_h),
+          'extent' => extent.to_h,
+          'assets' => assets&.transform_values(&:to_h),
+          'summaries' => summaries,
+        }.compact,
+      )
     end
   end
 end
