@@ -22,7 +22,26 @@ RSpec.describe STAC::Collection do
         'id' => '20201211_223832_CS2',
         'description' => 'A simple collection example',
         'links' => [],
-        'extent' => {},
+        'extent' => {
+          'spatial' => {
+            'bbox' => [
+              [
+                172.91173669923782,
+                1.3438851951615003,
+                172.95469614953714,
+                1.3690476620161975,
+              ],
+            ],
+          },
+          'temporal' => {
+            'interval' => [
+              [
+                '2020-12-11T22:38:32.125Z',
+                '2020-12-14T18:02:31.437Z',
+              ],
+            ],
+          },
+        },
         'summaries' => {},
       }
     end

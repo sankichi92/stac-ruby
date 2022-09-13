@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'catalog'
+require_relative 'extent'
 
 module STAC
   class Collection < Catalog
@@ -13,7 +14,7 @@ module STAC
           description: hash.fetch('description'),
           links: hash.fetch('links').map { |link| Link.from_hash(link) },
           license: hash.fetch('license'),
-          extent: hash.fetch('extent'),
+          extent: Extent.from_hash(hash.fetch('extent')),
           title: hash['title'],
           keywords: hash['keywords'],
           providers: hash['providers'],
@@ -75,7 +76,7 @@ module STAC
         'keywords' => keywords,
         'license' => license,
         'providers' => providers,
-        'extent' => extent,
+        'extent' => extent.to_h,
         'assets' => assets,
         'summaries' => summaries,
         'links' => links.map(&:to_h),
