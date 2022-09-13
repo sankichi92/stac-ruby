@@ -11,27 +11,14 @@ module STAC
       def from_hash(hash)
         raise TypeError, "type field is not 'Collection': #{hash['type']}" if hash.fetch('type') != 'Collection'
 
-        new(
-          id: hash.fetch('id'),
-          description: hash.fetch('description'),
-          links: hash.fetch('links').map { |link| Link.from_hash(link) },
-          license: hash.fetch('license'),
-          extent: Extent.from_hash(hash.fetch('extent')),
-          title: hash['title'],
-          keywords: hash['keywords'],
-          providers: hash['providers']&.map { |provider| Provider.from_hash(provider) },
-          summaries: hash['summaries'],
-          assets: hash['assets']&.transform_values { |v| Asset.from_hash(v) },
-          stac_extensions: hash['stac_extensions'],
-          extra_fields: hash.except(
-            *%w[
-              type stac_version
-              id description links license extent title keywords providers summaries assets stac_extensions
-            ],
-          ),
-        )
-      rescue KeyError => e
-        raise MissingRequiredFieldError, "required field not found: #{e.key}"
+        transformed = hash.transform_keys(&:to_sym).except(:type, :stac_version)
+        transformed[:links] = transformed.fetch(:links).map { |link| Link.from_hash(link) }
+        transformed[:extent] = Extent.from_hash(transformed.fetch(:extent))
+        transformed[:providers] = transformed[:providers]&.map { |provider| Provider.from_hash(provider) }
+        transformed[:assets] = transformed[:assets]&.transform_values { |v| Asset.from_hash(v) }
+        new(**transformed)
+      rescue KeyError, ArgumentError => e
+        raise ArgumentError, "required field not found: #{e.key}"
       end
     end
 
@@ -49,7 +36,7 @@ module STAC
       summaries: nil,
       assets: nil,
       stac_extensions: nil,
-      extra_fields: {}
+      **extra
     )
       super(
         id: id,
@@ -57,7 +44,7 @@ module STAC
         links: links,
         title: title,
         stac_extensions: stac_extensions,
-        extra_fields: extra_fields
+        **extra
       )
       @license = license
       @extent = extent

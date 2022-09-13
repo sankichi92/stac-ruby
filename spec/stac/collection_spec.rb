@@ -65,8 +65,8 @@ RSpec.describe STAC::Collection do
     end
 
     context 'when a required field is missing' do
-      it 'raises MissingRequiredFieldError' do
-        expect { STAC::Collection.from_hash(hash.except('id')) }.to raise_error STAC::MissingRequiredFieldError
+      it 'raises ArgumentError' do
+        expect { STAC::Collection.from_hash(hash.except('extent')) }.to raise_error ArgumentError
       end
     end
   end

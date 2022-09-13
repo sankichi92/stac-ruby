@@ -42,8 +42,8 @@ RSpec.describe STAC::Catalog do
     end
 
     context 'when a required field is missing' do
-      it 'raises MissingRequiredFieldError' do
-        expect { STAC::Catalog.from_hash(hash.except('id')) }.to raise_error STAC::MissingRequiredFieldError
+      it 'raises ArgumentError' do
+        expect { STAC::Catalog.from_hash(hash.except('links')) }.to raise_error ArgumentError
       end
     end
   end

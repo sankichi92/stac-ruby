@@ -17,40 +17,35 @@ module STAC
       def from_hash(hash)
         raise TypeError, "type field is not 'Catalog': #{hash['type']}" if hash.fetch('type') != 'Catalog'
 
-        new(
-          id: hash.fetch('id'),
-          description: hash.fetch('description'),
-          links: hash.fetch('links').map { |link| Link.from_hash(link) },
-          title: hash['title'],
-          stac_extensions: hash['stac_extensions'],
-          extra_fields: hash.except(*%w[type stac_version id description links title stac_extensions]),
-        )
+        transformed = hash.transform_keys(&:to_sym).except(:type, :stac_version)
+        transformed[:links] = transformed.fetch(:links).map { |link| Link.from_hash(link) }
+        new(**transformed)
       rescue KeyError => e
-        raise MissingRequiredFieldError, "required field not found: #{e.key}"
+        raise ArgumentError, "required field not found: #{e.key}"
       end
     end
 
-    attr_accessor :id, :description, :links, :title, :stac_extensions, :extra_fields
+    attr_accessor :id, :description, :links, :title, :stac_extensions, :extra
 
-    def initialize(id:, description:, links:, title: nil, stac_extensions: nil, extra_fields: {})
+    def initialize(id:, description:, links:, title: nil, stac_extensions: nil, **extra)
       @id = id
       @description = description
       @links = links
       @title = title
       @stac_extensions = stac_extensions
-      @extra_fields = extra_fields
+      @extra = extra.transform_keys(&:to_s)
     end
 
     def to_h
       {
-        'stac_version' => SPEC_VERSION,
         'type' => 'Catalog',
+        'stac_version' => SPEC_VERSION,
         'stac_extensions' => stac_extensions,
         'id' => id,
         'title' => title,
         'description' => description,
         'links' => links.map(&:to_h),
-      }.merge(extra_fields).compact
+      }.merge(extra).compact
     end
 
     def to_json(...)
