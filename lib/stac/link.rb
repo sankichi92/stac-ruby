@@ -4,24 +4,18 @@ module STAC
   class Link
     class << self
       def from_hash(hash)
-        new(
-          rel: hash.fetch('rel'),
-          href: hash.fetch('href'),
-          type: hash['type'],
-          title: hash['title'],
-        )
-      rescue KeyError => e
-        raise MissingRequiredFieldError, "required field not found: #{e.key}"
+        new(**hash.transform_keys(&:to_sym))
       end
     end
 
-    attr_accessor :rel, :href, :type, :title
+    attr_accessor :rel, :href, :type, :title, :extra
 
-    def initialize(rel:, href:, type: nil, title: nil)
+    def initialize(rel:, href:, type: nil, title: nil, **extra)
       @rel = rel
       @href = href
       @type = type
       @title = title
+      @extra = extra.transform_keys(&:to_s)
     end
 
     def to_h
@@ -30,7 +24,7 @@ module STAC
         'href' => href,
         'type' => type,
         'title' => title,
-      }.compact
+      }.merge(extra).compact
     end
   end
 end

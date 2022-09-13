@@ -2,30 +2,66 @@
 
 module STAC
   class Extent
-    Spatial = Struct.new(:bbox, keyword_init: true)
-    Temporal = Struct.new(:interval, keyword_init: true)
+    class Spatial
+      def self.from_hash(hash)
+        new(**hash.transform_keys(&:to_sym))
+      end
 
-    class << self
-      def from_hash(hash)
-        new(
-          spatial: Spatial.new(bbox: hash.fetch('spatial').fetch('bbox')),
-          temporal: Temporal.new(interval: hash.fetch('temporal').fetch('interval')),
-        )
+      attr_accessor :bbox, :extra
+
+      def initialize(bbox:, **extra)
+        @bbox = bbox
+        @extra = extra.transform_keys(&:to_s)
+      end
+
+      def to_h
+        {
+          'bbox' => bbox,
+        }.merge(extra)
       end
     end
 
-    attr_accessor :spatial, :temporal
+    class Temporal
+      def self.from_hash(hash)
+        new(**hash.transform_keys(&:to_sym))
+      end
 
-    def initialize(spatial:, temporal:)
+      attr_accessor :interval, :extra
+
+      def initialize(interval:, **extra)
+        @interval = interval
+        @extra = extra.transform_keys(&:to_s)
+      end
+
+      def to_h
+        {
+          'interval' => interval,
+        }.merge(extra)
+      end
+    end
+
+    class << self
+      def from_hash(hash)
+        transformed = hash.transform_keys(&:to_sym)
+        transformed[:spatial] = Spatial.from_hash(transformed.fetch(:spatial))
+        transformed[:temporal] = Temporal.from_hash(transformed.fetch(:temporal))
+        new(**transformed)
+      end
+    end
+
+    attr_accessor :spatial, :temporal, :extra
+
+    def initialize(spatial:, temporal:, **extra)
       @spatial = spatial
       @temporal = temporal
+      @extra = extra.transform_keys(&:to_s)
     end
 
     def to_h
       {
-        'spatial' => spatial.to_h.transform_keys(&:to_s),
-        'temporal' => temporal.to_h.transform_keys(&:to_s),
-      }
+        'spatial' => spatial.to_h,
+        'temporal' => temporal.to_h,
+      }.merge(extra)
     end
   end
 end

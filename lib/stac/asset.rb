@@ -4,24 +4,19 @@ module STAC
   class Asset
     class << self
       def from_hash(hash)
-        new(
-          href: hash.fetch('href'),
-          title: hash['title'],
-          description: hash['description'],
-          type: hash['type'],
-          roles: hash['roles'],
-        )
+        new(**hash.transform_keys(&:to_sym))
       end
     end
 
-    attr_accessor :href, :title, :description, :type, :roles
+    attr_accessor :href, :title, :description, :type, :roles, :extra
 
-    def initialize(href:, title: nil, description: nil, type: nil, roles: nil)
+    def initialize(href:, title: nil, description: nil, type: nil, roles: nil, **extra)
       @href = href
       @title = title
       @description = description
       @type = type
       @roles = roles
+      @extra = extra.transform_keys(&:to_s)
     end
 
     def to_h
@@ -31,7 +26,7 @@ module STAC
         'description' => description,
         'type' => type,
         'roles' => roles,
-      }.compact
+      }.merge(extra).compact
     end
   end
 end
