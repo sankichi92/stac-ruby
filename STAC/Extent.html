@@ -88,6 +88,8 @@
 
   <section class="description">
     
+<p>Represents <a href="../STAC.html"><code>STAC</code></a> extent object, which describes the spatio-temporal extents of a <a href="Collection.html"><code>Collection</code></a>. <a href="https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#extent-object">github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#extent-object</a></p>
+
   </section>
 
   <section id="5Buntitled-5D" class="documentation-section">
@@ -148,7 +150,7 @@
           
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 44</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">transformed</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>)
   <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:spatial</span>] = <span class="ruby-constant">Spatial</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">transformed</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:spatial</span>))
@@ -172,7 +174,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">spatial:</span>, <span class="ruby-value">temporal:</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@spatial</span> = <span class="ruby-identifier">spatial</span>
   <span class="ruby-ivar">@temporal</span> = <span class="ruby-identifier">temporal</span>
@@ -202,7 +204,7 @@
           
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 60</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;spatial&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">spatial</span>.<span class="ruby-identifier">to_h</span>,

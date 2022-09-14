@@ -88,6 +88,8 @@
 
   <section class="description">
     
+<p>Represents <a href="../STAC.html"><code>STAC</code></a> collection. <a href="https://github.com/radiantearth/stac-spec/tree/master/collection-spec">github.com/radiantearth/stac-spec/tree/master/collection-spec</a></p>
+
   </section>
 
   <section id="5Buntitled-5D" class="documentation-section">
@@ -178,7 +180,7 @@
           
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;type field is not &#39;Collection&#39;: #{hash[&#39;type&#39;]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;type&#39;</span>) <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;Collection&#39;</span>
 
@@ -212,7 +214,7 @@
             </div>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 27</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(
   <span class="ruby-value">id:</span>,
   <span class="ruby-value">description:</span>,
@@ -270,7 +272,7 @@
             </div>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 57</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
     {

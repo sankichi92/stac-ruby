@@ -88,6 +88,8 @@
 
   <section class="description">
     
+<p>Represents <a href="../STAC.html"><code>STAC</code></a> asset object, which contains a link to data associated with an Item or <a href="Collection.html"><code>Collection</code></a> that can be downloaded or streamed.</p>
+
   </section>
 
   <section id="5Buntitled-5D" class="documentation-section">
@@ -178,7 +180,7 @@
           
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/asset.rb, line 6</span>
+            <pre><span class="ruby-comment"># File lib/stac/asset.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>))
 <span class="ruby-keyword">end</span></pre>
@@ -199,7 +201,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/asset.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/stac/asset.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">href:</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">description:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">roles:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@href</span> = <span class="ruby-identifier">href</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-identifier">title</span>
@@ -232,7 +234,7 @@
           
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/asset.rb, line 22</span>
+            <pre><span class="ruby-comment"># File lib/stac/asset.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;href&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">href</span>,

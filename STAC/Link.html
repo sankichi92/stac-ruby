@@ -88,6 +88,8 @@
 
   <section class="description">
     
+<p>Represents <a href="../STAC.html"><code>STAC</code></a> link object, which describes a relationship with another entity.</p>
+
   </section>
 
   <section id="5Buntitled-5D" class="documentation-section">
@@ -168,7 +170,7 @@
           
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 6</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>))
 <span class="ruby-keyword">end</span></pre>
@@ -189,7 +191,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">rel:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@rel</span> = <span class="ruby-identifier">rel</span>
   <span class="ruby-ivar">@href</span> = <span class="ruby-identifier">href</span>
@@ -221,7 +223,7 @@
           
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 21</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;rel&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">rel</span>,

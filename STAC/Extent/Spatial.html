@@ -88,6 +88,8 @@
 
   <section class="description">
     
+<p>Describes the spatial extents of a <a href="../Collection.html"><code>Collection</code></a></p>
+
   </section>
 
   <section id="5Buntitled-5D" class="documentation-section">
@@ -138,7 +140,7 @@
           
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 6</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>))
 <span class="ruby-keyword">end</span></pre>
@@ -159,7 +161,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 12</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">bbox:</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@bbox</span> = <span class="ruby-identifier">bbox</span>
   <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
@@ -188,7 +190,7 @@
           
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 17</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;bbox&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">bbox</span>,
