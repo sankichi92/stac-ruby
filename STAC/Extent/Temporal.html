@@ -73,6 +73,8 @@
 
   <ul class="link-list" role="directory">
     <li ><a href="#method-c-from_hash">::from_hash</a>
+    <li ><a href="#method-c-new">::new</a>
+    <li ><a href="#method-i-to_h">#to_h</a>
   </ul>
 </div>
 
@@ -138,9 +140,61 @@
           <p>Deserializes a <a href="Temporal.html"><code>Temporal</code></a> from a Hash.</p>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 34</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-c-new" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(interval:, **extra)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">interval:</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+  <span class="ruby-ivar">@interval</span> = <span class="ruby-identifier">interval</span>
+  <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
+
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+      <div id="method-i-to_h" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">to_h</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Serializes self to a Hash.</p>
+
+          <div class="method-source-code" id="to_h-source">
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
+  {
+    <span class="ruby-string">&#39;interval&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">interval</span>,
+  }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">extra</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
