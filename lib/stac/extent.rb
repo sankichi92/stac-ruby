@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 module STAC
+  # Represents STAC extent object, which describes the spatio-temporal extents of a Collection.
+  #
+  # Spec: https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#extent-object
   class Extent
+    # Describes the spatial extents of a Collection
     class Spatial
       def self.from_hash(hash)
         new(**hash.transform_keys(&:to_sym))
@@ -21,6 +25,7 @@ module STAC
       end
     end
 
+    # Describes the temporal extents of a Collection.
     class Temporal
       def self.from_hash(hash)
         new(**hash.transform_keys(&:to_sym))

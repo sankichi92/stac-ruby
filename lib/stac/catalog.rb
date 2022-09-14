@@ -6,6 +6,9 @@ require_relative 'link'
 require_relative 'spec_version'
 
 module STAC
+  # Represents STAC catalog.
+  #
+  # Spec: https://github.com/radiantearth/stac-spec/tree/master/catalog-spec
   class Catalog
     class << self
       def from_file(path)

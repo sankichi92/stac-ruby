@@ -6,6 +6,9 @@ require_relative 'extent'
 require_relative 'provider'
 
 module STAC
+  # Represents STAC collection.
+  #
+  # Spec: https://github.com/radiantearth/stac-spec/tree/master/collection-spec
   class Collection < Catalog
     class << self
       def from_hash(hash)

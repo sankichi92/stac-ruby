@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module STAC
+  # Represents STAC provider object, which provides information about a provider.
+  #
+  # Spec: https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#provider-object
   class Provider
     class << self
       def from_hash(hash)

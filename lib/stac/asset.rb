@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module STAC
+  # Represents STAC asset object, which contains a link to data associated with an Item or Collection that can be
+  # downloaded or streamed.
   class Asset
     class << self
       def from_hash(hash)

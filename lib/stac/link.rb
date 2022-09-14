@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module STAC
+  # Represents STAC link object, which describes a relationship with another entity.
   class Link
     class << self
       def from_hash(hash)
