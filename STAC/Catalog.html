@@ -90,7 +90,9 @@
 
   <section class="description">
     
-<p>Represents <a href="../STAC.html"><code>STAC</code></a> catalog. <a href="https://github.com/radiantearth/stac-spec/tree/master/catalog-spec">github.com/radiantearth/stac-spec/tree/master/catalog-spec</a></p>
+<p>Represents <a href="../STAC.html"><code>STAC</code></a> catalog.</p>
+
+<p>Spec: <a href="https://github.com/radiantearth/stac-spec/tree/master/catalog-spec">github.com/radiantearth/stac-spec/tree/master/catalog-spec</a></p>
 
   </section>
 
@@ -182,7 +184,7 @@
           
 
           <div class="method-source-code" id="from_file-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_file</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-identifier">json</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-identifier">hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">json</span>)
@@ -205,7 +207,7 @@
           
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;type field is not &#39;Catalog&#39;: #{hash[&#39;type&#39;]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;type&#39;</span>) <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;Catalog&#39;</span>
 
@@ -232,7 +234,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 32</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">description:</span>, <span class="ruby-value">links:</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">id</span>
   <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">description</span>
@@ -265,7 +267,7 @@
           
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 41</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;type&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;Catalog&#39;</span>,
@@ -294,7 +296,7 @@
           
 
           <div class="method-source-code" id="to_json-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 53</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_json</span>(<span class="ruby-operator">...</span>)
   <span class="ruby-identifier">to_h</span>.<span class="ruby-identifier">to_json</span>(<span class="ruby-operator">...</span>)
 <span class="ruby-keyword">end</span></pre>
