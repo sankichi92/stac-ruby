@@ -188,7 +188,7 @@
   <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:providers</span>] = <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:providers</span>]&amp;.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">provider</span><span class="ruby-operator">|</span> <span class="ruby-constant">Provider</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">provider</span>) }
   <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:assets</span>] = <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:assets</span>]&amp;.<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>) }
   <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">transformed</span>)
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">KeyError</span>, <span class="ruby-constant">ArgumentError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">KeyError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required field not found: #{e.key}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -275,12 +275,12 @@
   <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
     {
       <span class="ruby-string">&#39;type&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;Collection&#39;</span>,
-      <span class="ruby-string">&#39;keywords&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">keywords</span>,
       <span class="ruby-string">&#39;license&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">license</span>,
-      <span class="ruby-string">&#39;providers&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">providers</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
+      <span class="ruby-string">&#39;keywords&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">keywords</span>,
       <span class="ruby-string">&#39;extent&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">extent</span>.<span class="ruby-identifier">to_h</span>,
-      <span class="ruby-string">&#39;assets&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">assets</span>&amp;.<span class="ruby-identifier">transform_values</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
+      <span class="ruby-string">&#39;providers&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">providers</span>&amp;.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
       <span class="ruby-string">&#39;summaries&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">summaries</span>,
+      <span class="ruby-string">&#39;assets&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">assets</span>&amp;.<span class="ruby-identifier">transform_values</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
     }.<span class="ruby-identifier">compact</span>,
   )
 <span class="ruby-keyword">end</span></pre>
