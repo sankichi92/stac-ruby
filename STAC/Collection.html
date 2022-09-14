@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class STAC::Collection - stac-ruby API docs</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+<div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  <p class="link"><a href="Catalog.html">STAC::Catalog</a>
+</div>
+
+    
+    
+    
+<!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    <li ><a href="#method-c-from_hash">::from_hash</a>
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    <li class="calls-super" ><a href="#method-i-to_h">#to_h</a>
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-STAC::Collection">
+  <h1 id="class-STAC::Collection" class="class">
+    class STAC::Collection
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  <section id="5Buntitled-5D" class="documentation-section">
+
+
+
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      <div id="attribute-i-assets" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">assets</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        </div>
+      </div>
+      <div id="attribute-i-extent" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">extent</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        </div>
+      </div>
+      <div id="attribute-i-keywords" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">keywords</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        </div>
+      </div>
+      <div id="attribute-i-license" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">license</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        </div>
+      </div>
+      <div id="attribute-i-providers" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">providers</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        </div>
+      </div>
+      <div id="attribute-i-summaries" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">summaries</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        </div>
+      </div>
+    </section>
+
+
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+      <div id="method-c-from_hash" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">from_hash</span><span
+            class="method-args">(hash)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+
+          <div class="method-source-code" id="from_hash-source">
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;type field is not &#39;Collection&#39;: #{hash[&#39;type&#39;]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;type&#39;</span>) <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;Collection&#39;</span>
+
+  <span class="ruby-identifier">transformed</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>).<span class="ruby-identifier">except</span>(<span class="ruby-value">:type</span>, <span class="ruby-value">:stac_version</span>)
+  <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:links</span>] = <span class="ruby-identifier">transformed</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:links</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-constant">Link</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">link</span>) }
+  <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:extent</span>] = <span class="ruby-constant">Extent</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">transformed</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:extent</span>))
+  <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:providers</span>] = <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:providers</span>]&amp;.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">provider</span><span class="ruby-operator">|</span> <span class="ruby-constant">Provider</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">provider</span>) }
+  <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:assets</span>] = <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:assets</span>]&amp;.<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>) }
+  <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">transformed</span>)
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">KeyError</span>, <span class="ruby-constant">ArgumentError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required field not found: #{e.key}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-c-new" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">( id:, description:, links:, license:, extent:, title: nil, keywords: nil, providers: nil, summaries: nil, assets: nil, stac_extensions: nil, **extra )</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="Catalog.html#method-c-new"><code>STAC::Catalog::new</code></a>
+            </div>
+
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(
+  <span class="ruby-value">id:</span>,
+  <span class="ruby-value">description:</span>,
+  <span class="ruby-value">links:</span>,
+  <span class="ruby-value">license:</span>,
+  <span class="ruby-value">extent:</span>,
+  <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>,
+  <span class="ruby-value">keywords:</span> <span class="ruby-keyword">nil</span>,
+  <span class="ruby-value">providers:</span> <span class="ruby-keyword">nil</span>,
+  <span class="ruby-value">summaries:</span> <span class="ruby-keyword">nil</span>,
+  <span class="ruby-value">assets:</span> <span class="ruby-keyword">nil</span>,
+  <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>,
+  <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>
+)
+  <span class="ruby-keyword">super</span>(
+    <span class="ruby-value">id:</span> <span class="ruby-identifier">id</span>,
+    <span class="ruby-value">description:</span> <span class="ruby-identifier">description</span>,
+    <span class="ruby-value">links:</span> <span class="ruby-identifier">links</span>,
+    <span class="ruby-value">title:</span> <span class="ruby-identifier">title</span>,
+    <span class="ruby-value">stac_extensions:</span> <span class="ruby-identifier">stac_extensions</span>,
+    <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>
+  )
+  <span class="ruby-ivar">@license</span> = <span class="ruby-identifier">license</span>
+  <span class="ruby-ivar">@extent</span> = <span class="ruby-identifier">extent</span>
+  <span class="ruby-ivar">@keywords</span> = <span class="ruby-identifier">keywords</span>
+  <span class="ruby-ivar">@providers</span> = <span class="ruby-identifier">providers</span>
+  <span class="ruby-ivar">@summaries</span> = <span class="ruby-identifier">summaries</span>
+  <span class="ruby-ivar">@assets</span> = <span class="ruby-identifier">assets</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
+
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+      <div id="method-i-to_h" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">to_h</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="Catalog.html#method-i-to_h"><code>STAC::Catalog#to_h</code></a>
+            </div>
+
+          <div class="method-source-code" id="to_h-source">
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
+  <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
+    {
+      <span class="ruby-string">&#39;type&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;Collection&#39;</span>,
+      <span class="ruby-string">&#39;keywords&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">keywords</span>,
+      <span class="ruby-string">&#39;license&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">license</span>,
+      <span class="ruby-string">&#39;providers&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">providers</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
+      <span class="ruby-string">&#39;extent&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">extent</span>.<span class="ruby-identifier">to_h</span>,
+      <span class="ruby-string">&#39;assets&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">assets</span>&amp;.<span class="ruby-identifier">transform_values</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
+      <span class="ruby-string">&#39;summaries&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">summaries</span>,
+    }.<span class="ruby-identifier">compact</span>,
+  )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.4.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
