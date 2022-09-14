@@ -1,8 +1,8 @@
-# STAC Ruby
+# stac-ruby
 
-A Ruby library for working with [SpatioTemporal Asset Catalog (STAC)](https://stacspec.org/)
+A Ruby library for working with [SpatioTemporal Asset Catalog (STAC)](https://stacspec.org/).
 
-This gem refers to [pystac](https://github.com/stac-utils/pystac).
+This gem's implementation refers to [pystac](https://github.com/stac-utils/pystac).
 
 ## Installation
 
