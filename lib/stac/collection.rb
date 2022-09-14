@@ -17,7 +17,7 @@ module STAC
         transformed[:providers] = transformed[:providers]&.map { |provider| Provider.from_hash(provider) }
         transformed[:assets] = transformed[:assets]&.transform_values { |v| Asset.from_hash(v) }
         new(**transformed)
-      rescue KeyError, ArgumentError => e
+      rescue KeyError => e
         raise ArgumentError, "required field not found: #{e.key}"
       end
     end
@@ -58,12 +58,12 @@ module STAC
       super.merge(
         {
           'type' => 'Collection',
-          'keywords' => keywords,
           'license' => license,
-          'providers' => providers.map(&:to_h),
+          'keywords' => keywords,
           'extent' => extent.to_h,
-          'assets' => assets&.transform_values(&:to_h),
+          'providers' => providers&.map(&:to_h),
           'summaries' => summaries,
+          'assets' => assets&.transform_values(&:to_h),
         }.compact,
       )
     end
