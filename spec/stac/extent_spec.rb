@@ -27,7 +27,7 @@ RSpec.describe STAC::Extent do
   end
 
   describe '.from_hash' do
-    it 'returns a Extent instance based on the given Hash' do
+    it 'deserializes an Extent from a Hash' do
       extent = STAC::Extent.from_hash(hash)
 
       expect(extent).to be_an_instance_of STAC::Extent
@@ -39,7 +39,7 @@ RSpec.describe STAC::Extent do
   end
 
   describe '#to_h' do
-    it 'converts self to a Hash' do
+    it 'serializes self to a Hash' do
       expect(extent.to_h).to eq hash
     end
   end

@@ -6,7 +6,7 @@ RSpec.describe STAC::Catalog do
   let(:catalog_path) { File.expand_path('../../stac-spec/examples/catalog.json', __dir__) }
 
   describe '.from_file' do
-    it 'reads a JSON file and returns a Catalog instance' do
+    it 'reads a JSON file and returns an instance of Catalog' do
       catalog = STAC::Catalog.from_file(catalog_path)
 
       expect(catalog).to be_an_instance_of STAC::Catalog
@@ -25,7 +25,7 @@ RSpec.describe STAC::Catalog do
     end
     let(:type) { 'Catalog' }
 
-    it 'returns a Catalog instance based on the given Hash' do
+    it 'deserializes a Catalog from a Hash' do
       catalog = STAC::Catalog.from_hash(hash)
 
       expect(catalog).to be_an_instance_of STAC::Catalog
@@ -33,7 +33,7 @@ RSpec.describe STAC::Catalog do
       expect(catalog.description).to eq 'A simple catalog example'
     end
 
-    context 'when "type" is not "Catalog"' do
+    context 'when the value of `type` is not "Catalog"' do
       let(:type) { 'INVALID' }
 
       it 'raises TypeError' do
@@ -49,7 +49,7 @@ RSpec.describe STAC::Catalog do
   end
 
   describe '#to_h' do
-    it 'converts self to a Hash' do
+    it 'serializes self to a Hash' do
       expect(catalog.to_h).to eq JSON.parse(File.read(catalog_path))
     end
   end

@@ -5,6 +5,7 @@ module STAC
   # downloaded or streamed.
   class Asset
     class << self
+      # Deserializes an Asset from a Hash.
       def from_hash(hash)
         new(**hash.transform_keys(&:to_sym))
       end
@@ -21,6 +22,7 @@ module STAC
       @extra = extra.transform_keys(&:to_s)
     end
 
+    # Serializes self to a Hash.
     def to_h
       {
         'href' => href,

@@ -7,6 +7,7 @@ module STAC
   class Extent
     # Describes the spatial extents of a Collection
     class Spatial
+      # Deserializes a Spatial from a Hash.
       def self.from_hash(hash)
         new(**hash.transform_keys(&:to_sym))
       end
@@ -18,6 +19,7 @@ module STAC
         @extra = extra.transform_keys(&:to_s)
       end
 
+      # Serializes self to a Hash.
       def to_h
         {
           'bbox' => bbox,
@@ -27,6 +29,7 @@ module STAC
 
     # Describes the temporal extents of a Collection.
     class Temporal
+      # Deserializes a Temporal from a Hash.
       def self.from_hash(hash)
         new(**hash.transform_keys(&:to_sym))
       end
@@ -38,6 +41,7 @@ module STAC
         @extra = extra.transform_keys(&:to_s)
       end
 
+      # Serializes self to a Hash.
       def to_h
         {
           'interval' => interval,
@@ -46,6 +50,7 @@ module STAC
     end
 
     class << self
+      # Deserializes an Extent from a Hash.
       def from_hash(hash)
         transformed = hash.transform_keys(&:to_sym)
         transformed[:spatial] = Spatial.from_hash(transformed.fetch(:spatial))
@@ -62,6 +67,7 @@ module STAC
       @extra = extra.transform_keys(&:to_s)
     end
 
+    # Serializes self to a Hash.
     def to_h
       {
         'spatial' => spatial.to_h,

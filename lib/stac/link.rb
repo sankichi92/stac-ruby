@@ -4,6 +4,7 @@ module STAC
   # Represents STAC link object, which describes a relationship with another entity.
   class Link
     class << self
+      # Deserializes a Link from a Hash.
       def from_hash(hash)
         new(**hash.transform_keys(&:to_sym))
       end
@@ -19,6 +20,7 @@ module STAC
       @extra = extra.transform_keys(&:to_s)
     end
 
+    # Serializes self to a Hash.
     def to_h
       {
         'rel' => rel,

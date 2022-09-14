@@ -11,12 +11,17 @@ module STAC
   # Spec: https://github.com/radiantearth/stac-spec/tree/master/catalog-spec
   class Catalog
     class << self
+      # Reads a JSON file from the given path and returns an insatnce of Catalog.
       def from_file(path)
         json = File.read(path)
         hash = JSON.parse(json)
         from_hash(hash)
       end
 
+      # Deserializes a Catalog from a Hash.
+      #
+      # When the value of `type` is not "Catalog", it raises STAC::TypeError.
+      # And when a required fiels is missing, it raises ArgumentError.
       def from_hash(hash)
         raise TypeError, "type field is not 'Catalog': #{hash['type']}" if hash.fetch('type') != 'Catalog'
 
@@ -39,6 +44,7 @@ module STAC
       @extra = extra.transform_keys(&:to_s)
     end
 
+    # Serializes self to a Hash.
     def to_h
       {
         'type' => 'Catalog',
@@ -51,6 +57,7 @@ module STAC
       }.merge(extra).compact
     end
 
+    # Serializes self to a JSON string.
     def to_json(...)
       to_h.to_json(...)
     end

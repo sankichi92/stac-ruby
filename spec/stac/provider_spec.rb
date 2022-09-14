@@ -16,7 +16,7 @@ RSpec.describe STAC::Provider do
   end
 
   describe '.from_hash' do
-    it 'returns a Provider instance based on the given Hash' do
+    it 'deserializes a Provider from a Hash' do
       provider = STAC::Provider.from_hash(hash)
 
       expect(provider).to be_an_instance_of STAC::Provider
@@ -28,7 +28,7 @@ RSpec.describe STAC::Provider do
   end
 
   describe '#to_h' do
-    it 'converts self to a Hash' do
+    it 'serializes self to a Hash' do
       expect(provider.to_h).to eq hash
     end
   end

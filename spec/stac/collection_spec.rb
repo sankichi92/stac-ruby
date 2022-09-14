@@ -5,14 +5,6 @@ RSpec.describe STAC::Collection do
 
   let(:collection_path) { File.expand_path('../../stac-spec/examples/collection.json', __dir__) }
 
-  describe '.from_file' do
-    it 'reads a JSON file and returns a Collection instance' do
-      collection = STAC::Collection.from_file(collection_path)
-
-      expect(collection).to be_an_instance_of STAC::Collection
-    end
-  end
-
   describe '.from_hash' do
     let(:hash) do
       {
@@ -47,7 +39,7 @@ RSpec.describe STAC::Collection do
     end
     let(:type) { 'Collection' }
 
-    it 'returns a Collection instance based on the given Hash' do
+    it 'deserializes a Collection from a Hash' do
       collection = STAC::Collection.from_hash(hash)
 
       expect(collection).to be_an_instance_of STAC::Collection
@@ -56,7 +48,7 @@ RSpec.describe STAC::Collection do
       expect(collection.license).to eq 'ISC'
     end
 
-    context 'when "type" is not "Collection"' do
+    context 'when the value of `type` is not "Collection"' do
       let(:type) { 'INVALID' }
 
       it 'raises TypeError' do
@@ -72,7 +64,7 @@ RSpec.describe STAC::Collection do
   end
 
   describe '#to_h' do
-    it 'converts self to a Hash' do
+    it 'serializes self to a Hash' do
       expect(collection.to_h).to eq JSON.parse(File.read(collection_path))
     end
   end

@@ -15,7 +15,7 @@ RSpec.describe STAC::Asset do
   end
 
   describe '.from_hash' do
-    it 'returns a Asset instance based on the given Hash' do
+    it 'deserialiszes an asset from a Hash' do
       asset = STAC::Asset.from_hash(hash)
 
       expect(asset).to be_an_instance_of STAC::Asset
@@ -28,7 +28,7 @@ RSpec.describe STAC::Asset do
   end
 
   describe '#to_h' do
-    it 'converts self to a Hash' do
+    it 'serializes self to a Hash' do
       expect(asset.to_h).to eq hash
     end
   end

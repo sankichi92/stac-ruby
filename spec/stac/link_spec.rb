@@ -13,7 +13,7 @@ RSpec.describe STAC::Link do
   end
 
   describe '.from_hash' do
-    it 'returns a Link instance based on the given Hash' do
+    it 'deserializes a Link from a Hash' do
       link = STAC::Link.from_hash(hash)
 
       expect(link).to be_an_instance_of STAC::Link
@@ -25,7 +25,7 @@ RSpec.describe STAC::Link do
   end
 
   describe '#to_h' do
-    it 'converts self to a Hash' do
+    it 'serializes self to a Hash' do
       expect(link.to_h).to eq hash
     end
   end

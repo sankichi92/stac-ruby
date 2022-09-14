@@ -11,6 +11,10 @@ module STAC
   # Spec: https://github.com/radiantearth/stac-spec/tree/master/collection-spec
   class Collection < Catalog
     class << self
+      # Deserializes a Collection from a Hash.
+      #
+      # When the value of `type` is not "Collection", it raises STAC::TypeError.
+      # And when a required fiels is missing, it raises ArgumentError.
       def from_hash(hash)
         raise TypeError, "type field is not 'Collection': #{hash['type']}" if hash.fetch('type') != 'Collection'
 
@@ -57,6 +61,7 @@ module STAC
       @assets = assets
     end
 
+    # Serializes self to a Hash.
     def to_h
       super.merge(
         {

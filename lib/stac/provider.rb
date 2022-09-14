@@ -6,6 +6,7 @@ module STAC
   # Spec: https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#provider-object
   class Provider
     class << self
+      # Deserializes a Provider from a Hash.
       def from_hash(hash)
         new(**hash.transform_keys(&:to_sym))
       end
@@ -21,6 +22,7 @@ module STAC
       @extra = extra.transform_keys(&:to_s)
     end
 
+    # Serializes self to a Hash.
     def to_h
       {
         'name' => name,
