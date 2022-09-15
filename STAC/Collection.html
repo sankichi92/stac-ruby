@@ -181,10 +181,15 @@
         <div class="method-description">
           <p>Deserializes a <a href="Collection.html"><code>Collection</code></a> from a Hash.</p>
 
-<p>When the value of ‘type` is not “Collection”, it raises <a href="TypeError.html"><code>STAC::TypeError</code></a>. And when a required field is missing, it raises ArgumentError.</p>
+<p>Raises</p>
+<ul><li>
+<p><a href="TypeError.html"><code>STAC::TypeError</code></a> when the value of ‘type` is not “Collection”</p>
+</li><li>
+<p>ArgumentError when a required field is missing</p>
+</li></ul>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 18</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;type field is not &#39;Collection&#39;: #{hash[&#39;type&#39;]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;type&#39;</span>) <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;Collection&#39;</span>
 
@@ -218,7 +223,7 @@
             </div>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 34</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(
   <span class="ruby-value">id:</span>,
   <span class="ruby-value">description:</span>,
@@ -276,7 +281,7 @@
             </div>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 65</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
     {
