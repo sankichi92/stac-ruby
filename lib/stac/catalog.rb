@@ -20,8 +20,9 @@ module STAC
 
       # Deserializes a Catalog from a Hash.
       #
-      # When the value of `type` is not "Catalog", it raises STAC::TypeError.
-      # And when a required field is missing, it raises ArgumentError.
+      # Raises
+      # * STAC::TypeError when the value of `type` is not "Catalog"
+      # * ArgumentError when a required field is missing
       def from_hash(hash)
         raise TypeError, "type field is not 'Catalog': #{hash['type']}" if hash.fetch('type') != 'Catalog'
 
