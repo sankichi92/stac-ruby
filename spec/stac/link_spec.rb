@@ -29,4 +29,34 @@ RSpec.describe STAC::Link do
       expect(link.to_h).to eq hash
     end
   end
+
+  describe '#absolute_href' do
+    context 'when its HREF is absolute' do
+      before do
+        link.href = 'https://example.com/absolute'
+      end
+
+      it 'returns HREF' do
+        expect(link.absolute_href).to eq 'https://example.com/absolute'
+      end
+    end
+
+    context 'when its HREF is relative and its owner has self HREF' do
+      before do
+        catalog = STAC::Catalog.new(id: 'catalog', description: 'having self HREF', links: [])
+        catalog.self_href = 'https://example'
+        link.owner = catalog
+      end
+
+      it 'returns absolute HREF by joining HREF of owner' do
+        expect(link.absolute_href).to eq 'https://example/extensions-collection/collection.json'
+      end
+    end
+
+    context 'when its HREF is relative and its owner does not have self HREF' do
+      it 'returns nil' do
+        expect(link.absolute_href).to be_nil
+      end
+    end
+  end
 end

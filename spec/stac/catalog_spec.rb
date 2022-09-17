@@ -11,6 +11,16 @@ RSpec.describe STAC::Catalog do
 
       expect(catalog).to be_an_instance_of STAC::Catalog
     end
+
+    context 'when the JSON does not have ref="self" link' do
+      let(:catalog_path) { File.expand_path('../fixtures/catalog-without-self.json', __dir__) }
+
+      it 'adds a rel="self" link with the given path' do
+        catalog = STAC::Catalog.from_file(catalog_path)
+
+        expect(catalog.self_href).to eq catalog_path
+      end
+    end
   end
 
   describe '.from_hash' do
@@ -51,6 +61,28 @@ RSpec.describe STAC::Catalog do
   describe '#to_h' do
     it 'serializes self to a Hash' do
       expect(catalog.to_h).to eq JSON.parse(File.read(catalog_path))
+    end
+  end
+
+  describe '#to_json' do
+    it 'serializes self to a JSON string' do
+      expect { JSON.parse(catalog.to_json) }.not_to raise_error
+    end
+  end
+
+  describe '#add_link' do
+    it 'adds a link with setting its `owner` as self' do
+      link = STAC::Link.new(rel: 'child', href: './child.json', type: 'application/json')
+      catalog.add_link(link)
+
+      expect(catalog.links).to include link
+      expect(link.owner).to eq catalog
+    end
+  end
+
+  describe '#self_href' do
+    it 'returns HREF of the rel="self" link' do
+      expect(catalog.self_href).to eq 'https://raw.githubusercontent.com/radiantearth/stac-spec/v1.0.0/examples/catalog.json'
     end
   end
 end

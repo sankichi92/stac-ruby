@@ -68,12 +68,4 @@ RSpec.describe STAC::Collection do
       expect(collection.to_h).to eq JSON.parse(File.read(collection_path))
     end
   end
-
-  it 'can read and restore JSONs in stac-spec/examples/collection-only' do
-    Dir[File.expand_path('../../stac-spec/examples/collection-only/*.json', __dir__)].each do |path|
-      collection = nil
-      expect { collection = STAC::Collection.from_file(path) }.not_to raise_error
-      expect(collection.to_h).to eq JSON.parse(File.read(path))
-    end
-  end
 end

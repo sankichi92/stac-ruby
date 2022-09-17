@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require 'pathname'
+require 'uri'
+require_relative 'errors'
+
 module STAC
   # Represents STAC link object, which describes a relationship with another entity.
   class Link
@@ -11,6 +15,9 @@ module STAC
     end
 
     attr_accessor :rel, :href, :type, :title, :extra
+
+    # Owner object of this link.
+    attr_accessor :owner
 
     def initialize(rel:, href:, type: nil, title: nil, **extra)
       @rel = rel
@@ -28,6 +35,17 @@ module STAC
         'type' => type,
         'title' => title,
       }.merge(extra).compact
+    end
+
+    # Returns the absolute HREF for this link.
+    #
+    # When it could not assemble the absolute HREF, it returns nil.
+    def absolute_href
+      if URI(href).absolute?
+        href
+      elsif (base_href = owner&.self_href)
+        Pathname(base_href).join(href).to_s
+      end
     end
   end
 end
