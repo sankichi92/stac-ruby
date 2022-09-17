@@ -7,10 +7,11 @@ target :lib do
 
   check 'lib/**/*.rb'
 
-  library 'json'
+  library 'json', 'pathname', 'uri'
 
   configure_code_diagnostics do |hash|
-    hash[D::Ruby::UnknownInstanceVariable] = :information
-    hash[D::Ruby::InsufficientKeywordArguments] = :information
+    hash[D::Ruby::InsufficientKeywordArguments] = nil
+    hash[D::Ruby::UnsupportedSyntax] = nil
+    hash[D::Ruby::UnknownInstanceVariable] = nil
   end
 end
