@@ -75,6 +75,9 @@
     <li ><a href="#method-c-from_file">::from_file</a>
     <li ><a href="#method-c-from_hash">::from_hash</a>
     <li ><a href="#method-c-new">::new</a>
+    <li ><a href="#method-i-add_link">#add_link</a>
+    <li ><a href="#method-i-self_href">#self_href</a>
+    <li ><a href="#method-i-self_href-3D">#self_href=</a>
     <li ><a href="#method-i-to_h">#to_h</a>
     <li ><a href="#method-i-to_json">#to_json</a>
   </ul>
@@ -138,7 +141,7 @@
       <div id="attribute-i-links" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">links</span><span
-            class="attribute-access-type">[RW]</span>
+            class="attribute-access-type">[R]</span>
         </div>
 
         <div class="method-description">
@@ -183,12 +186,16 @@
         <div class="method-description">
           <p>Reads a JSON file from the given path and returns an insatnce of <a href="Catalog.html"><code>Catalog</code></a>.</p>
 
+<p>When the JSON does not have rel=“self” link, it adds a rel=“self” link with the give path.</p>
+
           <div class="method-source-code" id="from_file-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 15</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_file</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-identifier">json</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-identifier">hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">json</span>)
-  <span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">hash</span>)
+  <span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">hash</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">catalog</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">path</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">self_href</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -214,7 +221,7 @@
 </li></ul>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 26</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;type field is not &#39;Catalog&#39;: #{hash[&#39;type&#39;]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;type&#39;</span>) <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;Catalog&#39;</span>
 
@@ -241,11 +248,14 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">description:</span>, <span class="ruby-value">links:</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">id</span>
   <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">description</span>
-  <span class="ruby-ivar">@links</span> = <span class="ruby-identifier">links</span>
+  <span class="ruby-ivar">@links</span> = []
+  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">link</span>) <span class="ruby-comment"># to set `owner`</span>
+  <span class="ruby-keyword">end</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-identifier">title</span>
   <span class="ruby-ivar">@stac_extensions</span> = <span class="ruby-identifier">stac_extensions</span>
   <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
@@ -263,6 +273,74 @@
          <h3>Public Instance Methods</h3>
        </header>
 
+      <div id="method-i-add_link" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">add_link</span><span
+            class="method-args">(link)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Adds a link with setting its ‘owner` as self.</p>
+
+          <div class="method-source-code" id="add_link-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 76</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_link</span>(<span class="ruby-identifier">link</span>)
+  <span class="ruby-identifier">link</span>.<span class="ruby-identifier">owner</span> = <span class="ruby-keyword">self</span>
+  <span class="ruby-identifier">links</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">link</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-self_href" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">self_href</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Reterns HREF of the rel=“self” link.</p>
+
+          <div class="method-source-code" id="self_href-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href</span>
+  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;self&#39;</span> }&amp;.<span class="ruby-identifier">href</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-self_href-3D" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">self_href=</span><span
+            class="method-args">(absolute_href)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Adds a link with the give HREF as rel=“self”.</p>
+
+<p>When ref=“self” links already exist, it removes them.</p>
+
+          <div class="method-source-code" id="self_href-3D-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 89</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href=</span>(<span class="ruby-identifier">absolute_href</span>)
+  <span class="ruby-identifier">self_link</span> = <span class="ruby-constant">Link</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>, <span class="ruby-value">href:</span> <span class="ruby-identifier">absolute_href</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>)
+  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;self&#39;</span> }
+  <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">self_link</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
       <div id="method-i-to_h" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">to_h</span><span
@@ -274,7 +352,7 @@
           <p>Serializes self to a Hash.</p>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;type&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;Catalog&#39;</span>,
@@ -303,7 +381,7 @@
           <p>Serializes self to a JSON string.</p>
 
           <div class="method-source-code" id="to_json-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_json</span>(<span class="ruby-operator">...</span>)
   <span class="ruby-identifier">to_h</span>.<span class="ruby-identifier">to_json</span>(<span class="ruby-operator">...</span>)
 <span class="ruby-keyword">end</span></pre>
