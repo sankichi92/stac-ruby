@@ -1,0 +1,8 @@
+module OpenURI
+  class HTTPError < StandardError
+  end
+end
+
+module URI
+  def read: (?Hash[String, String] options) -> String
+end

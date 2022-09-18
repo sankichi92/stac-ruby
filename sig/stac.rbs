@@ -7,6 +7,8 @@ module STAC
   end
   class TypeError < Error
   end
+  class HTTPError < Error
+  end
 
   class Catalog
     def self.from_file: (String path) -> Catalog
@@ -128,5 +130,13 @@ module STAC
     def initialize: (name: String, ?description: String?, ?roles: Array[String]?, ?url: String?, **untyped) -> void
     
     def to_h: -> Hash[String, untyped]
+  end
+
+  class DefaultHTTPClient
+    attr_reader options: Hash[String, String]
+
+    def initialize: (?Hash[String, String] options) -> void
+                  
+    def get: (URI uri) -> String
   end
 end
