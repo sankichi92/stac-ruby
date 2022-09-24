@@ -3,6 +3,7 @@
 require 'pathname'
 require 'uri'
 require_relative 'errors'
+require_relative 'object_resolver'
 
 module STAC
   # Represents STAC link object, which describes a relationship with another entity.

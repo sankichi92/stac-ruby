@@ -7,6 +7,8 @@ module STAC
   end
   class TypeError < Error
   end
+  class UnknownURISchemeError < Error
+  end
   class HTTPError < Error
   end
 
@@ -130,6 +132,26 @@ module STAC
     def initialize: (name: String, ?description: String?, ?roles: Array[String]?, ?url: String?, **untyped) -> void
     
     def to_h: -> Hash[String, untyped]
+  end
+
+  class ObjectResolver
+    attr_writer self.default_http_client: _HTTPClient
+    
+    def self.default_http_client: -> _HTTPClient
+                                
+    attr_reader http_client: _HTTPClient
+    
+    def initialize: (?http_client: _HTTPClient) -> void
+                  
+    def resolve: (String url) -> (Catalog | Collection)
+               
+    private
+
+    def read: (String url) -> String
+  end
+
+  interface _HTTPClient
+    def get: (URI uri) -> String
   end
 
   class DefaultHTTPClient

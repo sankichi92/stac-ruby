@@ -5,5 +5,7 @@ module STAC
 
   class TypeError < Error; end
 
+  class UnknownURISchemeError < Error; end
+
   class HTTPError < Error; end
 end
