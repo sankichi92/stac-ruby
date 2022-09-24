@@ -1,0 +1,17 @@
+module STAC
+  class Link
+    def self.from_hash: (Hash[String, untyped]) -> Link
+
+    attr_accessor rel: String
+    attr_accessor href: String
+    attr_accessor type: String?
+    attr_accessor title: String?
+    attr_accessor extra: Hash[String, untyped]
+    attr_accessor owner: nil | Catalog | Collection
+
+    def initialize: (rel: String, href: String, ?type: String?, ?title: String?, **untyped) -> void
+
+    def to_h: -> Hash[String, untyped]
+    def absolute_href: -> String?
+  end
+end

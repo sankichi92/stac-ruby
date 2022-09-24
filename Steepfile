@@ -12,6 +12,5 @@ target :lib do
   configure_code_diagnostics do |hash|
     hash[D::Ruby::InsufficientKeywordArguments] = nil
     hash[D::Ruby::UnsupportedSyntax] = nil
-    hash[D::Ruby::UnknownInstanceVariable] = nil
   end
 end

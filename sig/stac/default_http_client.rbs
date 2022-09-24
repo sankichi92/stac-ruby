@@ -1,0 +1,9 @@
+module STAC
+  class DefaultHTTPClient
+    attr_reader options: Hash[String, String]
+
+    def initialize: (?Hash[String, String] options) -> void
+
+    def get: (URI uri) -> String
+  end
+end

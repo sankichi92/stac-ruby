@@ -1,0 +1,20 @@
+module STAC
+  class Collection < Catalog
+    def self.from_hash: (Hash[String, untyped] hash) -> Collection
+
+    attr_accessor license: String
+    attr_accessor extent: Extent
+    attr_accessor keywords: Array[String]?
+    attr_accessor providers: Array[Provider]?
+    attr_accessor summaries: Hash[String, untyped]?
+    attr_accessor assets: Hash[String, Asset]?
+
+    def initialize: (
+      id: String, description: String, links: Array[Link], license: String, extent: Extent, ?title: String?,
+      ?keywords: Array[String]?, ?providers: Array[Provider]?, ?summaries: Hash[String, untyped]?,
+      ?assets: Hash[String, Asset]?, ?stac_extensions: Array[String]?, **untyped
+    ) -> void
+
+    def to_h: -> Hash[String, untyped]
+  end
+end

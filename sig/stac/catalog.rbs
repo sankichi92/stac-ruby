@@ -1,0 +1,23 @@
+module STAC
+  class Catalog
+    def self.from_file: (String path) -> Catalog
+    def self.from_hash: (Hash[String, untyped] hash) -> Catalog
+
+    attr_accessor id: String
+    attr_accessor description: String
+    attr_accessor title: String?
+    attr_accessor stac_extensions: Array[String]?
+    attr_accessor extra: Hash[String, untyped]
+    attr_reader links: Array[Link]
+
+    def initialize: (
+      id: String, description: String, links: Array[Link], ?title: String?, ?stac_extensions: Array[String]?, **untyped
+    ) -> void
+
+    def to_h: -> Hash[String, untyped]
+    def to_json: -> String
+    def add_link: (Link) -> void
+    def self_href: -> String?
+    def self_href=: (String) -> void
+  end
+end

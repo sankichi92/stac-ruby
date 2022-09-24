@@ -1,0 +1,3 @@
+module STAC
+  VERSION: String
+end
