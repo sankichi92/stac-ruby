@@ -61,6 +61,16 @@
     
     
     
+<!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    <li ><a href="#method-c-from_file">::from_file</a>
+    <li ><a href="#method-c-from_url">::from_url</a>
+  </ul>
+</div>
+
   </div>
 </nav>
 
@@ -71,6 +81,10 @@
 
   <section class="description">
     
+<p>Gem namespace.</p>
+
+<p>Provides some utility methods.</p>
+
   </section>
 
   <section id="5Buntitled-5D" class="documentation-section">
@@ -89,6 +103,59 @@
     </section>
 
 
+
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+      <div id="method-c-from_file" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">from_file</span><span
+            class="method-args">(path)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns a <a href="STAC.html"><code>STAC</code></a> object resolved from the given file path.</p>
+
+          <div class="method-source-code" id="from_file-source">
+            <pre><span class="ruby-comment"># File lib/stac.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_file</span>(<span class="ruby-identifier">path</span>)
+  <span class="ruby-identifier">from_url</span>(<span class="ruby-node">&quot;file://#{File.expand_path(path)}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-c-from_url" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">from_url</span><span
+            class="method-args">(url, resolver: ObjectResolver.new)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns a <a href="STAC.html"><code>STAC</code></a> object resolved from the given URL.</p>
+
+<p>When the resolved object does not have rel=“self” link, adds a rel=“self” link with the give url.</p>
+
+          <div class="method-source-code" id="from_url-source">
+            <pre><span class="ruby-comment"># File lib/stac.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_url</span>(<span class="ruby-identifier">url</span>, <span class="ruby-value">resolver:</span> <span class="ruby-constant">ObjectResolver</span>.<span class="ruby-identifier">new</span>)
+  <span class="ruby-identifier">object</span> = <span class="ruby-identifier">resolver</span>.<span class="ruby-identifier">resolve</span>(<span class="ruby-identifier">url</span>)
+  <span class="ruby-identifier">object</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-identifier">url</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">self_href</span>
+  <span class="ruby-identifier">object</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
 
   </section>
 </main>
