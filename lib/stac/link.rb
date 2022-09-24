@@ -20,6 +20,8 @@ module STAC
     # Owner object of this link.
     attr_accessor :owner
 
+    attr_writer :resolver # :nodoc:
+
     def initialize(rel:, href:, type: nil, title: nil, **extra)
       @rel = rel
       @href = href
@@ -47,6 +49,23 @@ module STAC
       elsif (base_href = owner&.self_href)
         Pathname(base_href).join(href).to_s
       end
+    end
+
+    # Returns a STAC object resolved from HREF.
+    #
+    # When it could not assemble the absolute HREF, it returns nil.
+    def target
+      @target ||= if (url = absolute_href)
+                    object = resolver.resolve(url)
+                    object.self_href = url
+                    object
+                  end
+    end
+
+    private
+
+    def resolver
+      @resolver ||= ObjectResolver.new
     end
   end
 end

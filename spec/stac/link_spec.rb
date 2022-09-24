@@ -59,4 +59,28 @@ RSpec.describe STAC::Link do
       end
     end
   end
+
+  describe '#target' do
+    before do
+      link.href = "file://#{File.expand_path('../../stac-spec/examples/catalog.json', __dir__)}"
+    end
+
+    it 'returns STAC object resolved from HREF' do
+      object = link.target
+
+      expect(object).to be_an_instance_of STAC::Catalog
+    end
+
+    context 'when #absolute_href returns nil' do
+      before do
+        link.href = './relateive.json'
+      end
+
+      it 'returns nil' do
+        object = link.target
+
+        expect(object).to be_nil
+      end
+    end
+  end
 end
