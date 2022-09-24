@@ -181,7 +181,7 @@
           <p>Deserializes a <a href="Link.html"><code>Link</code></a> from a Hash.</p>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 12</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>))
 <span class="ruby-keyword">end</span></pre>
@@ -202,7 +202,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 22</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">rel:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@rel</span> = <span class="ruby-identifier">rel</span>
   <span class="ruby-ivar">@href</span> = <span class="ruby-identifier">href</span>
@@ -236,7 +236,7 @@
 <p>When it could not assemble the absolute HREF, it returns nil.</p>
 
           <div class="method-source-code" id="absolute_href-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">absolute_href</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">URI</span>(<span class="ruby-identifier">href</span>).<span class="ruby-identifier">absolute?</span>
     <span class="ruby-identifier">href</span>
@@ -261,7 +261,7 @@
           <p>Serializes self to a Hash.</p>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 31</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;rel&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">rel</span>,
