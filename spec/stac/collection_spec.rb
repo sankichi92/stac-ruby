@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe STAC::Collection do
-  subject(:collection) { STAC::Collection.from_file(collection_path) }
+  subject(:collection) { STAC.from_file(collection_path) }
 
   let(:collection_path) { File.expand_path('../../stac-spec/examples/collection.json', __dir__) }
 

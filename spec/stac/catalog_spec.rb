@@ -1,27 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe STAC::Catalog do
-  subject(:catalog) { STAC::Catalog.from_file(catalog_path) }
+  subject(:catalog) { STAC.from_file(catalog_path) }
 
   let(:catalog_path) { File.expand_path('../../stac-spec/examples/catalog.json', __dir__) }
-
-  describe '.from_file' do
-    it 'reads a JSON file and returns an instance of Catalog' do
-      catalog = STAC::Catalog.from_file(catalog_path)
-
-      expect(catalog).to be_an_instance_of STAC::Catalog
-    end
-
-    context 'when the JSON does not have ref="self" link' do
-      let(:catalog_path) { File.expand_path('../fixtures/catalog-without-self.json', __dir__) }
-
-      it 'adds a rel="self" link with the given path' do
-        catalog = STAC::Catalog.from_file(catalog_path)
-
-        expect(catalog.self_href).to eq catalog_path
-      end
-    end
-  end
 
   describe '.from_hash' do
     let(:hash) do

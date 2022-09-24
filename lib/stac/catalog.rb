@@ -11,17 +11,6 @@ module STAC
   # Spec: https://github.com/radiantearth/stac-spec/tree/master/catalog-spec
   class Catalog
     class << self
-      # Reads a JSON file from the given path and returns an insatnce of Catalog.
-      #
-      # When the JSON does not have rel="self" link, it adds a rel="self" link with the give path.
-      def from_file(path)
-        json = File.read(path)
-        hash = JSON.parse(json)
-        from_hash(hash).tap do |catalog|
-          catalog.self_href = File.expand_path(path) unless catalog.self_href
-        end
-      end
-
       # Deserializes a Catalog from a Hash.
       #
       # Raises

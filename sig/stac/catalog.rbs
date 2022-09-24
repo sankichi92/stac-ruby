@@ -1,6 +1,5 @@
 module STAC
   class Catalog
-    def self.from_file: (String path) -> Catalog
     def self.from_hash: (Hash[String, untyped] hash) -> Catalog
 
     attr_accessor id: String
