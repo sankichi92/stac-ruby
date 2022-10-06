@@ -1,0 +1,22 @@
+module STAC
+  class STACObject
+    attr_accessor self.type: String
+    
+    def self.from_hash: (Hash[String, untyped]) -> STACObject
+    
+    attr_accessor id: String
+    attr_accessor stac_extensions: Array[String]?
+    attr_accessor extra: Hash[String, untyped]
+    attr_reader links: Array[Link]
+
+    def initialize: (
+      id: String, links: Array[Link], ?stac_extensions: Array[String]?, **untyped
+    ) -> void
+
+    def to_h: -> Hash[String, untyped]
+    def to_json: -> String
+    def add_link: (Link) -> void
+    def self_href: -> String?
+    def self_href=: (String) -> void
+  end
+end

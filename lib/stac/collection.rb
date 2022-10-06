@@ -10,21 +10,15 @@ module STAC
   #
   # Spec: https://github.com/radiantearth/stac-spec/tree/master/collection-spec
   class Collection < Catalog
-    class << self
-      # Deserializes a Collection from a Hash.
-      #
-      # Raises
-      # * STAC::TypeError when the value of `type` is not "Collection"
-      # * ArgumentError when a required field is missing
-      def from_hash(hash)
-        raise TypeError, "type field is not 'Collection': #{hash['type']}" if hash.fetch('type') != 'Collection'
+    self.type = 'Collection'
 
-        transformed = hash.transform_keys(&:to_sym).except(:type, :stac_version)
-        transformed[:links] = transformed.fetch(:links).map { |link| Link.from_hash(link) }
-        transformed[:extent] = Extent.from_hash(transformed.fetch(:extent))
-        transformed[:providers] = transformed[:providers]&.map { |provider| Provider.from_hash(provider) }
-        transformed[:assets] = transformed[:assets]&.transform_values { |v| Asset.from_hash(v) }
-        new(**transformed)
+    class << self
+      def from_hash(hash)
+        h = hash.dup
+        h['extent'] = Extent.from_hash(h.fetch('extent'))
+        h['providers'] = h['providers']&.map { |provider| Provider.from_hash(provider) }
+        h['assets'] = h['assets']&.transform_values { |v| Asset.from_hash(v) }
+        super(h)
       rescue KeyError => e
         raise ArgumentError, "required field not found: #{e.key}"
       end
@@ -66,7 +60,6 @@ module STAC
     def to_h
       super.merge(
         {
-          'type' => 'Collection',
           'license' => license,
           'keywords' => keywords,
           'extent' => extent.to_h,

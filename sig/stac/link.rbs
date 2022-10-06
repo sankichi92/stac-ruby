@@ -7,15 +7,15 @@ module STAC
     attr_accessor type: String?
     attr_accessor title: String?
     attr_accessor extra: Hash[String, untyped]
-    attr_accessor owner: nil | Catalog | Collection
-    @target: nil | Catalog | Collection
+    attr_accessor owner: STACObject | nil
+    @target: Catalog | Collection | nil
     @resolver: ObjectResolver
 
     def initialize: (rel: String, href: String, ?type: String?, ?title: String?, **untyped) -> void
 
     def to_h: -> Hash[String, untyped]
     def absolute_href: -> String?
-    def target: -> (nil | Catalog | Collection)
+    def target: -> (Catalog | Collection | nil)
 
     private
 
