@@ -75,6 +75,7 @@
     <li ><a href="#method-c-from_hash">::from_hash</a>
     <li ><a href="#method-c-new">::new</a>
     <li ><a href="#method-i-add_link">#add_link</a>
+    <li ><a href="#method-i-collections">#collections</a>
     <li ><a href="#method-i-self_href">#self_href</a>
     <li ><a href="#method-i-self_href-3D">#self_href=</a>
     <li ><a href="#method-i-to_h">#to_h</a>
@@ -260,6 +261,30 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_link</span>(<span class="ruby-identifier">link</span>)
   <span class="ruby-identifier">link</span>.<span class="ruby-identifier">owner</span> = <span class="ruby-keyword">self</span>
   <span class="ruby-identifier">links</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">link</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-collections" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">collections</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns Enumerable::Lazy of <a href="Collection.html"><code>Collection</code></a> objects from rel=“child” links.</p>
+
+          <div class="method-source-code" id="collections-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collections</span>
+  <span class="ruby-identifier">children</span> = <span class="ruby-identifier">links</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;child&#39;</span> }
+  <span class="ruby-identifier">children</span>.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:target</span>).<span class="ruby-identifier">select</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">object</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">object</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">Collection</span>)
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
