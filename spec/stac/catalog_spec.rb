@@ -79,4 +79,16 @@ RSpec.describe STAC::Catalog do
       expect(collections.map(&:id)).to contain_exactly 'extensions-collection', 'sentinel-2', 'sentinel-2'
     end
   end
+
+  describe '#child' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    it 'returns the STAC object with the given ID from rel="child" links' do
+      child = catalog.child('extensions-collection')
+
+      expect(child.id).to eq 'extensions-collection'
+    end
+  end
 end

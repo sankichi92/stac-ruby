@@ -19,5 +19,10 @@ module STAC
     def self_href: -> String?
     def self_href=: (String) -> void
     def collections: -> Enumerator::Lazy[Collection, void]
+    def child: (String) -> (Catalog | Collection | nil)
+
+    private
+
+    def children: -> Enumerator::Lazy[Catalog | Collection, void]
   end
 end

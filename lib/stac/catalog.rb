@@ -81,12 +81,20 @@ module STAC
       add_link(self_link)
     end
 
-    # Returns Enumerable::Lazy of Collection objects from rel="child" links.
+    # Returns Enumerable::Lazy of Collection objects from children.
     def collections
-      children = links.select { |link| link.rel == 'child' }
-      children.lazy.map(&:target).select do |object|
-        object.instance_of?(Collection)
-      end
+      children.select { |child| child.instance_of?(Collection) }
+    end
+
+    # Returns the child STAC object with the given ID.
+    def child(id)
+      children.find { |child| child.id == id }
+    end
+
+    private
+
+    def children
+      links.select { |link| link.rel == 'child' }.lazy.map(&:target)
     end
   end
 end
