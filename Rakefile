@@ -8,16 +8,7 @@ RSpec::Core::RakeTask.new(:spec)
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new
 
-require 'steep'
-require 'steep/cli'
-namespace :steep do
-  desc 'Run steep check'
-  task :check do
-    exit Steep::CLI.new(argv: %w[check], stdout: $stdout, stderr: $stderr, stdin: $stdin).run
-  end
-end
-
-task default: %i[spec rubocop steep:check]
+task default: %i[spec rubocop]
 
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|

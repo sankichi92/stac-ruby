@@ -18,5 +18,6 @@ module STAC
     def add_link: (Link) -> void
     def self_href: -> String?
     def self_href=: (String) -> void
+    def collections: -> Enumerator::Lazy[Collection, void]
   end
 end

@@ -67,4 +67,16 @@ RSpec.describe STAC::Catalog do
       expect(catalog.self_href).to eq 'https://raw.githubusercontent.com/radiantearth/stac-spec/v1.0.0/examples/catalog.json'
     end
   end
+
+  describe '#collections' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    it 'returns Collection objects from rel="child" links' do
+      collections = catalog.collections.to_a
+
+      expect(collections.map(&:id)).to contain_exactly 'extensions-collection', 'sentinel-2', 'sentinel-2'
+    end
+  end
 end

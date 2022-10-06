@@ -80,5 +80,13 @@ module STAC
       links.reject! { |link| link.rel == 'self' }
       add_link(self_link)
     end
+
+    # Returns Enumerable::Lazy of Collection objects from rel="child" links.
+    def collections
+      children = links.select { |link| link.rel == 'child' }
+      children.lazy.map(&:target).select do |object|
+        object.instance_of?(Collection)
+      end
+    end
   end
 end

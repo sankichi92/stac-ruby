@@ -44,12 +44,12 @@ RSpec.describe STAC::Link do
     context 'when its HREF is relative and its owner has self HREF' do
       before do
         catalog = STAC::Catalog.new(id: 'catalog', description: 'having self HREF', links: [])
-        catalog.self_href = 'https://example'
+        catalog.self_href = 'https://example.com/catalog.json'
         link.owner = catalog
       end
 
       it 'returns absolute HREF by joining HREF of owner' do
-        expect(link.absolute_href).to eq 'https://example/extensions-collection/collection.json'
+        expect(link.absolute_href).to eq 'https://example.com/extensions-collection/collection.json'
       end
     end
 

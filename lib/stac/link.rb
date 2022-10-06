@@ -47,7 +47,7 @@ module STAC
       if URI(href).absolute?
         href
       elsif (base_href = owner&.self_href)
-        Pathname(base_href).join(href).to_s
+        Pathname(base_href).dirname.join(href).to_s
       end
     end
 

@@ -11,6 +11,7 @@ target :lib do
 
   configure_code_diagnostics do |hash|
     hash[D::Ruby::InsufficientKeywordArguments] = nil
+    hash[D::Ruby::MethodBodyTypeMismatch] = :hint
     hash[D::Ruby::UnsupportedSyntax] = nil
   end
 end
