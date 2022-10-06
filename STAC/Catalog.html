@@ -61,7 +61,7 @@
 <div id="parent-class-section" class="nav-section">
   <h3>Parent</h3>
 
-  <p class="link">Object
+  <p class="link">STACObject
 </div>
 
     
@@ -72,15 +72,10 @@
   <h3>Methods</h3>
 
   <ul class="link-list" role="directory">
-    <li ><a href="#method-c-from_hash">::from_hash</a>
-    <li ><a href="#method-c-new">::new</a>
-    <li ><a href="#method-i-add_link">#add_link</a>
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
     <li ><a href="#method-i-child">#child</a>
     <li ><a href="#method-i-collections">#collections</a>
-    <li ><a href="#method-i-self_href">#self_href</a>
-    <li ><a href="#method-i-self_href-3D">#self_href=</a>
-    <li ><a href="#method-i-to_h">#to_h</a>
-    <li ><a href="#method-i-to_json">#to_json</a>
+    <li class="calls-super" ><a href="#method-i-to_h">#to_h</a>
   </ul>
 </div>
 
@@ -119,46 +114,6 @@
         
         </div>
       </div>
-      <div id="attribute-i-extra" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">extra</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
-      <div id="attribute-i-id" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">id</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
-      <div id="attribute-i-links" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">links</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
-      <div id="attribute-i-stac_extensions" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">stac_extensions</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
       <div id="attribute-i-title" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">title</span><span
@@ -177,40 +132,6 @@
          <h3>Public Class Methods</h3>
        </header>
 
-      <div id="method-c-from_hash" class="method-detail ">
-        <div class="method-heading">
-          <span class="method-name">from_hash</span><span
-            class="method-args">(hash)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-
-        <div class="method-description">
-          <p>Deserializes a <a href="Catalog.html"><code>Catalog</code></a> from a Hash.</p>
-
-<p>Raises</p>
-<ul><li>
-<p><a href="TypeError.html"><code>STAC::TypeError</code></a> when the value of ‘type` is not “Catalog”</p>
-</li><li>
-<p>ArgumentError when a required field is missing</p>
-</li></ul>
-
-          <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 19</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;type field is not &#39;Catalog&#39;: #{hash[&#39;type&#39;]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;type&#39;</span>) <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;Catalog&#39;</span>
-
-  <span class="ruby-identifier">transformed</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>).<span class="ruby-identifier">except</span>(<span class="ruby-value">:type</span>, <span class="ruby-value">:stac_version</span>)
-  <span class="ruby-identifier">transformed</span>[<span class="ruby-value">:links</span>] = <span class="ruby-identifier">transformed</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:links</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-constant">Link</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">link</span>) }
-  <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">transformed</span>)
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">KeyError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required field not found: #{e.key}&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-        </div>
-
-
-      </div>
-
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
@@ -220,19 +141,17 @@
 
         <div class="method-description">
           
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 34</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">description:</span>, <span class="ruby-value">links:</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
-  <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">super</span>(<span class="ruby-value">id:</span> <span class="ruby-identifier">id</span>, <span class="ruby-value">links:</span> <span class="ruby-identifier">links</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-identifier">stac_extensions</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">description</span>
-  <span class="ruby-ivar">@links</span> = []
-  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">link</span>) <span class="ruby-comment"># to set `owner`</span>
-  <span class="ruby-keyword">end</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-identifier">title</span>
-  <span class="ruby-ivar">@stac_extensions</span> = <span class="ruby-identifier">stac_extensions</span>
-  <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -247,28 +166,6 @@
          <h3>Public Instance Methods</h3>
        </header>
 
-      <div id="method-i-add_link" class="method-detail ">
-        <div class="method-heading">
-          <span class="method-name">add_link</span><span
-            class="method-args">(link)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-
-        <div class="method-description">
-          <p>Adds a link with setting its ‘owner` as self.</p>
-
-          <div class="method-source-code" id="add_link-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 65</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_link</span>(<span class="ruby-identifier">link</span>)
-  <span class="ruby-identifier">link</span>.<span class="ruby-identifier">owner</span> = <span class="ruby-keyword">self</span>
-  <span class="ruby-identifier">links</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">link</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-        </div>
-
-
-      </div>
-
       <div id="method-i-child" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">child</span><span
@@ -280,7 +177,7 @@
           <p>Returns the child <a href="../STAC.html"><code>STAC</code></a> object with the given ID.</p>
 
           <div class="method-source-code" id="child-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 37</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">child</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-identifier">children</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
 <span class="ruby-keyword">end</span></pre>
@@ -301,55 +198,9 @@
           <p>Returns Enumerable::Lazy of <a href="Collection.html"><code>Collection</code></a> objects from children.</p>
 
           <div class="method-source-code" id="collections-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 85</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collections</span>
   <span class="ruby-identifier">children</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">Collection</span>) }
-<span class="ruby-keyword">end</span></pre>
-          </div>
-        </div>
-
-
-      </div>
-
-      <div id="method-i-self_href" class="method-detail ">
-        <div class="method-heading">
-          <span class="method-name">self_href</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-
-        <div class="method-description">
-          <p>Reterns HREF of the rel=“self” link.</p>
-
-          <div class="method-source-code" id="self_href-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 71</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href</span>
-  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;self&#39;</span> }&amp;.<span class="ruby-identifier">href</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-        </div>
-
-
-      </div>
-
-      <div id="method-i-self_href-3D" class="method-detail ">
-        <div class="method-heading">
-          <span class="method-name">self_href=</span><span
-            class="method-args">(absolute_href)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-
-        <div class="method-description">
-          <p>Adds a link with the give HREF as rel=“self”.</p>
-
-<p>When ref=“self” links already exist, it removes them.</p>
-
-          <div class="method-source-code" id="self_href-3D-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 78</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href=</span>(<span class="ruby-identifier">absolute_href</span>)
-  <span class="ruby-identifier">self_link</span> = <span class="ruby-constant">Link</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>, <span class="ruby-value">href:</span> <span class="ruby-identifier">absolute_href</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>)
-  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;self&#39;</span> }
-  <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">self_link</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -366,40 +217,20 @@
 
         <div class="method-description">
           <p>Serializes self to a Hash.</p>
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 47</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
-  {
-    <span class="ruby-string">&#39;type&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;Catalog&#39;</span>,
-    <span class="ruby-string">&#39;stac_version&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">SPEC_VERSION</span>,
-    <span class="ruby-string">&#39;stac_extensions&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">stac_extensions</span>,
-    <span class="ruby-string">&#39;id&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">id</span>,
-    <span class="ruby-string">&#39;title&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">title</span>,
-    <span class="ruby-string">&#39;description&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">description</span>,
-    <span class="ruby-string">&#39;links&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">links</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
-  }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">extra</span>).<span class="ruby-identifier">compact</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-        </div>
-
-
-      </div>
-
-      <div id="method-i-to_json" class="method-detail ">
-        <div class="method-heading">
-          <span class="method-name">to_json</span><span
-            class="method-args">(...)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-
-        <div class="method-description">
-          <p>Serializes self to a JSON string.</p>
-
-          <div class="method-source-code" id="to_json-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 60</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_json</span>(<span class="ruby-operator">...</span>)
-  <span class="ruby-identifier">to_h</span>.<span class="ruby-identifier">to_json</span>(<span class="ruby-operator">...</span>)
+  <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
+    {
+      <span class="ruby-string">&#39;title&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">title</span>,
+      <span class="ruby-string">&#39;description&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">description</span>,
+    }.<span class="ruby-identifier">compact</span>,
+  )
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
