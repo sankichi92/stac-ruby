@@ -73,8 +73,9 @@
 
   <ul class="link-list" role="directory">
     <li class="calls-super" ><a href="#method-c-new">::new</a>
-    <li ><a href="#method-i-child">#child</a>
+    <li ><a href="#method-i-children">#children</a>
     <li ><a href="#method-i-collections">#collections</a>
+    <li ><a href="#method-i-find_child">#find_child</a>
     <li class="calls-super" ><a href="#method-i-to_h">#to_h</a>
   </ul>
 </div>
@@ -166,20 +167,20 @@
          <h3>Public Instance Methods</h3>
        </header>
 
-      <div id="method-i-child" class="method-detail ">
+      <div id="method-i-children" class="method-detail ">
         <div class="method-heading">
-          <span class="method-name">child</span><span
-            class="method-args">(id)</span>
+          <span class="method-name">children</span><span
+            class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
-          <p>Returns the child <a href="../STAC.html"><code>STAC</code></a> object with the given ID.</p>
+          <p>Returns rel=“child” objects of this catalog.</p>
 
-          <div class="method-source-code" id="child-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 37</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">child</span>(<span class="ruby-identifier">id</span>)
-  <span class="ruby-identifier">children</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
+          <div class="method-source-code" id="children-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">children</span>
+  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;child&#39;</span> }.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:target</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -195,12 +196,33 @@
         </div>
 
         <div class="method-description">
-          <p>Returns Enumerable::Lazy of <a href="Collection.html"><code>Collection</code></a> objects from children.</p>
+          <p>Returns child Collections of this catalog.</p>
 
           <div class="method-source-code" id="collections-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 32</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 37</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collections</span>
-  <span class="ruby-identifier">children</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Collection&#39;</span> }
+  <span class="ruby-identifier">children</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Collection&#39;</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-find_child" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">find_child</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns the child Catalog/Collection with the given ID.</p>
+
+          <div class="method-source-code" id="find_child-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">find_child</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">children</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
