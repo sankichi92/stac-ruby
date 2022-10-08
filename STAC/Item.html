@@ -66,6 +66,14 @@
 
     
     
+<div id="extends-section" class="nav-section">
+  <h3>Extended With Modules</h3>
+
+  <ul class="link-list">
+    <li><span class="extend">Forwardable</span>
+  </ul>
+</div>
+
     
 <!-- Method Quickref -->
 <div id="method-list-section" class="nav-section">
@@ -176,7 +184,7 @@
             </div>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 16</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">h</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">dup</span>
   <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;properties&#39;</span>] = <span class="ruby-constant">Properties</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;properties&#39;</span>))
@@ -206,7 +214,7 @@
             </div>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 28</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(
   <span class="ruby-value">id:</span>, <span class="ruby-value">geometry:</span>, <span class="ruby-value">properties:</span>, <span class="ruby-value">links:</span>, <span class="ruby-value">assets:</span>, <span class="ruby-value">bbox:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">collection:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>
 )
@@ -245,7 +253,7 @@
             </div>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
     {
