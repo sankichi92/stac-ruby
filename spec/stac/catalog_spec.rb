@@ -74,7 +74,7 @@ RSpec.describe STAC::Catalog do
     end
 
     it 'returns STAC objects from rel="child" links' do
-      children = catalog.children.to_a
+      children = catalog.children
 
       expect(children.map(&:id)).to contain_exactly 'extensions-collection', 'sentinel-2', 'sentinel-2'
     end
@@ -86,7 +86,7 @@ RSpec.describe STAC::Catalog do
     end
 
     it 'returns Collection objects from rel="child" links' do
-      collections = catalog.collections.to_a
+      collections = catalog.collections
 
       expect(collections.map(&:id)).to contain_exactly 'extensions-collection', 'sentinel-2', 'sentinel-2'
     end
@@ -110,9 +110,21 @@ RSpec.describe STAC::Catalog do
     end
 
     it 'returns Item objects from rel="item" links' do
-      items = catalog.items.to_a
+      items = catalog.items
 
       expect(items.map(&:id)).to contain_exactly 'CS3-20160503_132131_08'
+    end
+  end
+
+  describe '#all_items' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    it 'returns all Items from this catalog and the child catalogs recursively' do
+      items = catalog.all_items
+
+      expect(items.map(&:id)).to contain_exactly 'CS3-20160503_132131_08', 'proj-example'
     end
   end
 end

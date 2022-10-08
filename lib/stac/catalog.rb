@@ -47,5 +47,13 @@ module STAC
     def items
       links.select { |link| link.rel == 'item' }.lazy.map(&:target)
     end
+
+    # Returns all Items from this catalog and its child catalogs recursively.
+    def all_items
+      # The last `.lazy` is not necessary with Ruby 3.1.
+      # But with Ruby 3.0, it is necessary because Enumerator::Lazy#chain returns Enumerator::Chain
+      # and RBS type check fails.
+      items.chain(children.flat_map(&:items)).lazy
+    end
   end
 end
