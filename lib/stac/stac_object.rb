@@ -39,10 +39,14 @@ module STAC
       @extra = extra.transform_keys(&:to_s)
     end
 
+    def type
+      self.class.type
+    end
+
     # Serializes self to a Hash.
     def to_h
       {
-        'type' => self.class.type,
+        'type' => type,
         'stac_version' => SPEC_VERSION,
         'stac_extensions' => stac_extensions,
         'id' => id,

@@ -13,6 +13,7 @@ module STAC
       id: String, links: Array[Link], ?stac_extensions: Array[String]?, **untyped
     ) -> void
 
+    def type: -> String
     def to_h: -> Hash[String, untyped]
     def to_json: -> String
     def add_link: (Link) -> void
