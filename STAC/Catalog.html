@@ -73,6 +73,7 @@
 
   <ul class="link-list" role="directory">
     <li class="calls-super" ><a href="#method-c-new">::new</a>
+    <li ><a href="#method-i-all_items">#all_items</a>
     <li ><a href="#method-i-children">#children</a>
     <li ><a href="#method-i-collections">#collections</a>
     <li ><a href="#method-i-find_child">#find_child</a>
@@ -167,6 +168,27 @@
        <header>
          <h3>Public Instance Methods</h3>
        </header>
+
+      <div id="method-i-all_items" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">all_items</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns all Items from this catalog and its child catalogs recursively.</p>
+
+          <div class="method-source-code" id="all_items-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">all_items</span>
+  <span class="ruby-identifier">items</span>.<span class="ruby-identifier">chain</span>(<span class="ruby-identifier">children</span>.<span class="ruby-identifier">flat_map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:items</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
 
       <div id="method-i-children" class="method-detail ">
         <div class="method-heading">
