@@ -28,7 +28,7 @@ module STAC
       )
     end
 
-    # Returns rel="child" objects of this catalog.
+    # Returns Catalog/Collection objects from rel="child" links of this catalog.
     def children
       links.select { |link| link.rel == 'child' }.lazy.map(&:target)
     end
@@ -38,9 +38,14 @@ module STAC
       children.select { |child| child.type == 'Collection' }
     end
 
-    # Returns the child Catalog/Collection with the given ID.
+    # Returns the child Catalog/Collection with the given ID if it exists.
     def find_child(id)
       children.find { |child| child.id == id }
+    end
+
+    # Returns Item objects from rel="item" links of this catalog.
+    def items
+      links.select { |link| link.rel == 'item' }.lazy.map(&:target)
     end
   end
 end

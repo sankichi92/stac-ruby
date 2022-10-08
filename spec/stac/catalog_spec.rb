@@ -103,4 +103,16 @@ RSpec.describe STAC::Catalog do
       expect(child.id).to eq 'extensions-collection'
     end
   end
+
+  describe '#items' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    it 'returns Item objects from rel="item" links' do
+      items = catalog.items.to_a
+
+      expect(items.map(&:id)).to contain_exactly 'CS3-20160503_132131_08'
+    end
+  end
 end
