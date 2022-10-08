@@ -30,7 +30,7 @@ module STAC
 
     # Returns Enumerable::Lazy of Collection objects from children.
     def collections
-      children.select { |child| child.instance_of?(Collection) }
+      children.select { |child| child.class.type == 'Collection' }
     end
 
     # Returns the child STAC object with the given ID.

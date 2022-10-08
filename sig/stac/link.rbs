@@ -8,14 +8,14 @@ module STAC
     attr_accessor title: String?
     attr_accessor extra: Hash[String, untyped]
     attr_accessor owner: STACObject | nil
-    @target: Catalog | Collection | nil
+    @target: Catalog | Collection | Item | nil
     @resolver: ObjectResolver
 
     def initialize: (rel: String, href: String, ?type: String?, ?title: String?, **untyped) -> void
 
     def to_h: -> Hash[String, untyped]
     def absolute_href: -> String?
-    def target: -> (Catalog | Collection | nil)
+    def target: -> (Catalog | Collection | Item | nil)
 
     private
 

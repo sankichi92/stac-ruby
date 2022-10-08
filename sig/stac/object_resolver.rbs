@@ -1,5 +1,7 @@
 module STAC
   class ObjectResolver
+    RESOLVABLES: Array[_STACObjectClass]
+
     attr_writer self.default_http_client: _HTTPClient
 
     def self.default_http_client: -> _HTTPClient
@@ -8,11 +10,16 @@ module STAC
 
     def initialize: (?http_client: _HTTPClient) -> void
 
-    def resolve: (String url) -> (Catalog | Collection)
+    def resolve: (String url) -> (Catalog | Collection | Item)
 
     private
 
     def read: (String url) -> String
+  end
+
+  interface _STACObjectClass
+    def type: -> String
+    def from_hash: (Hash[String, untyped] hash) -> (Catalog | Collection | Item)
   end
 
   interface _HTTPClient

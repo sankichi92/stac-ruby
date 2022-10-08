@@ -1,5 +1,5 @@
 # See the writing guide of rbs: https://github.com/ruby/rbs#guides
 module STAC
-  def self.from_file: (String path) -> (Catalog | Collection)
-  %a{rbs:test:skip} def self.from_url: (String url, ?resolver: ObjectResolver) -> (Catalog | Collection)
+  def self.from_file: (String path) -> (Catalog | Collection | Item)
+  %a{rbs:test:skip} def self.from_url: (String url, ?resolver: ObjectResolver) -> (Catalog | Collection | Item)
 end

@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 require 'json'
+require_relative 'catalog'
+require_relative 'collection'
 require_relative 'default_http_client'
 require_relative 'errors'
+require_relative 'item'
 
 module STAC
   # Resolves a STAC object from a URL.
   class ObjectResolver
+    RESOLVABLES = [Catalog, Collection, Item].freeze
+
     class << self
       attr_writer :default_http_client
 
@@ -34,11 +39,9 @@ module STAC
     def resolve(url)
       str = read(url)
       hash = JSON.parse(str)
-      klass = begin
-        STAC.const_get(hash.fetch('type', nil).to_s)
-      rescue NameError
-        raise TypeError, "unknown STAC object type: #{hash['type']}"
-      end
+      klass = RESOLVABLES.find { |c| c.type == hash['type'] }
+      raise TypeError, "unknown STAC object type: #{hash['type']}" unless klass
+
       klass.from_hash(hash)
     end
 

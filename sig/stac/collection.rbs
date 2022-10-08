@@ -10,9 +10,18 @@ module STAC
     attr_accessor assets: Hash[String, Asset]?
 
     def initialize: (
-      id: String, description: String, links: Array[Link], license: String, extent: Extent, ?title: String?,
-      ?keywords: Array[String]?, ?providers: Array[Provider]?, ?summaries: Hash[String, untyped]?,
-      ?assets: Hash[String, Asset]?, ?stac_extensions: Array[String]?, **untyped
+      id: String,
+      description: String,
+      links: Array[Link],
+      license: String,
+      extent: Extent,
+      ?title: String?,
+      ?keywords: Array[String]?,
+      ?providers: Array[Provider]?,
+      ?summaries: Hash[String, untyped]?,
+      ?assets: Hash[String, Asset]?,
+      ?stac_extensions: Array[String]?,
+      **untyped
     ) -> void
 
     def to_h: -> Hash[String, untyped]

@@ -40,14 +40,7 @@ module STAC
       stac_extensions: nil,
       **extra
     )
-      super(
-        id: id,
-        description: description,
-        links: links,
-        title: title,
-        stac_extensions: stac_extensions,
-        **extra
-      )
+      super(id: id, description: description, links: links, title: title, stac_extensions: stac_extensions, **extra)
       @license = license
       @extent = extent
       @keywords = keywords

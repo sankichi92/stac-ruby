@@ -9,7 +9,7 @@ RSpec.describe STAC::Collection do
     let(:hash) do
       {
         'stac_version' => '1.0.0',
-        'type' => type,
+        'type' => 'Collection',
         'license' => 'ISC',
         'id' => '20201211_223832_CS2',
         'description' => 'A simple collection example',
@@ -37,7 +37,6 @@ RSpec.describe STAC::Collection do
         'summaries' => {},
       }
     end
-    let(:type) { 'Collection' }
 
     it 'deserializes a Collection from a Hash' do
       collection = STAC::Collection.from_hash(hash)
@@ -46,14 +45,6 @@ RSpec.describe STAC::Collection do
       expect(collection.id).to eq '20201211_223832_CS2'
       expect(collection.description).to eq 'A simple collection example'
       expect(collection.license).to eq 'ISC'
-    end
-
-    context 'when the value of `type` is not "Collection"' do
-      let(:type) { 'INVALID' }
-
-      it 'raises TypeError' do
-        expect { STAC::Collection.from_hash(hash) }.to raise_error STAC::TypeError
-      end
     end
 
     context 'when a required field is missing' do
