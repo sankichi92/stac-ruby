@@ -11,7 +11,7 @@ module STAC
 
     def to_h: -> Hash[String, untyped]
     def collections: -> Enumerator::Lazy[Collection, void]
-    def child: (String) -> (Catalog | Collection | nil)
+    def find_child: (String) -> (Catalog | Collection | nil)
 
     private
 

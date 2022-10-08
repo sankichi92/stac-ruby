@@ -80,13 +80,13 @@ RSpec.describe STAC::Catalog do
     end
   end
 
-  describe '#child' do
+  describe '#find_child' do
     before do
       catalog.self_href = "file://#{catalog_path}"
     end
 
     it 'returns the STAC object with the given ID from rel="child" links' do
-      child = catalog.child('extensions-collection')
+      child = catalog.find_child('extensions-collection')
 
       expect(child.id).to eq 'extensions-collection'
     end

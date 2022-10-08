@@ -34,7 +34,7 @@ module STAC
     end
 
     # Returns the child STAC object with the given ID.
-    def child(id)
+    def find_child(id)
       children.find { |child| child.id == id }
     end
 
