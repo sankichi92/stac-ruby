@@ -77,6 +77,7 @@
     <li ><a href="#method-i-children">#children</a>
     <li ><a href="#method-i-collections">#collections</a>
     <li ><a href="#method-i-find_child">#find_child</a>
+    <li ><a href="#method-i-find_item">#find_item</a>
     <li ><a href="#method-i-items">#items</a>
     <li class="calls-super" ><a href="#method-i-to_h">#to_h</a>
   </ul>
@@ -177,10 +178,10 @@
         </div>
 
         <div class="method-description">
-          <p>Returns all Items from this catalog and its child catalogs recursively.</p>
+          <p>Returns all items from this catalog and its child catalogs recursively.</p>
 
           <div class="method-source-code" id="all_items-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 52</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">all_items</span>
   <span class="ruby-comment"># The last `.lazy` is not necessary with Ruby 3.1.</span>
   <span class="ruby-comment"># But with Ruby 3.0, it is necessary because Enumerator::Lazy#chain returns Enumerator::Chain</span>
@@ -201,7 +202,7 @@
         </div>
 
         <div class="method-description">
-          <p>Returns Catalog/Collection objects from rel=“child” links of this catalog.</p>
+          <p>Returns catalog/collection objects from rel=“child” links of this catalog.</p>
 
           <div class="method-source-code" id="children-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 32</span>
@@ -222,7 +223,7 @@
         </div>
 
         <div class="method-description">
-          <p>Returns child Collections of this catalog.</p>
+          <p>Returns child collections of this catalog.</p>
 
           <div class="method-source-code" id="collections-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 37</span>
@@ -238,17 +239,43 @@
       <div id="method-i-find_child" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">find_child</span><span
-            class="method-args">(id)</span>
+            class="method-args">(id, recursive: false)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
-          <p>Returns the child Catalog/Collection with the given ID if it exists.</p>
+          <p>Returns the child catalog/collection with the given ID if it exists.</p>
+
+<p>With option ‘recusive: true`, it will traverse all child catalogs/collections recursively.</p>
 
           <div class="method-source-code" id="find_child-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 42</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">find_child</span>(<span class="ruby-identifier">id</span>)
-  <span class="ruby-identifier">children</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">find_child</span>(<span class="ruby-identifier">id</span>, <span class="ruby-value">recursive:</span> <span class="ruby-keyword">false</span>)
+  <span class="ruby-identifier">targets</span> = <span class="ruby-identifier">recursive</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">children</span>.<span class="ruby-identifier">chain</span>(<span class="ruby-identifier">children</span>.<span class="ruby-identifier">flat_map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:children</span>)) <span class="ruby-operator">:</span> <span class="ruby-identifier">children</span>
+  <span class="ruby-identifier">targets</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-find_item" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">find_item</span><span
+            class="method-args">(id, recursive: false)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns the item with the given ID if it exists.</p>
+
+<p>With option ‘recursive: true`, it will traverse all child catalogs/collections recursively.</p>
+
+          <div class="method-source-code" id="find_item-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">find_item</span>(<span class="ruby-identifier">id</span>, <span class="ruby-value">recursive:</span> <span class="ruby-keyword">false</span>)
+  (<span class="ruby-identifier">recursive</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">all_items</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">items</span>).<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -264,10 +291,10 @@
         </div>
 
         <div class="method-description">
-          <p>Returns <a href="Item.html"><code>Item</code></a> objects from rel=“item” links of this catalog.</p>
+          <p>Returns item objects from rel=“item” links of this catalog.</p>
 
           <div class="method-source-code" id="items-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 47</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">items</span>
   <span class="ruby-identifier">links</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;item&#39;</span> }.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:target</span>)
 <span class="ruby-keyword">end</span></pre>
