@@ -23,7 +23,8 @@
 				"shopify.ruby-lsp",
 				"KoichiSasada.vscode-rdbg",
 				"kaiwood.endwise",
-				"soutaro.rbs-syntax"
+				"soutaro.rbs-syntax",
+        "soutaro.steep-vscode"
 			]
     }
   },
