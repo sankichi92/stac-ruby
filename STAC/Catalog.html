@@ -182,6 +182,9 @@
           <div class="method-source-code" id="all_items-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">all_items</span>
+  <span class="ruby-comment"># The last `.lazy` is not necesarry with Ruby 3.1.</span>
+  <span class="ruby-comment"># But with Ruby 3.0, it is necesarry because Enumerator::Lazy#chain returns Enumerator::Chain</span>
+  <span class="ruby-comment"># and RBS type check fails</span>
   <span class="ruby-identifier">items</span>.<span class="ruby-identifier">chain</span>(<span class="ruby-identifier">children</span>.<span class="ruby-identifier">flat_map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:items</span>)).<span class="ruby-identifier">lazy</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
