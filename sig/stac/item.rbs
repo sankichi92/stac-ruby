@@ -3,7 +3,7 @@ module STAC
     def self.from_hash: (Hash[String, untyped] hash) -> Item
 
     attr_accessor geometry: Hash[String, untyped]?
-    attr_accessor properties: Hash[String, untyped]
+    attr_accessor properties: Properties
     attr_accessor assets: Hash[String, Asset]
     attr_accessor bbox: Array[Numeric]?
     attr_accessor collection: String?
@@ -11,7 +11,7 @@ module STAC
     def initialize: (
       id: String,
       geometry: Hash[String, untyped]?,
-      properties: Hash[String, untyped],
+      properties: Properties,
       links: Array[Link],
       assets: Hash[String, Asset],
       ?bbox: Array[Numeric]?,

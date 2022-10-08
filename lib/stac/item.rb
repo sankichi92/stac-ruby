@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'asset'
 require_relative 'errors'
+require_relative 'properties'
 require_relative 'stac_object'
 
 module STAC
@@ -13,6 +15,7 @@ module STAC
     class << self
       def from_hash(hash)
         h = hash.dup
+        h['properties'] = Properties.from_hash(h.fetch('properties'))
         h['assets'] = h.fetch('assets').transform_values { |v| Asset.from_hash(v) }
         super(h)
       rescue KeyError => e
@@ -41,7 +44,7 @@ module STAC
       ).merge(
         {
           'bbox' => bbox,
-          'properties' => properties,
+          'properties' => properties.to_h,
           'assets' => assets.transform_values(&:to_h),
           'collection' => collection,
         }.compact,
