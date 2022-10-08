@@ -8,7 +8,7 @@ target :lib do
   check 'lib/**/*.rb'
 
   # TODO: Add 'open-uri' and remove 'sig/open-uri.rbs' when 'open-uri' RBS is defined.
-  library 'json', 'pathname', 'time', 'uri'
+  library 'json', 'pathname', 'forwardable', 'time', 'uri'
 
   configure_code_diagnostics do |hash|
     hash[D::Ruby::ArgumentTypeMismatch] = :hint

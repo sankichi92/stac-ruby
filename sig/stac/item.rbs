@@ -19,5 +19,7 @@ module STAC
       ?stac_extensions: Array[String]?,
       **untyped
     ) -> void
+
+    def datetime: -> Time
   end
 end
