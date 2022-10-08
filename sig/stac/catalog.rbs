@@ -10,11 +10,8 @@ module STAC
     ) -> void
 
     def to_h: -> Hash[String, untyped]
+    def children: -> Enumerator::Lazy[Catalog | Collection, void]
     def collections: -> Enumerator::Lazy[Collection, void]
     def find_child: (String) -> (Catalog | Collection | nil)
-
-    private
-
-    def children: -> Enumerator::Lazy[Catalog | Collection, void]
   end
 end

@@ -28,20 +28,19 @@ module STAC
       )
     end
 
-    # Returns Enumerable::Lazy of Collection objects from children.
+    # Returns rel="child" objects of this catalog.
+    def children
+      links.select { |link| link.rel == 'child' }.lazy.map(&:target)
+    end
+
+    # Returns child Collections of this catalog.
     def collections
       children.select { |child| child.type == 'Collection' }
     end
 
-    # Returns the child STAC object with the given ID.
+    # Returns the child Catalog/Collection with the given ID.
     def find_child(id)
       children.find { |child| child.id == id }
-    end
-
-    private
-
-    def children
-      links.select { |link| link.rel == 'child' }.lazy.map(&:target)
     end
   end
 end
