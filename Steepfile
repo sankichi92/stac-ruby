@@ -10,9 +10,10 @@ target :lib do
   library 'json', 'pathname', 'uri' # TODO: Remove 'sig/open-uri.rbs' and add 'open-uri' here after its RBS are defined.
 
   configure_code_diagnostics do |hash|
+    hash[D::Ruby::ArgumentTypeMismatch] = :hint
     hash[D::Ruby::InsufficientKeywordArguments] = nil
     hash[D::Ruby::MethodBodyTypeMismatch] = :hint
-    hash[D::Ruby::MethodDefinitionMissing] = nil
+    hash[D::Ruby::MethodDefinitionMissing] = nil # To supress noisy VS Code extension message.
     hash[D::Ruby::UnsupportedSyntax] = :hint
   end
 end

@@ -12,8 +12,9 @@ module STAC
     def to_h: -> Hash[String, untyped]
     def children: -> Enumerator::Lazy[Catalog | Collection, void]
     def collections: -> Enumerator::Lazy[Collection, void]
-    def find_child: (String) -> (Catalog | Collection | nil)
+    def find_child: (String id, ?recursive: boolish) -> (Catalog | Collection | nil)
     def items: -> Enumerator::Lazy[Item, void]
     def all_items: -> Enumerator::Lazy[Item, void]
+    def find_item: (String id, ?recursive: boolish) -> Item?
   end
 end

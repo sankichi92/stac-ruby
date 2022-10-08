@@ -85,7 +85,7 @@ RSpec.describe STAC::Catalog do
       catalog.self_href = "file://#{catalog_path}"
     end
 
-    it 'returns Collection objects from rel="child" links' do
+    it 'returns collection objects from rel="child" links' do
       collections = catalog.collections
 
       expect(collections.map(&:id)).to contain_exactly 'extensions-collection', 'sentinel-2', 'sentinel-2'
@@ -102,6 +102,14 @@ RSpec.describe STAC::Catalog do
 
       expect(child.id).to eq 'extensions-collection'
     end
+
+    context 'with option `recursive: true`' do
+      it 'finds the STAC object from all child catalogs recursively' do
+        child = catalog.find_child('not-found', recursive: true)
+
+        expect(child).to be_nil
+      end
+    end
   end
 
   describe '#items' do
@@ -109,7 +117,7 @@ RSpec.describe STAC::Catalog do
       catalog.self_href = "file://#{catalog_path}"
     end
 
-    it 'returns Item objects from rel="item" links' do
+    it 'returns item objects from rel="item" links' do
       items = catalog.items
 
       expect(items.map(&:id)).to contain_exactly 'CS3-20160503_132131_08'
@@ -121,10 +129,30 @@ RSpec.describe STAC::Catalog do
       catalog.self_href = "file://#{catalog_path}"
     end
 
-    it 'returns all Items from this catalog and the child catalogs recursively' do
+    it 'returns all items from this catalog and its child catalogs recursively' do
       items = catalog.all_items
 
       expect(items.map(&:id)).to contain_exactly 'CS3-20160503_132131_08', 'proj-example'
+    end
+  end
+
+  describe '#find_item' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    it 'returns the item with the given ID from rel="item" links' do
+      item = catalog.find_item('CS3-20160503_132131_08')
+
+      expect(item.id).to eq 'CS3-20160503_132131_08'
+    end
+
+    context 'with option `recursive: true`' do
+      it 'finds the item from all child catalogs recursively' do
+        item = catalog.find_item('proj-example', recursive: true)
+
+        expect(item.id).to eq 'proj-example'
+      end
     end
   end
 end

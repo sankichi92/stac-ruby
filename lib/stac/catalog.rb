@@ -28,32 +28,42 @@ module STAC
       )
     end
 
-    # Returns Catalog/Collection objects from rel="child" links of this catalog.
+    # Returns catalog/collection objects from rel="child" links of this catalog.
     def children
       links.select { |link| link.rel == 'child' }.lazy.map(&:target)
     end
 
-    # Returns child Collections of this catalog.
+    # Returns child collections of this catalog.
     def collections
       children.select { |child| child.type == 'Collection' }
     end
 
-    # Returns the child Catalog/Collection with the given ID if it exists.
-    def find_child(id)
-      children.find { |child| child.id == id }
+    # Returns the child catalog/collection with the given ID if it exists.
+    #
+    # With option `recusive: true`, it will traverse all child catalogs/collections recursively.
+    def find_child(id, recursive: false)
+      targets = recursive ? children.chain(children.flat_map(&:children)) : children
+      targets.find { |child| child.id == id }
     end
 
-    # Returns Item objects from rel="item" links of this catalog.
+    # Returns item objects from rel="item" links of this catalog.
     def items
       links.select { |link| link.rel == 'item' }.lazy.map(&:target)
     end
 
-    # Returns all Items from this catalog and its child catalogs recursively.
+    # Returns all items from this catalog and its child catalogs recursively.
     def all_items
       # The last `.lazy` is not necessary with Ruby 3.1.
       # But with Ruby 3.0, it is necessary because Enumerator::Lazy#chain returns Enumerator::Chain
       # and RBS type check fails.
       items.chain(children.flat_map(&:items)).lazy
+    end
+
+    # Returns the item with the given ID if it exists.
+    #
+    # With option `recursive: true`, it will traverse all child catalogs/collections recursively.
+    def find_item(id, recursive: false)
+      (recursive ? all_items : items).find { |item| item.id == id }
     end
   end
 end
