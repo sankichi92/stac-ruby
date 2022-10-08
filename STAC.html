@@ -120,7 +120,7 @@
           <p>Returns a <a href="STAC.html"><code>STAC</code></a> object resolved from the given file path.</p>
 
           <div class="method-source-code" id="from_file-source">
-            <pre><span class="ruby-comment"># File lib/stac.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/stac.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_file</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-identifier">from_url</span>(<span class="ruby-node">&quot;file://#{File.expand_path(path)}&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -143,7 +143,7 @@
 <p>When the resolved object does not have rel=“self” link, adds a rel=“self” link with the give url.</p>
 
           <div class="method-source-code" id="from_url-source">
-            <pre><span class="ruby-comment"># File lib/stac.rb, line 21</span>
+            <pre><span class="ruby-comment"># File lib/stac.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_url</span>(<span class="ruby-identifier">url</span>, <span class="ruby-value">resolver:</span> <span class="ruby-constant">ObjectResolver</span>.<span class="ruby-identifier">new</span>)
   <span class="ruby-identifier">object</span> = <span class="ruby-identifier">resolver</span>.<span class="ruby-identifier">resolve</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">object</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-identifier">url</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">self_href</span>

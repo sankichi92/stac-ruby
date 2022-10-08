@@ -95,6 +95,15 @@
   <section id="5Buntitled-5D" class="documentation-section">
 
 
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+        <dt id="RESOLVABLES">RESOLVABLES
+        <dd>
+      </dl>
+    </section>
 
     <section class="attribute-method-details" class="method-section">
       <header>
@@ -140,7 +149,7 @@
           
 
           <div class="method-source-code" id="default_http_client-source">
-            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">default_http_client</span>
   <span class="ruby-ivar">@default_http_client</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DefaultHTTPClient</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -161,7 +170,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 20</span>
+            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">http_client:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">default_http_client</span>)
   <span class="ruby-ivar">@http_client</span> = <span class="ruby-identifier">http_client</span>
 <span class="ruby-keyword">end</span></pre>
@@ -205,15 +214,13 @@
 </li></ul>
 
           <div class="method-source-code" id="resolve-source">
-            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 34</span>
+            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">resolve</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">str</span> = <span class="ruby-identifier">read</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">str</span>)
-  <span class="ruby-identifier">klass</span> = <span class="ruby-keyword">begin</span>
-    <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">hash</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;type&#39;</span>, <span class="ruby-keyword">nil</span>).<span class="ruby-identifier">to_s</span>)
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NameError</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;unknown STAC object type: #{hash[&#39;type&#39;]}&quot;</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">klass</span> = <span class="ruby-constant">RESOLVABLES</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">hash</span>[<span class="ruby-string">&#39;type&#39;</span>] }
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;unknown STAC object type: #{hash[&#39;type&#39;]}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">klass</span>
+
   <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">hash</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>

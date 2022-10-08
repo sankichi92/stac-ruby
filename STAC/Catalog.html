@@ -200,7 +200,7 @@
           <div class="method-source-code" id="collections-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collections</span>
-  <span class="ruby-identifier">children</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">Collection</span>) }
+  <span class="ruby-identifier">children</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Collection&#39;</span> }
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>

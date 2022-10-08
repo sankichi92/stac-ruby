@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class STAC::Collection - stac-ruby API docs</title>
+<title>class STAC::Item - stac-ruby API docs</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -61,7 +61,7 @@
 <div id="parent-class-section" class="nav-section">
   <h3>Parent</h3>
 
-  <p class="link"><a href="Catalog.html">STAC::Catalog</a>
+  <p class="link">STACObject
 </div>
 
     
@@ -81,16 +81,16 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-STAC::Collection">
-  <h1 id="class-STAC::Collection" class="class">
-    class STAC::Collection
+<main role="main" aria-labelledby="class-STAC::Item">
+  <h1 id="class-STAC::Item" class="class">
+    class STAC::Item
   </h1>
 
   <section class="description">
     
-<p>Represents <a href="../STAC.html"><code>STAC</code></a> collection.</p>
+<p>Represents <a href="../STAC.html"><code>STAC</code></a> item.</p>
 
-<p>Spec: <a href="https://github.com/radiantearth/stac-spec/tree/master/collection-spec">github.com/radiantearth/stac-spec/tree/master/collection-spec</a></p>
+<p>Spec: <a href="https://github.com/radiantearth/stac-spec/tree/master/item-spec">github.com/radiantearth/stac-spec/tree/master/item-spec</a></p>
 
   </section>
 
@@ -113,9 +113,9 @@
         
         </div>
       </div>
-      <div id="attribute-i-extent" class="method-detail">
+      <div id="attribute-i-bbox" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">extent</span><span
+          <span class="method-name">bbox</span><span
             class="attribute-access-type">[RW]</span>
         </div>
 
@@ -123,9 +123,9 @@
         
         </div>
       </div>
-      <div id="attribute-i-keywords" class="method-detail">
+      <div id="attribute-i-collection" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">keywords</span><span
+          <span class="method-name">collection</span><span
             class="attribute-access-type">[RW]</span>
         </div>
 
@@ -133,9 +133,9 @@
         
         </div>
       </div>
-      <div id="attribute-i-license" class="method-detail">
+      <div id="attribute-i-geometry" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">license</span><span
+          <span class="method-name">geometry</span><span
             class="attribute-access-type">[RW]</span>
         </div>
 
@@ -143,19 +143,9 @@
         
         </div>
       </div>
-      <div id="attribute-i-providers" class="method-detail">
+      <div id="attribute-i-properties" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">providers</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
-      <div id="attribute-i-summaries" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">summaries</span><span
+          <span class="method-name">properties</span><span
             class="attribute-access-type">[RW]</span>
         </div>
 
@@ -186,12 +176,10 @@
             </div>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 16</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">h</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">dup</span>
-  <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;extent&#39;</span>] = <span class="ruby-constant">Extent</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;extent&#39;</span>))
-  <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;providers&#39;</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;providers&#39;</span>]&amp;.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">provider</span><span class="ruby-operator">|</span> <span class="ruby-constant">Provider</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">provider</span>) }
-  <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;assets&#39;</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;assets&#39;</span>]&amp;.<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>) }
+  <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;assets&#39;</span>] = <span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;assets&#39;</span>).<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>) }
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">h</span>)
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">KeyError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required field not found: #{e.key}&quot;</span>
@@ -205,7 +193,7 @@
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">( id:, description:, links:, license:, extent:, title: nil, keywords: nil, providers: nil, summaries: nil, assets: nil, stac_extensions: nil, **extra )</span>
+            class="method-args">( id:, geometry:, properties:, links:, assets:, bbox: nil, collection: nil, stac_extensions: nil, **extra )</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -213,32 +201,20 @@
           
             <div class="method-calls-super">
               Calls superclass method
-              <a href="Catalog.html#method-c-new"><code>STAC::Catalog::new</code></a>
+              
             </div>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 29</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(
-  <span class="ruby-value">id:</span>,
-  <span class="ruby-value">description:</span>,
-  <span class="ruby-value">links:</span>,
-  <span class="ruby-value">license:</span>,
-  <span class="ruby-value">extent:</span>,
-  <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>,
-  <span class="ruby-value">keywords:</span> <span class="ruby-keyword">nil</span>,
-  <span class="ruby-value">providers:</span> <span class="ruby-keyword">nil</span>,
-  <span class="ruby-value">summaries:</span> <span class="ruby-keyword">nil</span>,
-  <span class="ruby-value">assets:</span> <span class="ruby-keyword">nil</span>,
-  <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>,
-  <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>
+  <span class="ruby-value">id:</span>, <span class="ruby-value">geometry:</span>, <span class="ruby-value">properties:</span>, <span class="ruby-value">links:</span>, <span class="ruby-value">assets:</span>, <span class="ruby-value">bbox:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">collection:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>
 )
-  <span class="ruby-keyword">super</span>(<span class="ruby-value">id:</span> <span class="ruby-identifier">id</span>, <span class="ruby-value">description:</span> <span class="ruby-identifier">description</span>, <span class="ruby-value">links:</span> <span class="ruby-identifier">links</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">title</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-identifier">stac_extensions</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
-  <span class="ruby-ivar">@license</span> = <span class="ruby-identifier">license</span>
-  <span class="ruby-ivar">@extent</span> = <span class="ruby-identifier">extent</span>
-  <span class="ruby-ivar">@keywords</span> = <span class="ruby-identifier">keywords</span>
-  <span class="ruby-ivar">@providers</span> = <span class="ruby-identifier">providers</span>
-  <span class="ruby-ivar">@summaries</span> = <span class="ruby-identifier">summaries</span>
+  <span class="ruby-keyword">super</span>(<span class="ruby-value">id:</span> <span class="ruby-identifier">id</span>, <span class="ruby-value">links:</span> <span class="ruby-identifier">links</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-identifier">stac_extensions</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+  <span class="ruby-ivar">@geometry</span> = <span class="ruby-identifier">geometry</span>
+  <span class="ruby-ivar">@properties</span> = <span class="ruby-identifier">properties</span>
   <span class="ruby-ivar">@assets</span> = <span class="ruby-identifier">assets</span>
+  <span class="ruby-ivar">@bbox</span> = <span class="ruby-identifier">bbox</span>
+  <span class="ruby-ivar">@collection</span> = <span class="ruby-identifier">collection</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -261,23 +237,25 @@
         </div>
 
         <div class="method-description">
-          <p>Serializes self to a Hash.</p>
+          
             <div class="method-calls-super">
               Calls superclass method
-              <a href="Catalog.html#method-i-to_h"><code>STAC::Catalog#to_h</code></a>
+              
             </div>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 53</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
     {
-      <span class="ruby-string">&#39;license&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">license</span>,
-      <span class="ruby-string">&#39;keywords&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">keywords</span>,
-      <span class="ruby-string">&#39;extent&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">extent</span>.<span class="ruby-identifier">to_h</span>,
-      <span class="ruby-string">&#39;providers&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">providers</span>&amp;.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
-      <span class="ruby-string">&#39;summaries&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">summaries</span>,
-      <span class="ruby-string">&#39;assets&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">assets</span>&amp;.<span class="ruby-identifier">transform_values</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
+      <span class="ruby-string">&#39;geometry&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">geometry</span>, <span class="ruby-comment"># required but nullable</span>
+    },
+  ).<span class="ruby-identifier">merge</span>(
+    {
+      <span class="ruby-string">&#39;bbox&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">bbox</span>,
+      <span class="ruby-string">&#39;properties&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>,
+      <span class="ruby-string">&#39;assets&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">assets</span>.<span class="ruby-identifier">transform_values</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
+      <span class="ruby-string">&#39;collection&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">collection</span>,
     }.<span class="ruby-identifier">compact</span>,
   )
 <span class="ruby-keyword">end</span></pre>
