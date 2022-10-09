@@ -20,7 +20,7 @@ module STAC
       **untyped
     ) -> void
 
-    def datetime: -> Time
+    def datetime: -> Time?
     def collection: -> Collection?
     def collection=: (Collection collection) -> void
   end

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'forwardable'
 require_relative 'asset'
 require_relative 'errors'
 require_relative 'properties'
@@ -11,8 +10,6 @@ module STAC
   #
   # Spec: https://github.com/radiantearth/stac-spec/tree/master/item-spec
   class Item < STACObject
-    extend Forwardable
-
     self.type = 'Feature'
 
     class << self
@@ -27,8 +24,6 @@ module STAC
     end
 
     attr_accessor :geometry, :bbox, :properties, :assets, :collection_id
-
-    def_delegators :properties, :datetime
 
     def initialize(
       id:, geometry:, properties:, links:, assets:, bbox: nil, collection: nil, stac_extensions: nil, **extra
@@ -59,6 +54,11 @@ module STAC
           'collection' => collection_id,
         }.compact,
       )
+    end
+
+    # Returns datetime from #properties.
+    def datetime
+      properties.datetime
     end
 
     # Returns a rel="collection" link as a collection object if it exists.
