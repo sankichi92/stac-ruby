@@ -280,12 +280,12 @@
           <div class="method-source-code" id="collection-3D-source">
             <pre><span class="ruby-comment"># File lib/stac/item.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collection=</span>(<span class="ruby-identifier">collection</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;collection must have a rel=&quot;self&quot; link&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">self_href</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;collection must have a rel=&quot;self&quot; link&#39;</span> <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">collection_href</span> = <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">self_href</span>)
 
   <span class="ruby-ivar">@collection_id</span> = <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">id</span>
   <span class="ruby-identifier">collection_link</span> = <span class="ruby-constant">Link</span>.<span class="ruby-identifier">new</span>(
     <span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>,
-    <span class="ruby-value">href:</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">self_href</span>,
+    <span class="ruby-value">href:</span> <span class="ruby-identifier">collection_href</span>,
     <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>,
     <span class="ruby-value">title:</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">title</span>,
   )
