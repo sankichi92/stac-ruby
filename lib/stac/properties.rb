@@ -3,9 +3,9 @@
 require 'time'
 
 module STAC
-  # Represents STAC properties object, which is additional metadata for Item.
+  # Represents \STAC properties object, which is additional metadata for Item.
   #
-  # Spec: https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#properties-object
+  # Specification: https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#properties-object
   class Properties
     class << self
       # Deserializes a Properties from a Hash.

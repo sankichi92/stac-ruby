@@ -4,10 +4,10 @@ require_relative 'errors'
 require_relative 'stac_object'
 
 module STAC
-  # Represents STAC catalog.
+  # Represents \STAC catalog.
   #
-  # Spec: https://github.com/radiantearth/stac-spec/tree/master/catalog-spec
-  class Catalog < STACObject
+  # \STAC \Catalog Specification: https://github.com/radiantearth/stac-spec/tree/master/catalog-spec
+  class Catalog < STAC::STACObject
     self.type = 'Catalog'
 
     attr_accessor :description, :title
@@ -33,7 +33,7 @@ module STAC
       links.select { |link| link.rel == 'child' }.lazy.map(&:target)
     end
 
-    # Returns child collections of this catalog.
+    # Filters only collections from #children.
     def collections
       children.select { |child| child.type == 'Collection' }
     end
@@ -51,7 +51,7 @@ module STAC
       links.select { |link| link.rel == 'item' }.lazy.map(&:target)
     end
 
-    # Returns all items from this catalog and its child catalogs recursively.
+    # Returns all items from this catalog and its child catalogs/collections recursively.
     def all_items
       # The last `.lazy` is not necessary with Ruby 3.1.
       # But with Ruby 3.0, it is necessary because Enumerator::Lazy#chain returns Enumerator::Chain

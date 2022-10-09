@@ -8,12 +8,12 @@ require_relative 'stac/version'
 # Provides some utility methods.
 module STAC
   class << self
-    # Returns a STAC object resolved from the given file path.
+    # Returns a \STAC object resolved from the given file path.
     def from_file(path)
       from_url("file://#{File.expand_path(path)}")
     end
 
-    # Returns a STAC object resolved from the given URL.
+    # Returns a \STAC object resolved from the given URL.
     #
     # When the resolved object does not have rel="self" link, adds a rel="self" link with the give url.
     def from_url(url, resolver: ObjectResolver.new)

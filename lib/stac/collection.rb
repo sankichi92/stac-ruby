@@ -6,9 +6,9 @@ require_relative 'extent'
 require_relative 'provider'
 
 module STAC
-  # Represents STAC collection.
+  # Represents \STAC collection.
   #
-  # Spec: https://github.com/radiantearth/stac-spec/tree/master/collection-spec
+  # \STAC \Collection Specification: https://github.com/radiantearth/stac-spec/tree/master/collection-spec
   class Collection < Catalog
     self.type = 'Collection'
 

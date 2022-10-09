@@ -6,10 +6,10 @@ require_relative 'properties'
 require_relative 'stac_object'
 
 module STAC
-  # Represents STAC item.
+  # Represents \STAC item.
   #
-  # Spec: https://github.com/radiantearth/stac-spec/tree/master/item-spec
-  class Item < STACObject
+  # \STAC \Item Specification: https://github.com/radiantearth/stac-spec/tree/master/item-spec
+  class Item < STAC::STACObject
     self.type = 'Feature'
 
     class << self

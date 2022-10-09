@@ -6,12 +6,12 @@ require_relative 'link'
 require_relative 'spec_version'
 
 module STAC
-  # Base class for STAC objects.
+  # Base class for \STAC objects (i.e. Catalog, Collection and Item).
   class STACObject
     class << self
-      attr_accessor :type
+      attr_accessor :type # :nodoc:
 
-      # Deserializes a STAC Object from a Hash.
+      # Base method to deserialize shared fields from a Hash.
       #
       # Raises ArgumentError when any required fields are missing.
       def from_hash(hash)
@@ -59,7 +59,7 @@ module STAC
       to_h.to_json(...)
     end
 
-    # Adds a link with setting its `owner` as self.
+    # Adds a link with setting Link#owner as self.
     def add_link(link)
       link.owner = self
       links << link
@@ -72,7 +72,7 @@ module STAC
 
     # Adds a link with the give HREF as rel="self".
     #
-    # When ref="self" links already exist, it removes them.
+    # When any ref="self" links already exist, removes them.
     def self_href=(absolute_href)
       self_link = Link.new(rel: 'self', href: absolute_href, type: 'application/json')
       remove_link(rel: 'self')

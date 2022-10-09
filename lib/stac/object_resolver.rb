@@ -8,13 +8,17 @@ require_relative 'errors'
 require_relative 'item'
 
 module STAC
-  # Resolves a STAC object from a URL.
+  # Resolves a \STAC object from a URL.
   class ObjectResolver
-    RESOLVABLES = [Catalog, Collection, Item].freeze
+    RESOLVABLES = [Catalog, Collection, Item].freeze # :nodoc:
 
     class << self
+      # Sets the default HTTP client.
+      #
+      # HTTP client must implement method `get: (URI uri) -> String,` which fetches the URI resource through HTTP.
       attr_writer :default_http_client
 
+      # Returns the default HTTP client.
       def default_http_client
         @default_http_client ||= DefaultHTTPClient.new
       end
@@ -26,7 +30,7 @@ module STAC
       @http_client = http_client
     end
 
-    # Reads a JSON from the given URL and returns a STAC object resolved from it.
+    # Reads a JSON from the given URL and returns a \STAC object resolved from it.
     #
     # Supports the following URL scheme:
     # - http
@@ -35,7 +39,7 @@ module STAC
     #
     # Raises:
     # - STAC::UnknownURISchemeError when a URL with unsupported scheme was given
-    # - STAC::TypeError when it could not resolve any STAC objects
+    # - STAC::TypeError when it could not resolve any \STAC objects
     def resolve(url)
       str = read(url)
       hash = JSON.parse(str)

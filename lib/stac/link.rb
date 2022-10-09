@@ -5,7 +5,7 @@ require 'uri'
 require_relative 'errors'
 
 module STAC
-  # Represents STAC link object, which describes a relationship with another entity.
+  # Represents \STAC link object, which describes a relationship with another entity.
   class Link
     class << self
       # Deserializes a Link from a Hash.
@@ -50,7 +50,7 @@ module STAC
       end
     end
 
-    # Returns a STAC object resolved from HREF.
+    # Returns a \STAC object resolved from HREF.
     #
     # When it could not assemble the absolute HREF, it returns nil.
     def target

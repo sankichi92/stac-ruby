@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module STAC
-  # Represents STAC extent object, which describes the spatio-temporal extents of a Collection.
+  # Represents \STAC extent object, which describes the spatio-temporal extents of a Collection.
   #
-  # Spec: https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#extent-object
+  # Specification: https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#extent-object
   class Extent
     # Describes the spatial extents of a Collection
     class Spatial
