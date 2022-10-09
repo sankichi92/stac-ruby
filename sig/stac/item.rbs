@@ -6,7 +6,7 @@ module STAC
     attr_accessor properties: Properties
     attr_accessor assets: Hash[String, Asset]
     attr_accessor bbox: Array[Numeric]?
-    attr_accessor collection: String?
+    attr_accessor collection_id: String?
 
     def initialize: (
       id: String,
@@ -15,11 +15,13 @@ module STAC
       links: Array[Link],
       assets: Hash[String, Asset],
       ?bbox: Array[Numeric]?,
-      ?collection: String?,
+      ?collection: String | Collection | nil,
       ?stac_extensions: Array[String]?,
       **untyped
     ) -> void
 
     def datetime: -> Time
+    def collection: -> Collection?
+    def collection=: (Collection collection) -> void
   end
 end

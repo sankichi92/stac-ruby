@@ -26,7 +26,7 @@ module STAC
       end
     end
 
-    attr_accessor :geometry, :bbox, :properties, :assets, :collection
+    attr_accessor :geometry, :bbox, :properties, :assets, :collection_id
 
     def_delegators :properties, :datetime
 
@@ -38,7 +38,12 @@ module STAC
       @properties = properties
       @assets = assets
       @bbox = bbox
-      @collection = collection
+      case collection
+      when Collection
+        self.collection = collection
+      else
+        @collection_id = collection
+      end
     end
 
     def to_h
@@ -51,9 +56,30 @@ module STAC
           'bbox' => bbox,
           'properties' => properties.to_h,
           'assets' => assets.transform_values(&:to_h),
-          'collection' => collection,
+          'collection' => collection_id,
         }.compact,
       )
+    end
+
+    # Returns a rel="collection" link as a collection object if it exists.
+    def collection
+      link = find_link(rel: 'collection')
+      link&.target
+    end
+
+    # Overwrites rel="collection" link and #collection_id attribute.
+    def collection=(collection)
+      raise ArgumentError, 'collection must have a rel="self" link' unless (collection_href = collection.self_href)
+
+      @collection_id = collection.id
+      collection_link = Link.new(
+        rel: 'collection',
+        href: collection_href,
+        type: 'application/json',
+        title: collection.title,
+      )
+      remove_link(rel: 'collection')
+      add_link(collection_link)
     end
   end
 end

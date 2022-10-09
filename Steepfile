@@ -11,9 +11,9 @@ target :lib do
   library 'json', 'pathname', 'forwardable', 'time', 'uri'
 
   configure_code_diagnostics do |hash|
-    hash[D::Ruby::ArgumentTypeMismatch] = :hint
-    hash[D::Ruby::InsufficientKeywordArguments] = nil
-    hash[D::Ruby::MethodBodyTypeMismatch] = :hint
+    hash[D::Ruby::ArgumentTypeMismatch] = :information
+    hash[D::Ruby::InsufficientKeywordArguments] = :hint
+    hash[D::Ruby::MethodBodyTypeMismatch] = :information
     hash[D::Ruby::MethodDefinitionMissing] = nil # To supress noisy VS Code extension message.
     hash[D::Ruby::UnsupportedSyntax] = :hint
   end

@@ -67,7 +67,7 @@ module STAC
 
     # Reterns HREF of the rel="self" link.
     def self_href
-      links.find { |link| link.rel == 'self' }&.href
+      find_link(rel: 'self')&.href
     end
 
     # Adds a link with the give HREF as rel="self".
@@ -75,8 +75,18 @@ module STAC
     # When ref="self" links already exist, it removes them.
     def self_href=(absolute_href)
       self_link = Link.new(rel: 'self', href: absolute_href, type: 'application/json')
-      links.reject! { |link| link.rel == 'self' }
+      remove_link(rel: 'self')
       add_link(self_link)
+    end
+
+    private
+
+    def find_link(rel:)
+      links.find { |link| link.rel == rel }
+    end
+
+    def remove_link(rel:)
+      links.reject! { |link| link.rel == rel }
     end
   end
 end
