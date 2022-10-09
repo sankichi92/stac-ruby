@@ -114,7 +114,59 @@
 
 <h2 id="label-Usage">Usage<span><a href="#label-Usage">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>TODO: Write usage instructions here</p>
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;stac&#39;</span>
+
+<span class="ruby-comment"># Reading a Catalog</span>
+<span class="ruby-comment"># ================</span>
+
+<span class="ruby-comment"># Read the example catalog.</span>
+<span class="ruby-identifier">catalog</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_url</span>(<span class="ruby-string">&#39;https://raw.githubusercontent.com/radiantearth/stac-spec/master/examples/catalog.json&#39;</span>)
+
+<span class="ruby-comment"># Print some basic metadata.</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;ID: #{catalog.id}&quot;</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Title: #{catalog.title}&quot;</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Description: #{catalog.description}&quot;</span>
+
+<span class="ruby-comment"># Crawling Child Catalogs/Collections</span>
+<span class="ruby-comment"># ================</span>
+
+<span class="ruby-comment"># List Collections in the Catalog.</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Collections IDs:&#39;</span>
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">collections</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collection</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;- #{collection.id}&quot;</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># Get a child Catalog or Collection by ID.</span>
+<span class="ruby-identifier">collection</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">find_child</span>(<span class="ruby-string">&#39;extensions-collection&#39;</span>)
+
+<span class="ruby-comment"># Crawling Items</span>
+<span class="ruby-comment"># ================</span>
+
+<span class="ruby-comment"># List all items associated with the Catalog recursively.</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Item IDs:&#39;</span>
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">all_items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;- #{item.id}&quot;</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># Item Metadata</span>
+<span class="ruby-comment"># ================</span>
+
+<span class="ruby-comment"># Get an Item by ID.</span>
+<span class="ruby-identifier">item</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">find_item</span>(<span class="ruby-string">&#39;proj-example&#39;</span>, <span class="ruby-value">recursive:</span> <span class="ruby-keyword">true</span>)
+
+<span class="ruby-comment"># Print core Item metadeata.</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;geometry:&#39;</span>
+<span class="ruby-identifier">p</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">geometry</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;bbox:&#39;</span>
+<span class="ruby-identifier">p</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">bbox</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;datetime:&#39;</span>
+<span class="ruby-identifier">p</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">datetime</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;collection_id:&#39;</span>
+<span class="ruby-identifier">p</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">collection_id</span>
+
+<span class="ruby-comment"># Get actual Collection instance instead of ID.</span>
+<span class="ruby-identifier">collection</span> = <span class="ruby-identifier">item</span>.<span class="ruby-identifier">collection</span>
+</pre>
 
 <h2 id="label-Documentation">Documentation<span><a href="#label-Documentation">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
