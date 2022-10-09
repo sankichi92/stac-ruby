@@ -93,7 +93,7 @@
 
   <section class="description">
     
-<p>Base class for <a href="../STAC.html"><code>STAC</code></a> objects.</p>
+<p>Base class for STAC objects (i.e. <a href="Catalog.html"><code>Catalog</code></a>, <a href="Collection.html"><code>Collection</code></a> and <a href="Item.html"><code>Item</code></a>).</p>
 
   </section>
 
@@ -106,16 +106,6 @@
         <h3>Attributes</h3>
       </header>
 
-      <div id="attribute-c-type" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">type</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
       <div id="attribute-i-extra" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">extra</span><span
@@ -172,7 +162,7 @@
         </div>
 
         <div class="method-description">
-          <p>Deserializes a <a href="../STAC.html"><code>STAC</code></a> Object from a Hash.</p>
+          <p>Base method to deserialize shared fields from a Hash.</p>
 
 <p>Raises ArgumentError when any required fields are missing.</p>
 
@@ -235,7 +225,7 @@
         </div>
 
         <div class="method-description">
-          <p>Adds a link with setting its ‘owner` as self.</p>
+          <p>Adds a link with setting <a href="Link.html#attribute-i-owner"><code>Link#owner</code></a> as self.</p>
 
           <div class="method-source-code" id="add_link-source">
             <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 63</span>
@@ -280,7 +270,7 @@
         <div class="method-description">
           <p>Adds a link with the give HREF as rel=“self”.</p>
 
-<p>When ref=“self” links already exist, it removes them.</p>
+<p>When any ref=“self” links already exist, removes them.</p>
 
           <div class="method-source-code" id="self_href-3D-source">
             <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 76</span>

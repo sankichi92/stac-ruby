@@ -88,22 +88,13 @@
 
   <section class="description">
     
-<p>Resolves a <a href="../STAC.html"><code>STAC</code></a> object from a URL.</p>
+<p>Resolves a STAC object from a URL.</p>
 
   </section>
 
   <section id="5Buntitled-5D" class="documentation-section">
 
 
-    <section class="constants-list">
-      <header>
-        <h3>Constants</h3>
-      </header>
-      <dl>
-        <dt id="RESOLVABLES">RESOLVABLES
-        <dd>
-      </dl>
-    </section>
 
     <section class="attribute-method-details" class="method-section">
       <header>
@@ -117,7 +108,9 @@
         </div>
 
         <div class="method-description">
-        
+        <p>Sets the default HTTP client.</p>
+
+<p>HTTP client must implement method ‘get: (URI uri) -&gt; String,` which fetches the URI resource through HTTP.</p>
         </div>
       </div>
       <div id="attribute-i-http_client" class="method-detail">
@@ -146,10 +139,10 @@
         </div>
 
         <div class="method-description">
-          
+          <p>Returns the default HTTP client.</p>
 
           <div class="method-source-code" id="default_http_client-source">
-            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 18</span>
+            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">default_http_client</span>
   <span class="ruby-ivar">@default_http_client</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DefaultHTTPClient</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -170,7 +163,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">http_client:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">default_http_client</span>)
   <span class="ruby-ivar">@http_client</span> = <span class="ruby-identifier">http_client</span>
 <span class="ruby-keyword">end</span></pre>
@@ -195,7 +188,7 @@
         </div>
 
         <div class="method-description">
-          <p>Reads a JSON from the given URL and returns a <a href="../STAC.html"><code>STAC</code></a> object resolved from it.</p>
+          <p>Reads a JSON from the given URL and returns a STAC object resolved from it.</p>
 
 <p>Supports the following URL scheme:</p>
 <ul><li>
@@ -210,11 +203,11 @@
 <ul><li>
 <p><a href="UnknownURISchemeError.html"><code>STAC::UnknownURISchemeError</code></a> when a URL with unsupported scheme was given</p>
 </li><li>
-<p><a href="TypeError.html"><code>STAC::TypeError</code></a> when it could not resolve any <a href="../STAC.html"><code>STAC</code></a> objects</p>
+<p><a href="TypeError.html"><code>STAC::TypeError</code></a> when it could not resolve any STAC objects</p>
 </li></ul>
 
           <div class="method-source-code" id="resolve-source">
-            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">resolve</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">str</span> = <span class="ruby-identifier">read</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">str</span>)
