@@ -82,6 +82,8 @@
   <ul class="link-list" role="directory">
     <li class="calls-super" ><a href="#method-c-from_hash">::from_hash</a>
     <li class="calls-super" ><a href="#method-c-new">::new</a>
+    <li ><a href="#method-i-collection">#collection</a>
+    <li ><a href="#method-i-collection-3D">#collection=</a>
     <li class="calls-super" ><a href="#method-i-to_h">#to_h</a>
   </ul>
 </div>
@@ -131,9 +133,9 @@
         
         </div>
       </div>
-      <div id="attribute-i-collection" class="method-detail">
+      <div id="attribute-i-collection_id" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">collection</span><span
+          <span class="method-name">collection_id</span><span
             class="attribute-access-type">[RW]</span>
         </div>
 
@@ -223,7 +225,12 @@
   <span class="ruby-ivar">@properties</span> = <span class="ruby-identifier">properties</span>
   <span class="ruby-ivar">@assets</span> = <span class="ruby-identifier">assets</span>
   <span class="ruby-ivar">@bbox</span> = <span class="ruby-identifier">bbox</span>
-  <span class="ruby-ivar">@collection</span> = <span class="ruby-identifier">collection</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">collection</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Collection</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">collection</span> = <span class="ruby-identifier">collection</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@collection_id</span> = <span class="ruby-identifier">collection</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -237,6 +244,59 @@
        <header>
          <h3>Public Instance Methods</h3>
        </header>
+
+      <div id="method-i-collection" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">collection</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns a rel=“collection” link as a collection object if it exists.</p>
+
+          <div class="method-source-code" id="collection-source">
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collection</span>
+  <span class="ruby-identifier">link</span> = <span class="ruby-identifier">find_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>)
+  <span class="ruby-identifier">link</span>&amp;.<span class="ruby-identifier">target</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-collection-3D" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">collection=</span><span
+            class="method-args">(collection)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Overwrites rel=“collection” link and <a href="Item.html#attribute-i-collection_id"><code>collection_id</code></a> attribute.</p>
+
+          <div class="method-source-code" id="collection-3D-source">
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collection=</span>(<span class="ruby-identifier">collection</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;collection must have a rel=&quot;self&quot; link&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">self_href</span>
+
+  <span class="ruby-ivar">@collection_id</span> = <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-identifier">collection_link</span> = <span class="ruby-constant">Link</span>.<span class="ruby-identifier">new</span>(
+    <span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>,
+    <span class="ruby-value">href:</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">self_href</span>,
+    <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>,
+    <span class="ruby-value">title:</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">title</span>,
+  )
+  <span class="ruby-identifier">remove_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>)
+  <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">collection_link</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
 
       <div id="method-i-to_h" class="method-detail ">
         <div class="method-heading">
@@ -253,7 +313,7 @@
             </div>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 44</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
     {
@@ -264,7 +324,7 @@
       <span class="ruby-string">&#39;bbox&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">bbox</span>,
       <span class="ruby-string">&#39;properties&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">to_h</span>,
       <span class="ruby-string">&#39;assets&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">assets</span>.<span class="ruby-identifier">transform_values</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
-      <span class="ruby-string">&#39;collection&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">collection</span>,
+      <span class="ruby-string">&#39;collection&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">collection_id</span>,
     }.<span class="ruby-identifier">compact</span>,
   )
 <span class="ruby-keyword">end</span></pre>

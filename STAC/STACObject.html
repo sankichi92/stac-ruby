@@ -262,7 +262,7 @@
           <div class="method-source-code" id="self_href-source">
             <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href</span>
-  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;self&#39;</span> }&amp;.<span class="ruby-identifier">href</span>
+  <span class="ruby-identifier">find_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>)&amp;.<span class="ruby-identifier">href</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -286,7 +286,7 @@
             <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href=</span>(<span class="ruby-identifier">absolute_href</span>)
   <span class="ruby-identifier">self_link</span> = <span class="ruby-constant">Link</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>, <span class="ruby-value">href:</span> <span class="ruby-identifier">absolute_href</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>)
-  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;self&#39;</span> }
+  <span class="ruby-identifier">remove_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>)
   <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">self_link</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
