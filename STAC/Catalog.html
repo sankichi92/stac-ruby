@@ -93,9 +93,9 @@
 
   <section class="description">
     
-<p>Represents <a href="../STAC.html"><code>STAC</code></a> catalog.</p>
+<p>Represents STAC catalog.</p>
 
-<p>Spec: <a href="https://github.com/radiantearth/stac-spec/tree/master/catalog-spec">github.com/radiantearth/stac-spec/tree/master/catalog-spec</a></p>
+<p>STAC Catalog Specification: <a href="https://github.com/radiantearth/stac-spec/tree/master/catalog-spec">github.com/radiantearth/stac-spec/tree/master/catalog-spec</a></p>
 
   </section>
 
@@ -178,7 +178,7 @@
         </div>
 
         <div class="method-description">
-          <p>Returns all items from this catalog and its child catalogs recursively.</p>
+          <p>Returns all items from this catalog and its child catalogs/collections recursively.</p>
 
           <div class="method-source-code" id="all_items-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 55</span>
@@ -223,7 +223,7 @@
         </div>
 
         <div class="method-description">
-          <p>Returns child collections of this catalog.</p>
+          <p>Filters only collections from <a href="Catalog.html#method-i-children"><code>children</code></a>.</p>
 
           <div class="method-source-code" id="collections-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 37</span>
