@@ -20,12 +20,12 @@
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
-				"shopify.ruby-lsp",
-				"KoichiSasada.vscode-rdbg",
-				"kaiwood.endwise",
-				"soutaro.rbs-syntax",
+        "shopify.ruby-lsp",
+        "KoichiSasada.vscode-rdbg",
+        "kaiwood.endwise",
+        "soutaro.rbs-syntax",
         "soutaro.steep-vscode"
-			]
+      ]
     }
   },
 
