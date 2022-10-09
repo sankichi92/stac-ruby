@@ -1,18 +1,18 @@
-Sun, 09 Oct 2022 05:36:45 +0000
-README.md	Sun, 09 Oct 2022 05:36:38 +0000
-CHANGELOG.md	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/asset.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/catalog.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/collection.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/default_http_client.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/errors.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/extent.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/item.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/link.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/object_resolver.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/properties.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/provider.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/spec_version.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/stac_object.rb	Sun, 09 Oct 2022 05:36:38 +0000
-lib/stac/version.rb	Sun, 09 Oct 2022 05:36:38 +0000
+Sun, 09 Oct 2022 05:41:34 +0000
+README.md	Sun, 09 Oct 2022 05:41:28 +0000
+CHANGELOG.md	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/asset.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/catalog.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/collection.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/default_http_client.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/errors.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/extent.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/item.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/link.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/object_resolver.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/properties.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/provider.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/spec_version.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/stac_object.rb	Sun, 09 Oct 2022 05:41:28 +0000
+lib/stac/version.rb	Sun, 09 Oct 2022 05:41:28 +0000
