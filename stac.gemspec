@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.metadata['source_code_uri'] = 'https://github.com/sankichi92/stac-ruby'
   spec.metadata['changelog_uri'] = 'https://github.com/sankichi92/stac-ruby/blob/main/CHANGELOG.md'
   spec.metadata['documentation_uri'] = 'https://sankichi92.github.io/stac-ruby/'
+  spec.metadata['github_repo'] = 'https://github.com/sankichi92/stac-ruby.git'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 
