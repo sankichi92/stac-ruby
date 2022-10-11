@@ -65,6 +65,14 @@
 </div>
 
     
+<div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+    <li><a class="include" href="CommonMetadata.html">STAC::CommonMetadata</a>
+  </ul>
+</div>
+
     
     
 <!-- Method Quickref -->
@@ -113,16 +121,6 @@
         
         </div>
       </div>
-      <div id="attribute-i-extra" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">extra</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
     </section>
 
 
@@ -142,7 +140,7 @@
           <p>Deserializes a <a href="Properties.html"><code>Properties</code></a> from a Hash.</p>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/properties.rb, line 12</span>
+            <pre><span class="ruby-comment"># File lib/stac/properties.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">h</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>)
   <span class="ruby-identifier">h</span>[<span class="ruby-value">:datetime</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-value">:datetime</span>] <span class="ruby-operator">?</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">iso8601</span>(<span class="ruby-identifier">h</span>[<span class="ruby-value">:datetime</span>]) <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
@@ -165,10 +163,10 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/properties.rb, line 21</span>
+            <pre><span class="ruby-comment"># File lib/stac/properties.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">datetime:</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@datetime</span> = <span class="ruby-identifier">datetime</span>
-  <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">extra</span> = <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -194,7 +192,7 @@
           <p>Serializes self to a Hash.</p>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/properties.rb, line 27</span>
+            <pre><span class="ruby-comment"># File lib/stac/properties.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;datetime&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">datetime</span>&amp;.<span class="ruby-identifier">iso8601</span>,
