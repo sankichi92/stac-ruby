@@ -1,5 +1,7 @@
 module STAC
   class Asset
+    include CommonMetadata
+
     def self.from_hash: (Hash[String, untyped] hash) -> Asset
 
     attr_accessor href: String

@@ -1,0 +1,34 @@
+module STAC
+  module CommonMetadata
+    attr_accessor extra: Hash[String, untyped]
+    
+    def title: -> String?
+    def title=: (String) -> void
+    def description: -> String?
+    def description=: (String) -> void
+    def created: -> Time?
+    def created=: (Time | String) -> void
+    def updated: -> Time?
+    def updated=: (Time | String) -> void
+    def start_datetime: -> Time?
+    def start_datetime=: (Time | String) -> void
+    def end_datetime: -> Time?
+    def end_datetime=: (Time | String) -> void
+    def datetime_range: -> Range[Time]?
+    def datetime_range=: (Range[Time]) -> void
+    def license: -> String?
+    def license=: (String) -> void
+    def providers: -> Array[Provider]
+    def providers=: (Array[Provider]) -> void
+    def platform: -> String?
+    def platform=: (String) -> void
+    def instruments: -> Array[String]?
+    def instruments=: (Array[String]) -> void
+    def constellation: -> String?
+    def constellation=: (String) -> void
+    def mission: -> String?
+    def mission=: (String) -> void
+    def gsd: -> Numeric
+    def gsd=: (Numeric) -> void
+  end
+end
