@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 require 'time'
+require_relative 'common_metadata'
 
 module STAC
   # Represents \STAC properties object, which is additional metadata for Item.
   #
   # Specification: https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#properties-object
   class Properties
+    include CommonMetadata
+
     class << self
       # Deserializes a Properties from a Hash.
       def from_hash(hash)
@@ -16,11 +19,11 @@ module STAC
       end
     end
 
-    attr_accessor :datetime, :extra
+    attr_accessor :datetime
 
     def initialize(datetime:, **extra)
       @datetime = datetime
-      @extra = extra.transform_keys(&:to_s)
+      self.extra = extra.transform_keys(&:to_s)
     end
 
     # Serializes self to a Hash.

@@ -6,6 +6,9 @@ AllCops:
   TargetRubyVersion: 3.0
   NewCops: enable
 
+Style/GuardClause:
+  Enabled: false
+
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: consistent_comma
 

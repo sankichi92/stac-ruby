@@ -1,5 +1,7 @@
 module STAC
   class Properties
+    include CommonMetadata
+
     def self.from_hash: (Hash[String, untyped] hash) -> Properties
 
     attr_accessor datetime: Time?

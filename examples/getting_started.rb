@@ -38,7 +38,7 @@ end
 # ================
 
 # Get an Item by ID.
-item = catalog.find_item('proj-example', recursive: true)
+item = catalog.find_item('CS3-20160503_132131_08')
 
 # Print core Item metadeata.
 puts 'geometry:'
@@ -52,3 +52,8 @@ p item.collection_id
 
 # Get actual Collection instance instead of ID.
 _collection = item.collection
+
+# Print common metadata.
+puts "instruments: #{item.properties.instruments}"
+puts "platform: #{item.properties.platform}"
+puts "gsd: #{item.properties.gsd}"
