@@ -153,7 +153,7 @@
 <span class="ruby-comment"># ================</span>
 
 <span class="ruby-comment"># Get an Item by ID.</span>
-<span class="ruby-identifier">item</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">find_item</span>(<span class="ruby-string">&#39;proj-example&#39;</span>, <span class="ruby-value">recursive:</span> <span class="ruby-keyword">true</span>)
+<span class="ruby-identifier">item</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">find_item</span>(<span class="ruby-string">&#39;CS3-20160503_132131_08&#39;</span>)
 
 <span class="ruby-comment"># Print core Item metadeata.</span>
 <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;geometry:&#39;</span>
@@ -167,6 +167,11 @@
 
 <span class="ruby-comment"># Get actual Collection instance instead of ID.</span>
 <span class="ruby-identifier">_collection</span> = <span class="ruby-identifier">item</span>.<span class="ruby-identifier">collection</span>
+
+<span class="ruby-comment"># Print common metadata.</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;instruments: #{item.properties.instruments}&quot;</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;platform: #{item.properties.platform}&quot;</span>
+<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;gsd: #{item.properties.gsd}&quot;</span>
 </pre>
 
 <h2 id="label-Documentation">Documentation<span><a href="#label-Documentation">&para;</a> <a href="#top">&uarr;</a></span></h2>
