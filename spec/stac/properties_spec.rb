@@ -14,7 +14,7 @@ RSpec.describe STAC::Properties do
       properties = STAC::Properties.from_hash(hash)
 
       expect(properties).to be_an_instance_of STAC::Properties
-      expect(properties.datetime).to eq Time.new(2022, 10, 8, 13, 27, 30)
+      expect(properties.datetime).to eq Time.parse('2022-10-08T13:27:30Z')
     end
   end
 
