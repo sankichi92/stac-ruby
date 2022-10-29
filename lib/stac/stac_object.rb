@@ -15,7 +15,7 @@ module STAC
       #
       # Raises ArgumentError when any required fields are missing.
       def from_hash(hash)
-        raise TypeError, "type field is not 'Catalog': #{hash['type']}" if hash.fetch('type') != type
+        raise TypeError, "type field is not '#{type}': #{hash['type']}" if hash.fetch('type') != type
 
         transformed = hash.transform_keys(&:to_sym).except(:type, :stac_version)
         transformed[:links] = transformed.fetch(:links).map { |link| Link.from_hash(link) }
