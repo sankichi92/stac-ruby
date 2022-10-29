@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'json'
+require_relative 'default_http_client'
 require_relative 'errors'
 require_relative 'link'
 require_relative 'spec_version'
@@ -27,6 +28,9 @@ module STAC
 
     attr_accessor :id, :stac_extensions, :extra
 
+    # HTTP Client to fetch objects from HTTP HREF links.
+    attr_accessor :http_client
+
     attr_reader :links
 
     def initialize(id:, links:, stac_extensions: nil, **extra)
@@ -37,6 +41,7 @@ module STAC
       end
       @stac_extensions = stac_extensions
       @extra = extra.transform_keys(&:to_s)
+      @http_client = DefaultHTTPClient.new
     end
 
     def type

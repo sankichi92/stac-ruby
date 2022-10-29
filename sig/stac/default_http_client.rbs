@@ -6,4 +6,8 @@ module STAC
 
     def get: (URI uri) -> String
   end
+
+  interface _HTTPClient
+    def get: (URI uri) -> String
+  end
 end

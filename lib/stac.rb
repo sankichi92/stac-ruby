@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'stac/default_http_client'
 require_relative 'stac/object_resolver'
 require_relative 'stac/version'
 
@@ -16,8 +17,8 @@ module STAC
     # Returns a \STAC object resolved from the given URL.
     #
     # When the resolved object does not have rel="self" link, adds a rel="self" link with the give url.
-    def from_url(url, resolver: ObjectResolver.new)
-      object = resolver.resolve(url)
+    def from_url(url, http_client: DefaultHTTPClient.new)
+      object = ObjectResolver.new(http_client: http_client).resolve(url)
       object.self_href = url unless object.self_href
       object
     end

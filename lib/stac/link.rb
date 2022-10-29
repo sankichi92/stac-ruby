@@ -2,6 +2,7 @@
 
 require 'pathname'
 require 'uri'
+require_relative 'default_http_client'
 require_relative 'errors'
 
 module STAC
@@ -53,18 +54,12 @@ module STAC
     # Returns a \STAC object resolved from HREF.
     #
     # When it could not assemble the absolute HREF, it returns nil.
-    def target
+    def target(http_client: owner&.http_client || DefaultHTTPClient.new)
       @target ||= if (url = absolute_href)
-                    object = resolver.resolve(url)
+                    object = ObjectResolver.new(http_client: http_client).resolve(url)
                     object.self_href = url
                     object
                   end
-    end
-
-    private
-
-    def resolver
-      @resolver ||= ObjectResolver.new
     end
   end
 end

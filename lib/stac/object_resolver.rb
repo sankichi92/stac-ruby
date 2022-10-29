@@ -3,30 +3,22 @@
 require 'json'
 require_relative 'catalog'
 require_relative 'collection'
-require_relative 'default_http_client'
 require_relative 'errors'
 require_relative 'item'
 
 module STAC
   # Resolves a \STAC object from a URL.
   class ObjectResolver
-    RESOLVABLES = [Catalog, Collection, Item].freeze # :nodoc:
-
     class << self
-      # Sets the default HTTP client.
-      #
-      # HTTP client must implement method `get: (URI uri) -> String,` which fetches the URI resource through HTTP.
-      attr_writer :default_http_client
-
-      # Returns the default HTTP client.
-      def default_http_client
-        @default_http_client ||= DefaultHTTPClient.new
-      end
+      # Resolvable classes. Default is Catalog, Collection and Item.
+      attr_accessor :resolvables
     end
+
+    self.resolvables = [Catalog, Collection, Item]
 
     attr_reader :http_client
 
-    def initialize(http_client: self.class.default_http_client)
+    def initialize(http_client:)
       @http_client = http_client
     end
 
@@ -43,10 +35,12 @@ module STAC
     def resolve(url)
       str = read(url)
       hash = JSON.parse(str)
-      klass = RESOLVABLES.find { |c| c.type == hash['type'] }
+      klass = self.class.resolvables.find { |c| c.type == hash['type'] }
       raise TypeError, "unknown STAC object type: #{hash['type']}" unless klass
 
-      klass.from_hash(hash)
+      object = klass.from_hash(hash)
+      object.http_client = http_client
+      object
     end
 
     private

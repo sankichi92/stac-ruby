@@ -18,31 +18,26 @@ RSpec.describe STAC do
 
   describe '.from_url' do
     let(:url) { 'https://example.com/catalog' }
-    let(:resolver) { instance_double(STAC::ObjectResolver) }
-
-    let(:spy) { instance_spy(STAC::Catalog) }
+    let(:http_client) { instance_double(STAC::DefaultHTTPClient) }
 
     before do
-      allow(resolver).to receive(:resolve).and_return(spy)
+      allow(http_client).to receive(:get).and_return(
+        {
+          'stac_version' => '1.0.0',
+          'type' => 'Catalog',
+          'id' => '20201211_223832_CS2',
+          'description' => 'A simple catalog example',
+          'links' => [],
+        }.to_json,
+      )
     end
 
     it 'returns a STAC object resolved from the given URL' do
-      object = STAC.from_url(url, resolver: resolver)
+      object = STAC.from_url(url, http_client: http_client)
 
-      expect(resolver).to have_received(:resolve).with(url)
-      expect(object).to eq spy
-    end
-
-    context 'when the resolved object does not have `self_href`' do
-      before do
-        allow(spy).to receive(:self_href).and_return(nil)
-      end
-
-      it 'assigns `self_href` with the given url' do
-        STAC.from_url(url, resolver: resolver)
-
-        expect(spy).to have_received(:self_href=).with(url)
-      end
+      expect(http_client).to have_received(:get).with(URI(url))
+      expect(object).to be_an_instance_of STAC::Catalog
+      expect(object.self_href).to eq url
     end
   end
 end
