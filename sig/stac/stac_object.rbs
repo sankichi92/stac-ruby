@@ -7,6 +7,7 @@ module STAC
     attr_accessor id: String
     attr_accessor stac_extensions: Array[String]?
     attr_accessor extra: Hash[String, untyped]
+    attr_accessor http_client: _HTTPClient
     attr_reader links: Array[Link]
 
     def initialize: (

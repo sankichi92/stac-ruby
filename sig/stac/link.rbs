@@ -8,6 +8,7 @@ module STAC
     attr_accessor title: String?
     attr_accessor extra: Hash[String, untyped]
     attr_accessor owner: STACObject | nil
+    attr_accessor http_client: _HTTPClient
     @target: Catalog | Collection | Item | nil
     @resolver: ObjectResolver
 
@@ -15,7 +16,7 @@ module STAC
 
     def to_h: -> Hash[String, untyped]
     def absolute_href: -> String?
-    def target: -> (Catalog | Collection | Item | nil)
+    def target: (?http_client: _HTTPClient) -> (Catalog | Collection | Item | nil)
 
     private
 
