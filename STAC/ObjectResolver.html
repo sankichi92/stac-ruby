@@ -72,7 +72,6 @@
   <h3>Methods</h3>
 
   <ul class="link-list" role="directory">
-    <li ><a href="#method-c-default_http_client">::default_http_client</a>
     <li ><a href="#method-c-new">::new</a>
     <li ><a href="#method-i-resolve">#resolve</a>
   </ul>
@@ -101,16 +100,14 @@
         <h3>Attributes</h3>
       </header>
 
-      <div id="attribute-c-default_http_client" class="method-detail">
+      <div id="attribute-c-resolvables" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">default_http_client</span><span
-            class="attribute-access-type">[W]</span>
+          <span class="method-name">resolvables</span><span
+            class="attribute-access-type">[RW]</span>
         </div>
 
         <div class="method-description">
-        <p>Sets the default HTTP client.</p>
-
-<p>HTTP client must implement method ‘get: (URI uri) -&gt; String,` which fetches the URI resource through HTTP.</p>
+        <p>Resolvable classes. Default is <a href="Catalog.html"><code>Catalog</code></a>, <a href="Collection.html"><code>Collection</code></a> and <a href="Item.html"><code>Item</code></a>.</p>
         </div>
       </div>
       <div id="attribute-i-http_client" class="method-detail">
@@ -131,31 +128,10 @@
          <h3>Public Class Methods</h3>
        </header>
 
-      <div id="method-c-default_http_client" class="method-detail ">
-        <div class="method-heading">
-          <span class="method-name">default_http_client</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-
-        <div class="method-description">
-          <p>Returns the default HTTP client.</p>
-
-          <div class="method-source-code" id="default_http_client-source">
-            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 22</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">default_http_client</span>
-  <span class="ruby-ivar">@default_http_client</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DefaultHTTPClient</span>.<span class="ruby-identifier">new</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-        </div>
-
-
-      </div>
-
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(http_client: self.class.default_http_client)</span>
+            class="method-args">(http_client:)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -163,8 +139,8 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 29</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">http_client:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">default_http_client</span>)
+            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">http_client:</span>)
   <span class="ruby-ivar">@http_client</span> = <span class="ruby-identifier">http_client</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -207,14 +183,16 @@
 </li></ul>
 
           <div class="method-source-code" id="resolve-source">
-            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">resolve</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">str</span> = <span class="ruby-identifier">read</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">str</span>)
-  <span class="ruby-identifier">klass</span> = <span class="ruby-constant">RESOLVABLES</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">hash</span>[<span class="ruby-string">&#39;type&#39;</span>] }
+  <span class="ruby-identifier">klass</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">resolvables</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">hash</span>[<span class="ruby-string">&#39;type&#39;</span>] }
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;unknown STAC object type: #{hash[&#39;type&#39;]}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">klass</span>
 
-  <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">hash</span>)
+  <span class="ruby-identifier">object</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">hash</span>)
+  <span class="ruby-identifier">object</span>.<span class="ruby-identifier">http_client</span> = <span class="ruby-identifier">http_client</span>
+  <span class="ruby-identifier">object</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
