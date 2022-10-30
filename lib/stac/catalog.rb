@@ -10,10 +10,11 @@ module STAC
   class Catalog < STAC::STACObject
     self.type = 'Catalog'
 
-    attr_accessor :description, :title
+    attr_accessor :id, :description, :title
 
     def initialize(id:, description:, links:, title: nil, stac_extensions: nil, **extra)
-      super(id: id, links: links, stac_extensions: stac_extensions, **extra)
+      super(links: links, stac_extensions: stac_extensions, **extra)
+      @id = id
       @description = description
       @title = title
     end
@@ -22,6 +23,7 @@ module STAC
     def to_h
       super.merge(
         {
+          'id' => id,
           'title' => title,
           'description' => description,
         }.compact,

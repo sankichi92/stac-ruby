@@ -4,14 +4,13 @@ module STAC
     
     def self.from_hash: (Hash[String, untyped]) -> STACObject
     
-    attr_accessor id: String
     attr_accessor stac_extensions: Array[String]?
     attr_accessor extra: Hash[String, untyped]
     attr_accessor http_client: _HTTPClient
     attr_reader links: Array[Link]
 
     def initialize: (
-      id: String, links: Array[Link], ?stac_extensions: Array[String]?, **untyped
+      links: Array[Link], ?stac_extensions: Array[String]?, **untyped
     ) -> void
 
     def type: -> String

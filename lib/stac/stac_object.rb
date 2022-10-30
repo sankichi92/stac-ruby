@@ -25,15 +25,14 @@ module STAC
       end
     end
 
-    attr_accessor :id, :stac_extensions, :extra
+    attr_accessor :stac_extensions, :extra
 
     # HTTP Client to fetch objects from HTTP HREF links.
     attr_accessor :http_client
 
     attr_reader :links
 
-    def initialize(id:, links:, stac_extensions: nil, **extra)
-      @id = id
+    def initialize(links:, stac_extensions: nil, **extra)
       @links = []
       links.each do |link|
         add_link(link) # to set `owner`
@@ -53,7 +52,6 @@ module STAC
         'type' => type,
         'stac_version' => SPEC_VERSION,
         'stac_extensions' => stac_extensions,
-        'id' => id,
         'links' => links.map(&:to_h),
       }.merge(extra).compact
     end

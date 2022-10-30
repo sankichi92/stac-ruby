@@ -2,6 +2,7 @@ module STAC
   class Item < STACObject
     def self.from_hash: (Hash[String, untyped] hash) -> Item
 
+    attr_accessor id: String
     attr_accessor geometry: Hash[String, untyped]?
     attr_accessor properties: Properties
     attr_accessor assets: Hash[String, Asset]

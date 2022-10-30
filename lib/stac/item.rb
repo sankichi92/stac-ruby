@@ -23,12 +23,13 @@ module STAC
       end
     end
 
-    attr_accessor :geometry, :bbox, :properties, :assets, :collection_id
+    attr_accessor :id, :geometry, :bbox, :properties, :assets, :collection_id
 
     def initialize(
       id:, geometry:, properties:, links:, assets:, bbox: nil, collection: nil, stac_extensions: nil, **extra
     )
-      super(id: id, links: links, stac_extensions: stac_extensions, **extra)
+      super(links: links, stac_extensions: stac_extensions, **extra)
+      @id = id
       @geometry = geometry
       @properties = properties
       @assets = assets
@@ -48,6 +49,7 @@ module STAC
         },
       ).merge(
         {
+          'id' => id,
           'bbox' => bbox,
           'properties' => properties.to_h,
           'assets' => assets.transform_values(&:to_h),

@@ -2,6 +2,7 @@ module STAC
   class Catalog < STACObject
     def self.from_hash: (Hash[String, untyped] hash) -> Catalog
 
+    attr_accessor id: String
     attr_accessor description: String
     attr_accessor title: String?
     
