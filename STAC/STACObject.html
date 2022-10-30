@@ -126,16 +126,6 @@
         <p>HTTP Client to fetch objects from HTTP HREF links.</p>
         </div>
       </div>
-      <div id="attribute-i-id" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">id</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
       <div id="attribute-i-links" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">links</span><span
@@ -196,7 +186,7 @@
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(id:, links:, stac_extensions: nil, **extra)</span>
+            class="method-args">(links:, stac_extensions: nil, **extra)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -205,8 +195,7 @@
 
           <div class="method-source-code" id="new-source">
             <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 35</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">links:</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
-  <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">id</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">links:</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@links</span> = []
   <span class="ruby-identifier">links</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">link</span>) <span class="ruby-comment"># to set `owner`</span>
@@ -239,7 +228,7 @@
           <p>Adds a link with setting <a href="Link.html#attribute-i-owner"><code>Link#owner</code></a> as self.</p>
 
           <div class="method-source-code" id="add_link-source">
-            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 67</span>
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 65</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_link</span>(<span class="ruby-identifier">link</span>)
   <span class="ruby-identifier">link</span>.<span class="ruby-identifier">owner</span> = <span class="ruby-keyword">self</span>
   <span class="ruby-identifier">links</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">link</span>
@@ -261,7 +250,7 @@
           <p>Reterns HREF of the rel=“self” link.</p>
 
           <div class="method-source-code" id="self_href-source">
-            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 73</span>
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 71</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href</span>
   <span class="ruby-identifier">find_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>)&amp;.<span class="ruby-identifier">href</span>
 <span class="ruby-keyword">end</span></pre>
@@ -284,7 +273,7 @@
 <p>When any ref=“self” links already exist, removes them.</p>
 
           <div class="method-source-code" id="self_href-3D-source">
-            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 80</span>
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href=</span>(<span class="ruby-identifier">absolute_href</span>)
   <span class="ruby-identifier">self_link</span> = <span class="ruby-constant">Link</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>, <span class="ruby-value">href:</span> <span class="ruby-identifier">absolute_href</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>)
   <span class="ruby-identifier">remove_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>)
@@ -307,13 +296,12 @@
           <p>Serializes self to a Hash.</p>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 51</span>
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;type&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">type</span>,
     <span class="ruby-string">&#39;stac_version&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">SPEC_VERSION</span>,
     <span class="ruby-string">&#39;stac_extensions&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">stac_extensions</span>,
-    <span class="ruby-string">&#39;id&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">id</span>,
     <span class="ruby-string">&#39;links&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">links</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_h</span>),
   }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">extra</span>).<span class="ruby-identifier">compact</span>
 <span class="ruby-keyword">end</span></pre>
@@ -334,7 +322,7 @@
           <p>Serializes self to a JSON string.</p>
 
           <div class="method-source-code" id="to_json-source">
-            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 62</span>
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_json</span>(<span class="ruby-operator">...</span>)
   <span class="ruby-identifier">to_h</span>.<span class="ruby-identifier">to_json</span>(<span class="ruby-operator">...</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -355,7 +343,7 @@
           
 
           <div class="method-source-code" id="type-source">
-            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 46</span>
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">type</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">type</span>
 <span class="ruby-keyword">end</span></pre>
