@@ -7,7 +7,7 @@ require_relative 'version'
 
 module STAC
   # Simple HTTP Client using OpenURI.
-  class DefaultHTTPClient
+  class SimpleHTTPClient
     attr_reader :options
 
     def initialize(options = { 'User-Agent' => "stac-ruby v#{VERSION}" })

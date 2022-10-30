@@ -18,7 +18,7 @@ RSpec.describe STAC do
 
   describe '.from_url' do
     let(:url) { 'https://example.com/catalog' }
-    let(:http_client) { instance_double(STAC::DefaultHTTPClient) }
+    let(:http_client) { instance_double(STAC::SimpleHTTPClient) }
 
     before do
       allow(http_client).to receive(:get).and_return(

@@ -1,13 +1,9 @@
 module STAC
-  class DefaultHTTPClient
+  class SimpleHTTPClient
     attr_reader options: Hash[String, String]
 
     def initialize: (?Hash[String, String] options) -> void
 
-    def get: (URI::Generic | String url) -> Hash[String, untyped]
-  end
-
-  interface _HTTPClient
     def get: (URI::Generic | String url) -> Hash[String, untyped]
   end
 end

@@ -3,7 +3,7 @@
 RSpec.describe STAC::ObjectResolver do
   subject(:resolver) { STAC::ObjectResolver.new(http_client: http_client) }
 
-  let(:http_client) { instance_double(STAC::DefaultHTTPClient) }
+  let(:http_client) { instance_double(STAC::SimpleHTTPClient) }
 
   describe '#resolve' do
     let(:url) { 'https://example.com/catalog' }
