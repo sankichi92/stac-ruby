@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'json'
-require_relative 'default_http_client'
 require_relative 'errors'
 require_relative 'link'
 require_relative 'spec_version'
@@ -41,7 +40,7 @@ module STAC
       end
       @stac_extensions = stac_extensions
       @extra = extra.transform_keys(&:to_s)
-      @http_client = DefaultHTTPClient.new
+      @http_client = STAC.default_http_client
     end
 
     def type

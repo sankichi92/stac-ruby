@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe STAC::DefaultHTTPClient do
-  subject(:client) { STAC::DefaultHTTPClient.new }
+RSpec.describe STAC::SimpleHTTPClient do
+  subject(:client) { STAC::SimpleHTTPClient.new }
 
   describe '#get' do
     let(:url) { 'https://example.com' }
