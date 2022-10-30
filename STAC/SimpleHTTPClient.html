@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class STAC::DefaultHTTPClient - stac-ruby API docs</title>
+<title>class STAC::SimpleHTTPClient - stac-ruby API docs</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -80,9 +80,9 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-STAC::DefaultHTTPClient">
-  <h1 id="class-STAC::DefaultHTTPClient" class="class">
-    class STAC::DefaultHTTPClient
+<main role="main" aria-labelledby="class-STAC::SimpleHTTPClient">
+  <h1 id="class-STAC::SimpleHTTPClient" class="class">
+    class STAC::SimpleHTTPClient
   </h1>
 
   <section class="description">
@@ -129,7 +129,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/default_http_client.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/stac/simple_http_client.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">options</span> = { <span class="ruby-string">&#39;User-Agent&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;stac-ruby v#{VERSION}&quot;</span> })
   <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>
 <span class="ruby-keyword">end</span></pre>
@@ -159,7 +159,7 @@
 <p>Raises <a href="HTTPError.html"><code>STAC::HTTPError</code></a> when the response status is not 2XX.</p>
 
           <div class="method-source-code" id="get-source">
-            <pre><span class="ruby-comment"># File lib/stac/default_http_client.rb, line 20</span>
+            <pre><span class="ruby-comment"># File lib/stac/simple_http_client.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">body</span> = <span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>).<span class="ruby-identifier">read</span>(<span class="ruby-identifier">options</span>)
   <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">body</span>)

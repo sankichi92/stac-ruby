@@ -82,11 +82,15 @@
 
 <h2 id="label-5BUnreleased-5D">[Unreleased]<span><a href="#label-5BUnreleased-5D">&para;</a> <a href="#top">&uarr;</a></span></h2>
 <ul><li>
-<p>Change <code>DefaultHTTPClient#get</code> return type: String =&gt; Hash (parsed JSON).</p>
-</li><li>
 <p>Add <code>STAC::CommonMetadata</code> and make <code>Asset</code> and <code>Properties</code> include it.</p>
 </li><li>
 <p>Make <code>http_client</code> instance variable of <code>STACObject</code> instead of class instance variable of <code>ObjectResolver</code>.</p>
+</li><li>
+<p>Change <code>DefaultHTTPClient#get</code> return type: String =&gt; Hash (parsed JSON).</p>
+</li><li>
+<p>Rename <code>DefaultHTTPClient</code> =&gt; <code>SimpleHTTPClient</code>.</p>
+</li><li>
+<p>Enable to change the default HTTP client via <code>STAC.default_http_client</code>.</p>
 </li></ul>
 
 <h2 id="label-5B0.1.0-5D+-+2022-10-09">[0.1.0] - 2022-10-09<span><a href="#label-5B0.1.0-5D+-+2022-10-09">&para;</a> <a href="#top">&uarr;</a></span></h2>

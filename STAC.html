@@ -102,6 +102,22 @@
       </dl>
     </section>
 
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      <div id="attribute-c-default_http_client" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">default_http_client</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        </div>
+      </div>
+    </section>
 
 
      <section id="public-class-5Buntitled-5D-method-details" class="method-section">
@@ -120,7 +136,7 @@
           <p>Returns a STAC object resolved from the given file path.</p>
 
           <div class="method-source-code" id="from_file-source">
-            <pre><span class="ruby-comment"># File lib/stac.rb, line 13</span>
+            <pre><span class="ruby-comment"># File lib/stac.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_file</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-identifier">from_url</span>(<span class="ruby-node">&quot;file://#{File.expand_path(path)}&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -133,7 +149,7 @@
       <div id="method-c-from_url" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">from_url</span><span
-            class="method-args">(url, http_client: DefaultHTTPClient.new)</span>
+            class="method-args">(url, http_client: default_http_client)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -143,8 +159,8 @@
 <p>When the resolved object does not have rel=“self” link, adds a rel=“self” link with the give url.</p>
 
           <div class="method-source-code" id="from_url-source">
-            <pre><span class="ruby-comment"># File lib/stac.rb, line 20</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_url</span>(<span class="ruby-identifier">url</span>, <span class="ruby-value">http_client:</span> <span class="ruby-constant">DefaultHTTPClient</span>.<span class="ruby-identifier">new</span>)
+            <pre><span class="ruby-comment"># File lib/stac.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_url</span>(<span class="ruby-identifier">url</span>, <span class="ruby-value">http_client:</span> <span class="ruby-identifier">default_http_client</span>)
   <span class="ruby-identifier">object</span> = <span class="ruby-constant">ObjectResolver</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">http_client:</span> <span class="ruby-identifier">http_client</span>).<span class="ruby-identifier">resolve</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">object</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-identifier">url</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">self_href</span>
   <span class="ruby-identifier">object</span>
