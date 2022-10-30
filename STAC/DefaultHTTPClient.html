@@ -129,7 +129,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/default_http_client.rb, line 12</span>
+            <pre><span class="ruby-comment"># File lib/stac/default_http_client.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">options</span> = { <span class="ruby-string">&#39;User-Agent&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;stac-ruby v#{VERSION}&quot;</span> })
   <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>
 <span class="ruby-keyword">end</span></pre>
@@ -149,19 +149,20 @@
       <div id="method-i-get" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">get</span><span
-            class="method-args">(uri)</span>
+            class="method-args">(url)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
-          <p>Makes a HTTP request and returns the response body as String.</p>
+          <p>Makes a HTTP request and returns the responded JSON as Hash.</p>
 
 <p>Raises <a href="HTTPError.html"><code>STAC::HTTPError</code></a> when the response status is not 2XX.</p>
 
           <div class="method-source-code" id="get-source">
-            <pre><span class="ruby-comment"># File lib/stac/default_http_client.rb, line 19</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get</span>(<span class="ruby-identifier">uri</span>)
-  <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">options</span>)
+            <pre><span class="ruby-comment"># File lib/stac/default_http_client.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get</span>(<span class="ruby-identifier">url</span>)
+  <span class="ruby-identifier">body</span> = <span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>).<span class="ruby-identifier">read</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">OpenURI</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">HTTPError</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>
 <span class="ruby-keyword">end</span></pre>

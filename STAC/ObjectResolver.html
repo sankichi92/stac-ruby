@@ -185,8 +185,7 @@
           <div class="method-source-code" id="resolve-source">
             <pre><span class="ruby-comment"># File lib/stac/object_resolver.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">resolve</span>(<span class="ruby-identifier">url</span>)
-  <span class="ruby-identifier">str</span> = <span class="ruby-identifier">read</span>(<span class="ruby-identifier">url</span>)
-  <span class="ruby-identifier">hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">str</span>)
+  <span class="ruby-identifier">hash</span> = <span class="ruby-identifier">read</span>(<span class="ruby-identifier">url</span>)
   <span class="ruby-identifier">klass</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">resolvables</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">hash</span>[<span class="ruby-string">&#39;type&#39;</span>] }
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;unknown STAC object type: #{hash[&#39;type&#39;]}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">klass</span>
 
