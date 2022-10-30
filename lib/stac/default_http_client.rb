@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'json'
 require 'open-uri'
 require_relative 'errors'
 require_relative 'version'
@@ -13,11 +14,12 @@ module STAC
       @options = options
     end
 
-    # Makes a HTTP request and returns the response body as String.
+    # Makes a HTTP request and returns the responded JSON as Hash.
     #
     # Raises STAC::HTTPError when the response status is not 2XX.
-    def get(uri)
-      uri.read(options)
+    def get(url)
+      body = URI(url).read(options)
+      JSON.parse(body)
     rescue OpenURI::HTTPError => e
       raise HTTPError, e.message
     end

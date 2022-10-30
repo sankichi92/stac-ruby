@@ -33,8 +33,7 @@ module STAC
     # - STAC::UnknownURISchemeError when a URL with unsupported scheme was given
     # - STAC::TypeError when it could not resolve any \STAC objects
     def resolve(url)
-      str = read(url)
-      hash = JSON.parse(str)
+      hash = read(url)
       klass = self.class.resolvables.find { |c| c.type == hash['type'] }
       raise TypeError, "unknown STAC object type: #{hash['type']}" unless klass
 
@@ -51,7 +50,8 @@ module STAC
       when URI::HTTP
         http_client.get(uri)
       when URI::File
-        File.read(uri.path.to_s)
+        str = File.read(uri.path.to_s)
+        JSON.parse(str)
       else
         raise UnknownURISchemeError, "unknown URI scheme: #{url}"
       end

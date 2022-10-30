@@ -28,7 +28,7 @@ RSpec.describe STAC do
           'id' => '20201211_223832_CS2',
           'description' => 'A simple catalog example',
           'links' => [],
-        }.to_json,
+        },
       )
     end
 
