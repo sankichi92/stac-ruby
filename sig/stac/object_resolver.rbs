@@ -19,6 +19,6 @@ module STAC
 
   interface _STACObjectClass
     def type: -> String
-    def from_hash: (Hash[String, untyped] hash) -> (Catalog | Collection | Item)
+    def from_hash: (Hash[String, untyped] hash) -> untyped
   end
 end
