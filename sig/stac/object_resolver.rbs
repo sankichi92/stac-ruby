@@ -14,7 +14,7 @@ module STAC
 
     private
 
-    def read: (String url) -> String
+    def read: (String url) -> Hash[String, untyped]
   end
 
   interface _STACObjectClass

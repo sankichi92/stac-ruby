@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- Change `DefaultHTTPClient#get` return type: String => Hash (parsed JSON).
 - Add `STAC::CommonMetadata` and make `Asset` and `Properties` include it.
 - Make `http_client` instance variable of `STACObject` instead of class instance variable of `ObjectResolver`.
 

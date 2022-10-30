@@ -10,7 +10,7 @@ RSpec.describe STAC::ObjectResolver do
 
     before do
       allow(http_client).to receive(:get).and_return(
-        File.read(File.expand_path('../../stac-spec/examples/catalog.json', __dir__)),
+        JSON.parse(File.read(File.expand_path('../../stac-spec/examples/catalog.json', __dir__))),
       )
     end
 
@@ -42,7 +42,7 @@ RSpec.describe STAC::ObjectResolver do
 
     context 'when it could not resolve any STAC objects' do
       before do
-        allow(http_client).to receive(:get).and_return('{}')
+        allow(http_client).to receive(:get).and_return({})
       end
 
       it 'raises STAC::TypeError' do

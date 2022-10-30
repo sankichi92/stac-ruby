@@ -6,13 +6,13 @@ RSpec.describe STAC::DefaultHTTPClient do
   describe '#get' do
     let(:url) { 'https://example.com' }
 
-    it 'makes a HTTP request and returns the response body as String' do
-      request = stub_request(:get, url).to_return(body: 'body')
+    it 'makes a HTTP GET request and returns the responded JSON as Hash' do
+      request = stub_request(:get, url).to_return(body: { foo: 'bar' }.to_json)
 
-      response = client.get(URI(url))
+      response = client.get(url)
 
       expect(request.with(headers: { 'User-Agent' => /\Astac-ruby/ })).to have_been_made
-      expect(response).to eq 'body'
+      expect(response).to eq({ 'foo' => 'bar' })
     end
 
     context 'when the response status is not 2XX' do
@@ -21,7 +21,7 @@ RSpec.describe STAC::DefaultHTTPClient do
       end
 
       it 'raises STAC::HTTPError' do
-        expect { client.get(URI(url)) }.to raise_error STAC::HTTPError
+        expect { client.get(url) }.to raise_error STAC::HTTPError
       end
     end
   end

@@ -32,5 +32,6 @@ jobs:
         run: bundle exec rake
         env:
           RBS_TEST_TARGET: STAC::*
+          RBS_TEST_OPT: -r uri -I sig
           RUBYOPT: -r bundler/setup -r rbs/test/setup
           RBS_TEST_LOGLEVEL: warn

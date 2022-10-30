@@ -4,10 +4,10 @@ module STAC
 
     def initialize: (?Hash[String, String] options) -> void
 
-    def get: (URI uri) -> String
+    def get: (URI::Generic | String url) -> Hash[String, untyped]
   end
 
   interface _HTTPClient
-    def get: (URI uri) -> String
+    def get: (URI::Generic | String url) -> Hash[String, untyped]
   end
 end
