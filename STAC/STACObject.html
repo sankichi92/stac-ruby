@@ -75,6 +75,7 @@
     <li ><a href="#method-c-from_hash">::from_hash</a>
     <li ><a href="#method-c-new">::new</a>
     <li ><a href="#method-i-add_link">#add_link</a>
+    <li ><a href="#method-i-find_link">#find_link</a>
     <li ><a href="#method-i-self_href">#self_href</a>
     <li ><a href="#method-i-self_href-3D">#self_href=</a>
     <li ><a href="#method-i-to_h">#to_h</a>
@@ -232,6 +233,33 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_link</span>(<span class="ruby-identifier">link</span>)
   <span class="ruby-identifier">link</span>.<span class="ruby-identifier">owner</span> = <span class="ruby-keyword">self</span>
   <span class="ruby-identifier">links</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">link</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-find_link" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">find_link</span><span
+            class="method-args">(rel:, type: nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns a link matching the arguments.</p>
+
+          <div class="method-source-code" id="find_link-source">
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">find_link</span>(<span class="ruby-value">rel:</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">find</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span>
+      <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">rel</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">type</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">rel</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
