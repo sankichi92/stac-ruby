@@ -19,10 +19,10 @@ module STAC
     def add_link: (Link) -> Array[Link]
     def self_href: -> String?
     def self_href=: (String) -> void
+    def find_link: (rel: String, ?type: String?) -> Link?
 
     private
 
-    def find_link: (rel: String) -> Link?
     def remove_link: (rel: String) -> Array[Link]?
   end
 end

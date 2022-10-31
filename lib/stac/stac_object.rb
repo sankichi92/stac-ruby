@@ -81,11 +81,18 @@ module STAC
       add_link(self_link)
     end
 
-    private
-
-    def find_link(rel:)
-      links.find { |link| link.rel == rel }
+    # Returns a link matching the arguments.
+    def find_link(rel:, type: nil)
+      links.find do |link|
+        if type
+          link.rel == rel && link.type == type
+        else
+          link.rel == rel
+        end
+      end
     end
+
+    private
 
     def remove_link(rel:)
       links.reject! { |link| link.rel == rel }
