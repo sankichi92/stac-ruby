@@ -3,7 +3,7 @@ module STAC
   attr_accessor self.default_http_client: _HTTPClient
 
   def self.from_file: (String path) -> (Catalog | Collection | Item)
-  %a{rbs:test:skip} def self.from_url: (String url, ?http_client: _HTTPClient) -> (Catalog | Collection | Item)
+  def self.from_url: (String url, ?http_client: _HTTPClient) -> (Catalog | Collection | Item)
 
   interface _HTTPClient
     def get: (URI::Generic | String url) -> Hash[String, untyped]
