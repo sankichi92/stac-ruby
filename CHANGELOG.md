@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.2.0] - 2022-11-02
+
 - Add `STAC::CommonMetadata` and make `Asset` and `Properties` include it.
 - Make `http_client` instance variable of `STACObject` instead of class instance variable of `ObjectResolver`.
 - Change `DefaultHTTPClient#get` return type: String => Hash (parsed JSON).
