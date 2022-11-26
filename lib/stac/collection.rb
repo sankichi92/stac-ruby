@@ -37,16 +37,16 @@ module STAC
       providers: nil,
       summaries: nil,
       assets: nil,
-      stac_extensions: nil,
+      stac_extensions: [],
       **extra
     )
-      super(id: id, description: description, links: links, title: title, stac_extensions: stac_extensions, **extra)
       @license = license
       @extent = extent
       @keywords = keywords
       @providers = providers
       @summaries = summaries
       @assets = assets
+      super(id: id, description: description, links: links, title: title, stac_extensions: stac_extensions, **extra)
     end
 
     # Serializes self to a Hash.

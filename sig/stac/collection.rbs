@@ -20,7 +20,7 @@ module STAC
       ?providers: Array[Provider]?,
       ?summaries: Hash[String, untyped]?,
       ?assets: Hash[String, Asset]?,
-      ?stac_extensions: Array[String]?,
+      ?stac_extensions: Array[String],
       **untyped
     ) -> void
 

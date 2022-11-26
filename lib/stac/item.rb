@@ -23,12 +23,13 @@ module STAC
       end
     end
 
-    attr_accessor :id, :geometry, :bbox, :properties, :assets, :collection_id
+    attr_accessor :id, :geometry, :bbox, :collection_id
+
+    attr_reader :properties, :assets
 
     def initialize(
-      id:, geometry:, properties:, links:, assets:, bbox: nil, collection: nil, stac_extensions: nil, **extra
+      id:, geometry:, properties:, links:, assets:, bbox: nil, collection: nil, stac_extensions: [], **extra
     )
-      super(links: links, stac_extensions: stac_extensions, **extra)
       @id = id
       @geometry = geometry
       @properties = properties
@@ -40,6 +41,7 @@ module STAC
       else
         @collection_id = collection
       end
+      super(links: links, stac_extensions: stac_extensions, **extra)
     end
 
     def to_h
@@ -82,6 +84,24 @@ module STAC
       )
       remove_link(rel: 'collection')
       add_link(collection_link)
+    end
+
+    # Adds an asset with the given key.
+    #
+    # When the item has extendable stac_extensions, make the asset extend the extension modules.
+    def add_asset(asset, key:)
+      asset = asset.dup
+      extensions.each do |extension_module|
+        asset.extend(extension_module)
+      end
+      assets[key] = asset
+    end
+
+    private
+
+    def apply_extension!(extension_module)
+      properties.extend(extension_module)
+      assets.each_value { |asset| asset.extend(extension_module) }
     end
   end
 end

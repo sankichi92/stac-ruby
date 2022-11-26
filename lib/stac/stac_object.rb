@@ -8,6 +8,18 @@ require_relative 'spec_version'
 module STAC
   # Base class for \STAC objects (i.e. Catalog, Collection and Item).
   class STACObject
+    @@extendables = {} # rubocop:disable Style/ClassVars
+
+    # Returns available extension modules.
+    def self.extendables
+      @@extendables.values.uniq
+    end
+
+    # Adds the given extension module to .extendables.
+    def self.add_extendable(extendable)
+      @@extendables[extendable.identifier] = extendable
+    end
+
     class << self
       attr_accessor :type # :nodoc:
 
@@ -25,14 +37,14 @@ module STAC
       end
     end
 
-    attr_accessor :stac_extensions, :extra
+    attr_accessor :extra
 
     # HTTP Client to fetch objects from HTTP HREF links.
     attr_accessor :http_client
 
-    attr_reader :links
+    attr_reader :stac_extensions, :links
 
-    def initialize(links:, stac_extensions: nil, **extra)
+    def initialize(links:, stac_extensions: [], **extra)
       @links = []
       links.each do |link|
         add_link(link) # to set `owner`
@@ -40,6 +52,7 @@ module STAC
       @stac_extensions = stac_extensions
       @extra = extra.transform_keys(&:to_s)
       @http_client = STAC.default_http_client
+      apply_extensions!
     end
 
     def type
@@ -51,7 +64,7 @@ module STAC
       {
         'type' => type,
         'stac_version' => SPEC_VERSION,
-        'stac_extensions' => stac_extensions,
+        'stac_extensions' => stac_extensions.empty? ? nil : stac_extensions,
         'links' => links.map(&:to_h),
       }.merge(extra).compact
     end
@@ -59,6 +72,19 @@ module STAC
     # Serializes self to a JSON string.
     def to_json(...)
       to_h.to_json(...)
+    end
+
+    def add_extension(extension)
+      case extension
+      when Extendable
+        stac_extensions << extension.identifier
+        apply_extension!(extension)
+      else
+        stac_extensions << extension
+        if (exetndable = @@extendables[extension]) && exetndable.scope.include?(self.class)
+          apply_extension!(exetndable)
+        end
+      end
     end
 
     # Adds a link with setting Link#owner as self.
@@ -93,6 +119,21 @@ module STAC
     end
 
     private
+
+    def extensions
+      stac_extensions
+        .map { |extension_id| @@extendables[extension_id] }
+        .compact
+        .select { |exetndable| exetndable.scope.include?(self.class) }
+    end
+
+    def apply_extensions!
+      extensions.each do |extension_module|
+        apply_extension!(extension_module)
+      end
+    end
+
+    def apply_extension!(_extension_module); end
 
     def remove_link(rel:)
       links.reject! { |link| link.rel == rel }

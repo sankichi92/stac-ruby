@@ -1,0 +1,6 @@
+module STAC
+  module Extendable
+    attr_accessor identifier: String
+    attr_accessor scope: Array[Class]
+  end
+end

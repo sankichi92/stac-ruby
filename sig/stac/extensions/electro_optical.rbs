@@ -1,0 +1,33 @@
+module STAC
+  module Extensions
+    module ElectroOptical
+      extend Extendable
+
+      attr_reader extra: Hash[String, untyped]
+
+      def eo_bands: -> Array[Band]
+      def eo_bands=: (Array[Hash[String, untyped]]) -> void
+      def eo_cloud_cover: -> Numeric?
+      def eo_cloud_cover=: (Numeric) -> void
+                     
+      class Band
+        attr_reader raw_hash: Hash[String, untyped]
+
+        def initialize: (Hash[String, untyped] raw_hash) -> void
+        
+        def name: -> String?
+        def name=: (String) -> void
+        def common_name: -> String?
+        def common_name=: (String) -> void
+        def description: -> String?
+        def description=: (String) -> void
+        def center_wavelength: -> Numeric?
+        def center_wavelength=: (Numeric) -> void
+        def full_width_half_max: -> Numeric?
+        def full_width_half_max=: (Numeric) -> void
+        def solar_illumination: -> Numeric?
+        def solar_illumination=: (Numeric) -> void
+      end
+    end
+  end
+end

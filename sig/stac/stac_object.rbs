@@ -1,21 +1,26 @@
 module STAC
   class STACObject
+    @@extendables: Hash[String, Extendable]
+    
     attr_accessor self.type: String
     
+    def self.extendables: -> Array[Extendable]
+    def self.add_extendable: (Extendable) -> void
     def self.from_hash: (Hash[String, untyped]) -> STACObject
     
-    attr_accessor stac_extensions: Array[String]?
+    attr_accessor stac_extensions: Array[String]
     attr_accessor extra: Hash[String, untyped]
     attr_accessor http_client: _HTTPClient
     attr_reader links: Array[Link]
 
     def initialize: (
-      links: Array[Link], ?stac_extensions: Array[String]?, **untyped
+      links: Array[Link], ?stac_extensions: Array[String], **untyped
     ) -> void
 
     def type: -> String
     def to_h: -> Hash[String, untyped]
     def to_json: -> String
+    def add_extension: (Extendable | String) -> void
     def add_link: (Link) -> Array[Link]
     def self_href: -> String?
     def self_href=: (String) -> void
@@ -23,6 +28,9 @@ module STAC
 
     private
 
+    def extensions: -> Array[Extendable]
+    def apply_extensions!: -> void
+    def apply_extension!: (Module) -> void
     def remove_link: (rel: String) -> Array[Link]?
   end
 end

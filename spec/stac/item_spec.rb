@@ -37,7 +37,7 @@ RSpec.describe STAC::Item do
 
   describe '#to_h' do
     it 'serializes self to a Hash' do
-      expect(item.to_h.except('links')).to eq JSON.parse(File.read(item_path)).except('links')
+      expect(item.to_h.except('links')).to eq JSON.parse(File.read(item_path)).except('links', 'stac_extensions')
     end
   end
 
@@ -59,6 +59,28 @@ RSpec.describe STAC::Item do
       collection_links = item.links.select { |l| l.rel == 'collection' }
       expect(collection_links.size).to eq 1
       expect(collection_links.first.title).to eq 'Sentinel-2 MSI: MultiSpectral Instrument, Level-1C'
+    end
+  end
+
+  describe '#add_asset' do
+    let(:asset) { STAC::Asset.new(href: './asset.tiff') }
+
+    it 'adds an asset' do
+      item.add_asset(asset, key: 'thumbnail')
+
+      expect(item.assets['thumbnail'].to_h).to eq asset.to_h
+    end
+
+    context 'when the item has a stac_extension' do
+      before do
+        item.add_extension(STAC::Extensions::ElectroOptical)
+      end
+
+      it 'adds an asset with extension' do
+        item.add_asset(asset, key: 'thumbnail')
+
+        expect(item.assets['thumbnail']).to be_a STAC::Extensions::ElectroOptical
+      end
     end
   end
 end
