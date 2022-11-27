@@ -9,9 +9,7 @@ RSpec.describe STAC::ObjectResolver do
     let(:url) { 'https://example.com/catalog' }
 
     before do
-      allow(http_client).to receive(:get).and_return(
-        JSON.parse(File.read(File.expand_path('../../stac-spec/examples/catalog.json', __dir__))),
-      )
+      allow(http_client).to receive(:get).and_return(read_fixture_as_json('stac-spec/catalog.json'))
     end
 
     it 'opens the given URL and returns a STAC object' do
@@ -22,7 +20,7 @@ RSpec.describe STAC::ObjectResolver do
     end
 
     context 'with file:// URL' do
-      let(:url) { "file://#{File.expand_path('../../stac-spec/examples/catalog.json', __dir__)}" }
+      let(:url) { "file://#{fixture_path('stac-spec/catalog.json')}" }
 
       it 'opens a file and returns a STAC object' do
         object = resolver.resolve(url)

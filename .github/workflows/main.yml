@@ -22,11 +22,14 @@ jobs:
         with:
           submodules: true
 
-      - name: Set up Ruby
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+
+      - name: Setup spec/fixtures
+        run: bundle exec rake fixture:setup
 
       - name: Run the default task
         run: bundle exec rake

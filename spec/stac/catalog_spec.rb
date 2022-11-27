@@ -3,7 +3,7 @@
 RSpec.describe STAC::Catalog do
   subject(:catalog) { STAC.from_file(catalog_path) }
 
-  let(:catalog_path) { File.expand_path('../../stac-spec/examples/catalog.json', __dir__) }
+  let(:catalog_path) { fixture_path('stac-spec/catalog.json') }
 
   describe '.from_hash' do
     let(:hash) do

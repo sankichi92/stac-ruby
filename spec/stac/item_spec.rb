@@ -3,7 +3,7 @@
 RSpec.describe STAC::Item do
   subject(:item) { STAC.from_file(item_path) }
 
-  let(:item_path) { File.expand_path('../../stac-spec/examples/core-item.json', __dir__) }
+  let(:item_path) { fixture_path('stac-spec/core-item.json') }
 
   describe '.from_hash' do
     let(:hash) do
@@ -51,9 +51,7 @@ RSpec.describe STAC::Item do
 
   describe '#collection=' do
     it 'overwrites a rel="collection" link and attribute `collection_id` attribute' do
-      item.collection = STAC.from_file(
-        File.expand_path('../../stac-spec/examples/collection-only/collection.json', __dir__),
-      )
+      item.collection = STAC.from_file(fixture_path('stac-spec/collection-only/collection.json'))
 
       expect(item.collection_id).to eq 'sentinel-2'
       collection_links = item.links.select { |l| l.rel == 'collection' }
