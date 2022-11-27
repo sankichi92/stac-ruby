@@ -1,5 +1,5 @@
 module STAC
-  module Extendable
+  module Extension
     attr_accessor identifier: String
     attr_accessor scope: Array[Class]
   end

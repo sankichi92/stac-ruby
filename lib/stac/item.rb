@@ -91,17 +91,18 @@ module STAC
     # When the item has extendable stac_extensions, make the asset extend the extension modules.
     def add_asset(asset, key:)
       asset = asset.dup
-      extensions.each do |extension_module|
-        asset.extend(extension_module)
+      extensions.each do |extension|
+        asset.extend(extension)
       end
       assets[key] = asset
     end
 
     private
 
-    def apply_extension!(extension_module)
-      properties.extend(extension_module)
-      assets.each_value { |asset| asset.extend(extension_module) }
+    def apply_extension!(extension)
+      super
+      properties.extend(extension)
+      assets.each_value { |asset| asset.extend(extension) }
     end
   end
 end

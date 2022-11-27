@@ -3,14 +3,14 @@
 RSpec.describe STAC::STACObject do
   describe '.extendables' do
     it 'returns available extension modules' do
-      expect(STAC::STACObject.extendables).to all(be_a STAC::Extendable)
+      expect(STAC::STACObject.extendables).to all(be_a STAC::Extension)
     end
   end
 
   describe '.add_extendables' do
     let(:extension) do
       Module.new do
-        extend STAC::Extendable
+        extend STAC::Extension
 
         self.identifier = 'extension'
         self.scope = []

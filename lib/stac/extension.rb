@@ -2,7 +2,7 @@
 
 module STAC
   # Extension modules must extend this module.
-  module Extendable
+  module Extension
     # Extension ID for `stac_extensions` field.
     attr_accessor :identifier
 

@@ -74,15 +74,23 @@ module STAC
       to_h.to_json(...)
     end
 
+    # Returns extended extension modules.
+    def extended
+      @extended ||= []
+    end
+
+    # Adds the given extension identifier to #stac_extensions.
+    #
+    # When the given argument is extendable, the item extends the module.
     def add_extension(extension)
       case extension
-      when Extendable
+      when Extension
         stac_extensions << extension.identifier
         apply_extension!(extension)
       else
         stac_extensions << extension
-        if (exetndable = @@extendables[extension]) && exetndable.scope.include?(self.class)
-          apply_extension!(exetndable)
+        if (extension = @@extendables[extension]) && extension.scope.include?(self.class)
+          apply_extension!(extension)
         end
       end
     end
@@ -124,16 +132,18 @@ module STAC
       stac_extensions
         .map { |extension_id| @@extendables[extension_id] }
         .compact
-        .select { |exetndable| exetndable.scope.include?(self.class) }
+        .select { |extension| extension.scope.include?(self.class) }
     end
 
     def apply_extensions!
-      extensions.each do |extension_module|
-        apply_extension!(extension_module)
+      extensions.each do |extension|
+        apply_extension!(extension)
       end
     end
 
-    def apply_extension!(_extension_module); end
+    def apply_extension!(extension)
+      extended << extension
+    end
 
     def remove_link(rel:)
       links.reject! { |link| link.rel == rel }

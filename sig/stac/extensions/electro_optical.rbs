@@ -1,7 +1,7 @@
 module STAC
   module Extensions
     module ElectroOptical
-      extend Extendable
+      extend Extension
 
       attr_reader extra: Hash[String, untyped]
 

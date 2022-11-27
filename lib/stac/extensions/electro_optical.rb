@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../extendable'
+require_relative '../extension'
 require_relative '../item'
 
 module STAC
@@ -9,7 +9,7 @@ module STAC
     #
     # Electro-Optical Extension Specification: https://github.com/stac-extensions/eo/
     module ElectroOptical
-      extend Extendable
+      extend Extension
 
       self.identifier = 'https://stac-extensions.github.io/eo/v1.0.0/schema.json'
       self.scope = [Item]
