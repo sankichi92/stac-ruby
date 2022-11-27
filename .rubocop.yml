@@ -9,6 +9,9 @@ AllCops:
 Style/GuardClause:
   Enabled: false
 
+Style/NumericLiterals:
+  Enabled: false
+
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: consistent_comma
 

@@ -20,7 +20,11 @@ end
 
 namespace :fixture do
   desc 'Setup spec/fixtures'
-  task setup: %w[spec/fixtures/stac-spec spec/fixtures/eo/item.json]
+  task setup: %w[
+    spec/fixtures/stac-spec
+    spec/fixtures/eo/item.json
+    spec/fixtures/projection/item.json
+  ]
 
   desc 'Remove spec/fixtures'
   task :clean do
@@ -37,5 +41,11 @@ namespace :fixture do
 
   file 'spec/fixtures/eo/item.json' => 'spec/fixtures/eo' do |t|
     sh "curl https://raw.githubusercontent.com/stac-extensions/eo/v1.0.0/examples/item.json -o #{t.name} -sS"
+  end
+
+  directory 'spec/fixtures/projection'
+
+  file 'spec/fixtures/projection/item.json' => 'spec/fixtures/projection' do |t|
+    sh "curl https://raw.githubusercontent.com/stac-extensions/projection/v1.0.0/examples/item.json -o #{t.name} -sS"
   end
 end

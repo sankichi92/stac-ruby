@@ -4,6 +4,7 @@ require_relative 'stac/object_resolver'
 require_relative 'stac/simple_http_client'
 require_relative 'stac/stac_object'
 require_relative 'stac/extensions/electro_optical'
+require_relative 'stac/extensions/projection'
 require_relative 'stac/version'
 
 # Gem namespace.
@@ -31,4 +32,5 @@ module STAC
   self.default_http_client = SimpleHTTPClient.new
 
   STACObject.add_extendable(Extensions::ElectroOptical)
+  STACObject.add_extendable(Extensions::Projection)
 end

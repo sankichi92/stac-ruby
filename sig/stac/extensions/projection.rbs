@@ -1,0 +1,26 @@
+module STAC
+  module Extensions
+    module Projection
+      extend Extension
+
+      attr_reader extra: Hash[String, untyped]
+
+      def proj_epsg: -> Numeric?
+      def proj_epsg=: (Numeric) -> void
+      def proj_wkt2: -> String?
+      def proj_wkt2=: (String) -> void
+      def proj_projjson: -> Hash[String, untyped]?
+      def proj_projjson=: (Hash[String, untyped]) -> void
+      def proj_geometry: -> Hash[String, untyped]?
+      def proj_geometry=: (Hash[String, untyped]) -> void
+      def proj_bbox: -> Array[Numeric]?
+      def proj_bbox=: (Array[Numeric]) -> void
+      def proj_centroid: -> {'lat' => Numeric, 'lon' => Numeric}?
+      def proj_centroid=: ({'lat' => Numeric, 'lon' => Numeric}) -> void
+      def proj_shape: -> Array[Integer]?
+      def proj_shape=: (Array[Integer]) -> void
+      def proj_transform: -> Array[Numeric]?
+      def proj_transform=: (Array[Numeric]) -> void
+    end
+  end
+end
