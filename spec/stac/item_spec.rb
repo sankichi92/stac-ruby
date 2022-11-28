@@ -61,12 +61,10 @@ RSpec.describe STAC::Item do
   end
 
   describe '#add_asset' do
-    let(:asset) { STAC::Asset.new(href: './asset.tiff') }
-
     it 'adds an asset' do
-      item.add_asset(asset, key: 'thumbnail')
+      item.add_asset(key: 'thumbnail', href: './asset.tiff')
 
-      expect(item.assets['thumbnail'].to_h).to eq asset.to_h
+      expect(item.assets['thumbnail'].href).to eq './asset.tiff'
     end
 
     context 'when the item has a stac_extension' do
@@ -75,7 +73,7 @@ RSpec.describe STAC::Item do
       end
 
       it 'adds an asset with extension' do
-        item.add_asset(asset, key: 'thumbnail')
+        item.add_asset(key: 'thumbnail', href: './asset.tiff')
 
         expect(item.assets['thumbnail']).to be_a STAC::Extensions::ElectroOptical
       end

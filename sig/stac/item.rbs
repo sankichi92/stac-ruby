@@ -14,7 +14,7 @@ module STAC
       id: String,
       geometry: Hash[String, untyped]?,
       properties: Properties,
-      links: Array[Link],
+      links: Array[Hash[String, String]],
       assets: Hash[String, Asset],
       ?bbox: Array[Numeric]?,
       ?collection: String | Collection | nil,
@@ -25,6 +25,14 @@ module STAC
     def datetime: -> Time?
     def collection: -> Collection?
     def collection=: (Collection collection) -> void
-    def add_asset: (Asset asset, key: String) -> void
+    def add_asset: (
+      key: String,
+      href: String,
+      ?title: String?,
+      ?description: String?,
+      ?type: String?,
+      ?roles: Array[String]?,
+      **untyped
+    ) -> void
   end
 end

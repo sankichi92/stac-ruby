@@ -32,12 +32,6 @@ RSpec.describe STAC::Catalog do
         expect { STAC::Catalog.from_hash(hash) }.to raise_error STAC::TypeError
       end
     end
-
-    context 'when a required field is missing' do
-      it 'raises ArgumentError' do
-        expect { STAC::Catalog.from_hash(hash.except('links')) }.to raise_error ArgumentError
-      end
-    end
   end
 
   describe '#to_h' do
@@ -54,10 +48,10 @@ RSpec.describe STAC::Catalog do
 
   describe '#add_link' do
     it 'adds a link with setting its `owner` as self' do
-      link = STAC::Link.new(rel: 'child', href: './child.json', type: 'application/json')
-      catalog.add_link(link)
+      catalog.add_link(rel: 'test', href: './test.json', type: 'application/json')
 
-      expect(catalog.links).to include link
+      link = catalog.find_link(rel: 'test')
+      expect(link).not_to be_nil
       expect(link.owner).to eq catalog
     end
   end

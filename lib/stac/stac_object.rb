@@ -30,10 +30,7 @@ module STAC
         raise TypeError, "type field is not '#{type}': #{hash['type']}" if hash.fetch('type') != type
 
         transformed = hash.transform_keys(&:to_sym).except(:type, :stac_version)
-        transformed[:links] = transformed.fetch(:links).map { |link| Link.from_hash(link) }
         new(**transformed)
-      rescue KeyError => e
-        raise ArgumentError, "required field not found: #{e.key}"
       end
     end
 
@@ -47,7 +44,7 @@ module STAC
     def initialize(links:, stac_extensions: [], **extra)
       @links = []
       links.each do |link|
-        add_link(link) # to set `owner`
+        add_link(**link.transform_keys(&:to_sym)) # to set `owner`
       end
       @stac_extensions = stac_extensions
       @extra = extra.transform_keys(&:to_s)
@@ -96,7 +93,8 @@ module STAC
     end
 
     # Adds a link with setting Link#owner as self.
-    def add_link(link)
+    def add_link(rel:, href:, type: nil, title: nil, **extra)
+      link = Link.new(rel: rel, href: href, type: type, title: title, **extra)
       link.owner = self
       links << link
     end
@@ -110,9 +108,8 @@ module STAC
     #
     # When any ref="self" links already exist, removes them.
     def self_href=(absolute_href)
-      self_link = Link.new(rel: 'self', href: absolute_href, type: 'application/json')
       remove_link(rel: 'self')
-      add_link(self_link)
+      add_link(rel: 'self', href: absolute_href, type: 'application/json')
     end
 
     # Returns a link matching the arguments.

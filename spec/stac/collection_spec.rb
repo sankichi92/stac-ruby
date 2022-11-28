@@ -59,4 +59,24 @@ RSpec.describe STAC::Collection do
       expect(collection.to_h).to eq JSON.parse(File.read(collection_path))
     end
   end
+
+  describe '#add_asset' do
+    it 'adds an asset' do
+      collection.add_asset(key: 'thumbnail', href: './asset.tiff')
+
+      expect(collection.assets['thumbnail'].href).to eq './asset.tiff'
+    end
+
+    context 'when the item has a stac_extension' do
+      before do
+        collection.add_extension(STAC::Extensions::ScientificCitation)
+      end
+
+      it 'adds an asset with extension' do
+        collection.add_asset(key: 'thumbnail', href: './asset.tiff')
+
+        expect(collection.assets['thumbnail']).to be_a STAC::Extensions::ScientificCitation
+      end
+    end
+  end
 end

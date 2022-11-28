@@ -68,8 +68,8 @@ module STAC
     # Adds an asset with the given key.
     #
     # When the item has extendable stac_extensions, make the asset extend the extension modules.
-    def add_asset(asset, key:)
-      asset = asset.dup
+    def add_asset(key:, href:, title: nil, description: nil, type: nil, roles: nil, **extra)
+      asset = Asset.new(href: href, title: title, description: description, type: type, roles: roles, **extra)
       extensions.each do |extension|
         asset.extend(extension)
       end
