@@ -24,7 +24,9 @@ module STAC
       end
     end
 
-    attr_accessor :license, :extent, :keywords, :providers, :summaries, :assets
+    attr_accessor :license, :extent, :keywords, :providers, :summaries
+
+    attr_reader :assets
 
     def initialize(
       id:,
@@ -61,6 +63,29 @@ module STAC
           'assets' => assets&.transform_values(&:to_h),
         }.compact,
       )
+    end
+
+    # Adds an asset with the given key.
+    #
+    # When the item has extendable stac_extensions, make the asset extend the extension modules.
+    def add_asset(asset, key:)
+      asset = asset.dup
+      extensions.each do |extension|
+        asset.extend(extension)
+      end
+      if assets
+        assets[key] = asset
+      else
+        @assets = { key => asset }
+      end
+    end
+
+    private
+
+    def apply_extension!(extension)
+      super
+      extend(extension)
+      assets&.each_value { |asset| asset.extend(extension) }
     end
   end
 end

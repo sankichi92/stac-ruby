@@ -6,7 +6,7 @@ module STAC
       attr_reader extra: Hash[String, untyped]
 
       def eo_bands: -> Array[Band]
-      def eo_bands=: (Array[Hash[String, untyped]]) -> void
+      def eo_bands=: (Array[Hash[String, untyped] | Band]) -> void
       def eo_cloud_cover: -> Numeric?
       def eo_cloud_cover=: (Numeric) -> void
                      
@@ -15,6 +15,7 @@ module STAC
 
         def initialize: (Hash[String, untyped] raw_hash) -> void
         
+        def to_h: -> Hash[String, untyped]
         def name: -> String?
         def name=: (String) -> void
         def common_name: -> String?

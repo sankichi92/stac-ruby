@@ -21,7 +21,7 @@ module STAC
       end
 
       def eo_bands=(bands)
-        extra['eo:bands'] = bands
+        extra['eo:bands'] = bands.map(&:to_h)
       end
 
       def eo_cloud_cover
@@ -38,6 +38,10 @@ module STAC
 
         def initialize(raw_hash)
           @raw_hash = raw_hash
+        end
+
+        def to_h
+          raw_hash
         end
 
         %i[name common_name description center_wavelength full_width_half_max].each do |field|

@@ -7,7 +7,7 @@ module STAC
     attr_accessor keywords: Array[String]?
     attr_accessor providers: Array[Provider]?
     attr_accessor summaries: Hash[String, untyped]?
-    attr_accessor assets: Hash[String, Asset]?
+    attr_reader assets: Hash[String, Asset]?
 
     def initialize: (
       id: String,
@@ -25,5 +25,6 @@ module STAC
     ) -> void
 
     def to_h: -> Hash[String, untyped]
+    def add_asset: (Asset asset, key: String) -> void
   end
 end

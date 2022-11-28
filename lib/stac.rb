@@ -5,6 +5,7 @@ require_relative 'stac/simple_http_client'
 require_relative 'stac/stac_object'
 require_relative 'stac/extensions/electro_optical'
 require_relative 'stac/extensions/projection'
+require_relative 'stac/extensions/scientific_citation'
 require_relative 'stac/version'
 
 # Gem namespace.
@@ -33,4 +34,5 @@ module STAC
 
   STACObject.add_extendable(Extensions::ElectroOptical)
   STACObject.add_extendable(Extensions::Projection)
+  STACObject.add_extendable(Extensions::ScientificCitation)
 end
