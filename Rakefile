@@ -72,6 +72,6 @@ namespace :fixture do
   directory 'spec/fixtures/view'
 
   file 'spec/fixtures/view/item.json' => 'spec/fixtures/view' do |t|
-    sh "curl https://raw.githubusercontent.com/stac-extensions/view/main/examples/item.json -o #{t.name} -sS"
+    sh "curl https://raw.githubusercontent.com/stac-extensions/view/v1.0.0/examples/item.json -o #{t.name} -sS"
   end
 end
