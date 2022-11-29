@@ -3,14 +3,24 @@ module STAC
     module ScientificCitation
       extend Extension
 
-      attr_reader extra: Hash[String, untyped]
+      module Properties
+        attr_reader extra: Hash[String, untyped]
 
-      def sci_doi: -> String?
-      def sci_doi=: (String) -> void
-      def sci_citation: -> String?
-      def sci_citation=: (String) -> void
-      def sci_publications: -> Array[Publication]
-      def sci_publications=: (Array[Hash[String, String] | Publication]) -> void
+        def sci_doi: -> String?
+        def sci_doi=: (String) -> void
+        def sci_citation: -> String?
+        def sci_citation=: (String) -> void
+        def sci_publications: -> Array[Publication]
+        def sci_publications=: (Array[Hash[String, String] | Publication]) -> void
+      end
+
+      module Asset
+        include Properties
+      end
+
+      module Collection
+        include Properties
+      end
 
       class Publication
         attr_reader raw_hash: Hash[String, String]

@@ -71,7 +71,7 @@ module STAC
     def add_asset(key:, href:, title: nil, description: nil, type: nil, roles: nil, **extra)
       asset = Asset.new(href: href, title: title, description: description, type: type, roles: roles, **extra)
       extensions.each do |extension|
-        asset.extend(extension)
+        asset.extend(extension::Asset) if extension.const_defined?(:Asset)
       end
       if assets
         assets[key] = asset
@@ -84,8 +84,8 @@ module STAC
 
     def apply_extension!(extension)
       super
-      extend(extension)
-      assets&.each_value { |asset| asset.extend(extension) }
+      extend(extension::Collection) if extension.const_defined?(:Collection)
+      assets&.each_value { |asset| asset.extend(extension::Asset) } if extension.const_defined?(:Asset)
     end
   end
 end

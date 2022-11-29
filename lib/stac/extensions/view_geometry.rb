@@ -14,21 +14,23 @@ module STAC
       self.identifier = 'https://stac-extensions.github.io/view/v1.0.0/schema.json'
       self.scope = [Item]
 
-      attr_reader :extra
+      module Properties # rubocop:disable Style/Documentation
+        attr_reader :extra
 
-      %w[
-        view:off_nadir view:incidence_angle view:azimuth view:sun_azimuth view:sun_elevation
-      ].each do |field|
-        method_name = field.sub(':', '_')
+        %w[
+          view:off_nadir view:incidence_angle view:azimuth view:sun_azimuth view:sun_elevation
+        ].each do |field|
+          method_name = field.sub(':', '_')
 
-        define_method(method_name) do
-          # @type self: ViewGeometry
-          extra[field]
-        end
+          define_method(method_name) do
+            # @type self: Properties
+            extra[field]
+          end
 
-        define_method("#{method_name}=") do |value|
-          # @type self: ViewGeometry
-          extra[field] = value
+          define_method("#{method_name}=") do |value|
+            # @type self: Properties
+            extra[field] = value
+          end
         end
       end
     end

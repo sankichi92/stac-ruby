@@ -75,7 +75,7 @@ RSpec.describe STAC::Item do
       it 'adds an asset with extension' do
         item.add_asset(key: 'thumbnail', href: './asset.tiff')
 
-        expect(item.assets['thumbnail']).to be_a STAC::Extensions::ElectroOptical
+        expect(item.assets['thumbnail']).to be_a STAC::Extensions::ElectroOptical::Asset
       end
     end
   end

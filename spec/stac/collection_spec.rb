@@ -75,7 +75,7 @@ RSpec.describe STAC::Collection do
       it 'adds an asset with extension' do
         collection.add_asset(key: 'thumbnail', href: './asset.tiff')
 
-        expect(collection.assets['thumbnail']).to be_a STAC::Extensions::ScientificCitation
+        expect(collection.assets['thumbnail']).to be_a STAC::Extensions::ScientificCitation::Asset
       end
     end
   end

@@ -14,22 +14,28 @@ module STAC
       self.identifier = 'https://stac-extensions.github.io/eo/v1.0.0/schema.json'
       self.scope = [Item]
 
-      attr_reader :extra
+      module Properties # rubocop:disable Style/Documentation
+        attr_reader :extra
 
-      def eo_bands
-        extra.fetch('eo:bands', []).map { |band_hash| Band.new(band_hash) }
+        def eo_bands
+          extra.fetch('eo:bands', []).map { |band_hash| Band.new(band_hash) }
+        end
+
+        def eo_bands=(bands)
+          extra['eo:bands'] = bands.map(&:to_h)
+        end
+
+        def eo_cloud_cover
+          extra['eo:cloud_cover']
+        end
+
+        def eo_cloud_cover=(cloud_cover)
+          extra['eo:cloud_cover'] = cloud_cover
+        end
       end
 
-      def eo_bands=(bands)
-        extra['eo:bands'] = bands.map(&:to_h)
-      end
-
-      def eo_cloud_cover
-        extra['eo:cloud_cover']
-      end
-
-      def eo_cloud_cover=(cloud_cover)
-        extra['eo:cloud_cover'] = cloud_cover
+      module Asset
+        include Properties
       end
 
       # Represents \Band object of Electro-Optical extension.

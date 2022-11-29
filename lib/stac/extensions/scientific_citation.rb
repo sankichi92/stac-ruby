@@ -15,30 +15,40 @@ module STAC
       self.identifier = 'https://stac-extensions.github.io/scientific/v1.0.0/schema.json'
       self.scope = [Item, Collection]
 
-      attr_reader :extra
+      module Properties # rubocop:disable Style/Documentation
+        attr_reader :extra
 
-      def sci_doi
-        extra['sci:doi']
+        def sci_doi
+          extra['sci:doi']
+        end
+
+        def sci_doi=(doi)
+          extra['sci:doi'] = doi
+        end
+
+        def sci_citation
+          extra['sci:citation']
+        end
+
+        def sci_citation=(citation)
+          extra['sci:citation'] = citation
+        end
+
+        def sci_publications
+          extra.fetch('sci:publications', []).map { |hash| Publication.new(hash) }
+        end
+
+        def sci_publications=(publications)
+          extra['sci:publications'] = publications.map(&:to_h)
+        end
       end
 
-      def sci_doi=(doi)
-        extra['sci:doi'] = doi
+      module Asset
+        include Properties
       end
 
-      def sci_citation
-        extra['sci:citation']
-      end
-
-      def sci_citation=(citation)
-        extra['sci:citation'] = citation
-      end
-
-      def sci_publications
-        extra.fetch('sci:publications', []).map { |hash| Publication.new(hash) }
-      end
-
-      def sci_publications=(publications)
-        extra['sci:publications'] = publications.map(&:to_h)
+      module Collection
+        include Properties
       end
 
       # Represents Publication object of Scientific Citation extension.

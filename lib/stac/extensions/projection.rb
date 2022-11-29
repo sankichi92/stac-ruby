@@ -14,22 +14,28 @@ module STAC
       self.identifier = 'https://stac-extensions.github.io/projection/v1.0.0/schema.json'
       self.scope = [Item]
 
-      attr_reader :extra
+      module Properties # rubocop:disable Style/Documentation
+        attr_reader :extra
 
-      %w[
-        proj:epsg proj:wkt2 proj:projjson proj:geometry proj:bbox proj:centroid proj:shape proj:transform
-      ].each do |field|
-        method_name = field.sub(':', '_')
+        %w[
+          proj:epsg proj:wkt2 proj:projjson proj:geometry proj:bbox proj:centroid proj:shape proj:transform
+        ].each do |field|
+          method_name = field.sub(':', '_')
 
-        define_method(method_name) do
-          # @type self: Projection
-          extra[field]
+          define_method(method_name) do
+            # @type self: Properties
+            extra[field]
+          end
+
+          define_method("#{method_name}=") do |value|
+            # @type self: Properties
+            extra[field] = value
+          end
         end
+      end
 
-        define_method("#{method_name}=") do |value|
-          # @type self: Projection
-          extra[field] = value
-        end
+      module Asset
+        include Properties
       end
     end
   end
