@@ -4,25 +4,35 @@ module STAC
 
     attr_accessor id: String
     attr_accessor geometry: Hash[String, untyped]?
-    attr_accessor properties: Properties
-    attr_accessor assets: Hash[String, Asset]
     attr_accessor bbox: Array[Numeric]?
     attr_accessor collection_id: String?
+
+    attr_reader properties: Properties
+    attr_reader assets: Hash[String, Asset]
 
     def initialize: (
       id: String,
       geometry: Hash[String, untyped]?,
       properties: Properties,
-      links: Array[Link],
+      links: Array[Hash[String, String]],
       assets: Hash[String, Asset],
       ?bbox: Array[Numeric]?,
       ?collection: String | Collection | nil,
-      ?stac_extensions: Array[String]?,
+      ?stac_extensions: Array[String],
       **untyped
     ) -> void
 
     def datetime: -> Time?
     def collection: -> Collection?
     def collection=: (Collection collection) -> void
+    def add_asset: (
+      key: String,
+      href: String,
+      ?title: String?,
+      ?description: String?,
+      ?type: String?,
+      ?roles: Array[String]?,
+      **untyped
+    ) -> void
   end
 end

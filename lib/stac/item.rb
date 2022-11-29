@@ -23,12 +23,13 @@ module STAC
       end
     end
 
-    attr_accessor :id, :geometry, :bbox, :properties, :assets, :collection_id
+    attr_accessor :id, :geometry, :bbox, :collection_id
+
+    attr_reader :properties, :assets
 
     def initialize(
-      id:, geometry:, properties:, links:, assets:, bbox: nil, collection: nil, stac_extensions: nil, **extra
+      id:, geometry:, properties:, links:, assets:, bbox: nil, collection: nil, stac_extensions: [], **extra
     )
-      super(links: links, stac_extensions: stac_extensions, **extra)
       @id = id
       @geometry = geometry
       @properties = properties
@@ -40,6 +41,7 @@ module STAC
       else
         @collection_id = collection
       end
+      super(links: links, stac_extensions: stac_extensions, **extra)
     end
 
     def to_h
@@ -74,14 +76,27 @@ module STAC
       raise ArgumentError, 'collection must have a rel="self" link' unless (collection_href = collection.self_href)
 
       @collection_id = collection.id
-      collection_link = Link.new(
-        rel: 'collection',
-        href: collection_href,
-        type: 'application/json',
-        title: collection.title,
-      )
       remove_link(rel: 'collection')
-      add_link(collection_link)
+      add_link(rel: 'collection', href: collection_href, type: 'application/json', title: collection.title)
+    end
+
+    # Adds an asset with the given key.
+    #
+    # When the item has extendable stac_extensions, make the asset extend the extension modules.
+    def add_asset(key:, href:, title: nil, description: nil, type: nil, roles: nil, **extra)
+      asset = Asset.new(href: href, title: title, description: description, type: type, roles: roles, **extra)
+      extensions.each do |extension|
+        asset.extend(extension::Asset) if extension.const_defined?(:Asset)
+      end
+      assets[key] = asset
+    end
+
+    private
+
+    def apply_extension!(extension)
+      super
+      properties.extend(extension::Properties) if extension.const_defined?(:Properties)
+      assets.each_value { |asset| asset.extend(extension::Asset) } if extension.const_defined?(:Asset)
     end
   end
 end

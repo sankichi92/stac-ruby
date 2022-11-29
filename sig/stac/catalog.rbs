@@ -7,7 +7,7 @@ module STAC
     attr_accessor title: String?
     
     def initialize: (
-      id: String, description: String, links: Array[Link], ?title: String?, ?stac_extensions: Array[String]?, **untyped
+      id: String, description: String, links: Array[Hash[String, String]], ?title: String?, ?stac_extensions: Array[String], **untyped
     ) -> void
 
     def to_h: -> Hash[String, untyped]

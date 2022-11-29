@@ -24,7 +24,9 @@ module STAC
       end
     end
 
-    attr_accessor :license, :extent, :keywords, :providers, :summaries, :assets
+    attr_accessor :license, :extent, :keywords, :providers, :summaries
+
+    attr_reader :assets
 
     def initialize(
       id:,
@@ -37,16 +39,16 @@ module STAC
       providers: nil,
       summaries: nil,
       assets: nil,
-      stac_extensions: nil,
+      stac_extensions: [],
       **extra
     )
-      super(id: id, description: description, links: links, title: title, stac_extensions: stac_extensions, **extra)
       @license = license
       @extent = extent
       @keywords = keywords
       @providers = providers
       @summaries = summaries
       @assets = assets
+      super(id: id, description: description, links: links, title: title, stac_extensions: stac_extensions, **extra)
     end
 
     # Serializes self to a Hash.
@@ -61,6 +63,29 @@ module STAC
           'assets' => assets&.transform_values(&:to_h),
         }.compact,
       )
+    end
+
+    # Adds an asset with the given key.
+    #
+    # When the item has extendable stac_extensions, make the asset extend the extension modules.
+    def add_asset(key:, href:, title: nil, description: nil, type: nil, roles: nil, **extra)
+      asset = Asset.new(href: href, title: title, description: description, type: type, roles: roles, **extra)
+      extensions.each do |extension|
+        asset.extend(extension::Asset) if extension.const_defined?(:Asset)
+      end
+      if assets
+        assets[key] = asset
+      else
+        @assets = { key => asset }
+      end
+    end
+
+    private
+
+    def apply_extension!(extension)
+      super
+      extend(extension::Collection) if extension.const_defined?(:Collection)
+      assets&.each_value { |asset| asset.extend(extension::Asset) } if extension.const_defined?(:Asset)
     end
   end
 end

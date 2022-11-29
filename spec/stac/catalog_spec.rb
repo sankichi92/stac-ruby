@@ -3,7 +3,7 @@
 RSpec.describe STAC::Catalog do
   subject(:catalog) { STAC.from_file(catalog_path) }
 
-  let(:catalog_path) { File.expand_path('../../stac-spec/examples/catalog.json', __dir__) }
+  let(:catalog_path) { fixture_path('stac-spec/catalog.json') }
 
   describe '.from_hash' do
     let(:hash) do
@@ -32,12 +32,6 @@ RSpec.describe STAC::Catalog do
         expect { STAC::Catalog.from_hash(hash) }.to raise_error STAC::TypeError
       end
     end
-
-    context 'when a required field is missing' do
-      it 'raises ArgumentError' do
-        expect { STAC::Catalog.from_hash(hash.except('links')) }.to raise_error ArgumentError
-      end
-    end
   end
 
   describe '#to_h' do
@@ -54,10 +48,10 @@ RSpec.describe STAC::Catalog do
 
   describe '#add_link' do
     it 'adds a link with setting its `owner` as self' do
-      link = STAC::Link.new(rel: 'child', href: './child.json', type: 'application/json')
-      catalog.add_link(link)
+      catalog.add_link(rel: 'test', href: './test.json', type: 'application/json')
 
-      expect(catalog.links).to include link
+      link = catalog.find_link(rel: 'test')
+      expect(link).not_to be_nil
       expect(link.owner).to eq catalog
     end
   end

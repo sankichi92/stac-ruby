@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- Add extension modules from the current stable extensions (`ElectroOptical`, `Projection`, `ScientificCitation` and `ViewGeometry`).
+- Make `STACObject` extend extension modules from `stac_extensions` value automatically.
+
 ## [0.2.0] - 2022-11-02
 
 - Add `STAC::CommonMetadata` and make `Asset` and `Properties` include it.

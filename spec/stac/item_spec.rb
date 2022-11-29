@@ -3,7 +3,7 @@
 RSpec.describe STAC::Item do
   subject(:item) { STAC.from_file(item_path) }
 
-  let(:item_path) { File.expand_path('../../stac-spec/examples/core-item.json', __dir__) }
+  let(:item_path) { fixture_path('stac-spec/core-item.json') }
 
   describe '.from_hash' do
     let(:hash) do
@@ -37,7 +37,7 @@ RSpec.describe STAC::Item do
 
   describe '#to_h' do
     it 'serializes self to a Hash' do
-      expect(item.to_h.except('links')).to eq JSON.parse(File.read(item_path)).except('links')
+      expect(item.to_h.except('links')).to eq JSON.parse(File.read(item_path)).except('links', 'stac_extensions')
     end
   end
 
@@ -51,14 +51,32 @@ RSpec.describe STAC::Item do
 
   describe '#collection=' do
     it 'overwrites a rel="collection" link and attribute `collection_id` attribute' do
-      item.collection = STAC.from_file(
-        File.expand_path('../../stac-spec/examples/collection-only/collection.json', __dir__),
-      )
+      item.collection = STAC.from_file(fixture_path('stac-spec/collection-only/collection.json'))
 
       expect(item.collection_id).to eq 'sentinel-2'
       collection_links = item.links.select { |l| l.rel == 'collection' }
       expect(collection_links.size).to eq 1
       expect(collection_links.first.title).to eq 'Sentinel-2 MSI: MultiSpectral Instrument, Level-1C'
+    end
+  end
+
+  describe '#add_asset' do
+    it 'adds an asset' do
+      item.add_asset(key: 'thumbnail', href: './asset.tiff')
+
+      expect(item.assets['thumbnail'].href).to eq './asset.tiff'
+    end
+
+    context 'when the item has a stac_extension' do
+      before do
+        item.add_extension(STAC::Extensions::ElectroOptical)
+      end
+
+      it 'adds an asset with extension' do
+        item.add_asset(key: 'thumbnail', href: './asset.tiff')
+
+        expect(item.assets['thumbnail']).to be_a STAC::Extensions::ElectroOptical::Asset
+      end
     end
   end
 end

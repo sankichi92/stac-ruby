@@ -15,6 +15,8 @@ target :lib do
     hash[D::Ruby::InsufficientKeywordArguments] = :hint
     hash[D::Ruby::MethodBodyTypeMismatch] = :information
     hash[D::Ruby::MethodDefinitionMissing] = nil # To supress noisy VS Code extension message.
+    hash[D::Ruby::NoMethod] = :information
+    hash[D::Ruby::UnknownConstant] = :information
     hash[D::Ruby::UnsupportedSyntax] = :hint
   end
 end

@@ -62,7 +62,7 @@ RSpec.describe STAC::Link do
 
   describe '#target' do
     before do
-      link.href = "file://#{File.expand_path('../../stac-spec/examples/catalog.json', __dir__)}"
+      link.href = "file://#{fixture_path('stac-spec/catalog.json')}"
     end
 
     it 'returns STAC object resolved from HREF' do

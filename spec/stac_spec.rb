@@ -3,8 +3,7 @@
 RSpec.describe STAC do
   describe '.from_file' do
     let(:path) do
-      Pathname.new('../stac-spec/examples/catalog.json')
-              .expand_path(__dir__)
+      Pathname.new(fixture_path('stac-spec/catalog.json'))
               .relative_path_from(Pathname.pwd)
               .to_s
     end

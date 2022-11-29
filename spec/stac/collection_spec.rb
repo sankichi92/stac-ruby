@@ -3,7 +3,7 @@
 RSpec.describe STAC::Collection do
   subject(:collection) { STAC.from_file(collection_path) }
 
-  let(:collection_path) { File.expand_path('../../stac-spec/examples/collection.json', __dir__) }
+  let(:collection_path) { fixture_path('stac-spec/collection.json') }
 
   describe '.from_hash' do
     let(:hash) do
@@ -57,6 +57,26 @@ RSpec.describe STAC::Collection do
   describe '#to_h' do
     it 'serializes self to a Hash' do
       expect(collection.to_h).to eq JSON.parse(File.read(collection_path))
+    end
+  end
+
+  describe '#add_asset' do
+    it 'adds an asset' do
+      collection.add_asset(key: 'thumbnail', href: './asset.tiff')
+
+      expect(collection.assets['thumbnail'].href).to eq './asset.tiff'
+    end
+
+    context 'when the item has a stac_extension' do
+      before do
+        collection.add_extension(STAC::Extensions::ScientificCitation)
+      end
+
+      it 'adds an asset with extension' do
+        collection.add_asset(key: 'thumbnail', href: './asset.tiff')
+
+        expect(collection.assets['thumbnail']).to be_a STAC::Extensions::ScientificCitation::Asset
+      end
     end
   end
 end

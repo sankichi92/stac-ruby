@@ -1,0 +1,38 @@
+module STAC
+  module Extensions
+    module ScientificCitation
+      extend Extension
+
+      module Properties
+        attr_reader extra: Hash[String, untyped]
+
+        def sci_doi: -> String?
+        def sci_doi=: (String) -> void
+        def sci_citation: -> String?
+        def sci_citation=: (String) -> void
+        def sci_publications: -> Array[Publication]
+        def sci_publications=: (Array[Hash[String, String] | Publication]) -> void
+      end
+
+      module Asset
+        include Properties
+      end
+
+      module Collection
+        include Properties
+      end
+
+      class Publication
+        attr_reader raw_hash: Hash[String, String]
+
+        def initialize: (Hash[String, String] raw_hash) -> void
+        
+        def to_h: -> Hash[String, String]
+        def doi: -> String?
+        def doi=: (String) -> void
+        def citation: -> String?
+        def citation=: (String) -> void
+      end
+    end
+  end
+end

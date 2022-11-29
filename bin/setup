@@ -7,3 +7,5 @@ bundle install
 
 # Do any other automated setup that you need to do here
 git submodule update --init --depth 1
+
+bundle exec rake fixture:setup
