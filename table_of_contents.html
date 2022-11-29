@@ -72,6 +72,54 @@
   <li class="class">
     <a href="STAC/Error.html">STAC::Error</a>
   </li>
+  <li class="module">
+    <a href="STAC/Extension.html">STAC::Extension</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions.html">STAC::Extensions</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/ElectroOptical.html">STAC::Extensions::ElectroOptical</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/ElectroOptical/Asset.html">STAC::Extensions::ElectroOptical::Asset</a>
+  </li>
+  <li class="class">
+    <a href="STAC/Extensions/ElectroOptical/Band.html">STAC::Extensions::ElectroOptical::Band</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/ElectroOptical/Properties.html">STAC::Extensions::ElectroOptical::Properties</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/Projection.html">STAC::Extensions::Projection</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/Projection/Asset.html">STAC::Extensions::Projection::Asset</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/Projection/Properties.html">STAC::Extensions::Projection::Properties</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/ScientificCitation.html">STAC::Extensions::ScientificCitation</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/ScientificCitation/Asset.html">STAC::Extensions::ScientificCitation::Asset</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/ScientificCitation/Collection.html">STAC::Extensions::ScientificCitation::Collection</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/ScientificCitation/Properties.html">STAC::Extensions::ScientificCitation::Properties</a>
+  </li>
+  <li class="class">
+    <a href="STAC/Extensions/ScientificCitation/Publication.html">STAC::Extensions::ScientificCitation::Publication</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/ViewGeometry.html">STAC::Extensions::ViewGeometry</a>
+  </li>
+  <li class="module">
+    <a href="STAC/Extensions/ViewGeometry/Properties.html">STAC::Extensions::ViewGeometry::Properties</a>
+  </li>
   <li class="class">
     <a href="STAC/Extent.html">STAC::Extent</a>
   </li>
@@ -115,6 +163,16 @@
 
 <h2 id="methods">Methods</h2>
 <ul>
+
+  <li class="method">
+    <a href="STAC/STACObject.html#method-c-add_extendable">::add_extendable</a>
+    &mdash;
+    <span class="container">STAC::STACObject</span>
+
+  <li class="method">
+    <a href="STAC/STACObject.html#method-c-extendables">::extendables</a>
+    &mdash;
+    <span class="container">STAC::STACObject</span>
 
   <li class="method">
     <a href="STAC.html#method-c-from_file">::from_file</a>
@@ -192,6 +250,16 @@
     <span class="container">STAC::Collection</span>
 
   <li class="method">
+    <a href="STAC/Extensions/ElectroOptical/Band.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ElectroOptical::Band</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Publication.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Publication</span>
+
+  <li class="method">
     <a href="STAC/Extent.html#method-c-new">::new</a>
     &mdash;
     <span class="container">STAC::Extent</span>
@@ -247,6 +315,21 @@
     <span class="container">STAC::Link</span>
 
   <li class="method">
+    <a href="STAC/Collection.html#method-i-add_asset">#add_asset</a>
+    &mdash;
+    <span class="container">STAC::Collection</span>
+
+  <li class="method">
+    <a href="STAC/Item.html#method-i-add_asset">#add_asset</a>
+    &mdash;
+    <span class="container">STAC::Item</span>
+
+  <li class="method">
+    <a href="STAC/STACObject.html#method-i-add_extension">#add_extension</a>
+    &mdash;
+    <span class="container">STAC::STACObject</span>
+
+  <li class="method">
     <a href="STAC/STACObject.html#method-i-add_link">#add_link</a>
     &mdash;
     <span class="container">STAC::STACObject</span>
@@ -257,9 +340,19 @@
     <span class="container">STAC::Catalog</span>
 
   <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Publication.html#method-i-catation-3D">#catation=</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Publication</span>
+
+  <li class="method">
     <a href="STAC/Catalog.html#method-i-children">#children</a>
     &mdash;
     <span class="container">STAC::Catalog</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Publication.html#method-i-citation">#citation</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Publication</span>
 
   <li class="method">
     <a href="STAC/Item.html#method-i-collection">#collection</a>
@@ -322,6 +415,16 @@
     <span class="container">STAC::CommonMetadata</span>
 
   <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Publication.html#method-i-doi">#doi</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Publication</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Publication.html#method-i-doi-3D">#doi=</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Publication</span>
+
+  <li class="method">
     <a href="STAC/CommonMetadata.html#method-i-end_datetime">#end_datetime</a>
     &mdash;
     <span class="container">STAC::CommonMetadata</span>
@@ -330,6 +433,31 @@
     <a href="STAC/CommonMetadata.html#method-i-end_datetime-3D">#end_datetime=</a>
     &mdash;
     <span class="container">STAC::CommonMetadata</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ElectroOptical/Properties.html#method-i-eo_bands">#eo_bands</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ElectroOptical::Properties</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ElectroOptical/Properties.html#method-i-eo_bands-3D">#eo_bands=</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ElectroOptical::Properties</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ElectroOptical/Properties.html#method-i-eo_cloud_cover">#eo_cloud_cover</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ElectroOptical::Properties</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ElectroOptical/Properties.html#method-i-eo_cloud_cover-3D">#eo_cloud_cover=</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ElectroOptical::Properties</span>
+
+  <li class="method">
+    <a href="STAC/STACObject.html#method-i-extended">#extended</a>
+    &mdash;
+    <span class="container">STAC::STACObject</span>
 
   <li class="method">
     <a href="STAC/Catalog.html#method-i-find_child">#find_child</a>
@@ -422,6 +550,36 @@
     <span class="container">STAC::ObjectResolver</span>
 
   <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Properties.html#method-i-sci_citation">#sci_citation</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Properties</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Properties.html#method-i-sci_citation-3D">#sci_citation=</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Properties</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Properties.html#method-i-sci_doi">#sci_doi</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Properties</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Properties.html#method-i-sci_doi-3D">#sci_doi=</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Properties</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Properties.html#method-i-sci_publications">#sci_publications</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Properties</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Properties.html#method-i-sci_publications-3D">#sci_publications=</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Properties</span>
+
+  <li class="method">
     <a href="STAC/STACObject.html#method-i-self_href">#self_href</a>
     &mdash;
     <span class="container">STAC::STACObject</span>
@@ -470,6 +628,16 @@
     <a href="STAC/Collection.html#method-i-to_h">#to_h</a>
     &mdash;
     <span class="container">STAC::Collection</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ElectroOptical/Band.html#method-i-to_h">#to_h</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ElectroOptical::Band</span>
+
+  <li class="method">
+    <a href="STAC/Extensions/ScientificCitation/Publication.html#method-i-to_h">#to_h</a>
+    &mdash;
+    <span class="container">STAC::Extensions::ScientificCitation::Publication</span>
 
   <li class="method">
     <a href="STAC/Extent.html#method-i-to_h">#to_h</a>

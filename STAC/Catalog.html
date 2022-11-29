@@ -149,7 +149,7 @@
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(id:, description:, links:, title: nil, stac_extensions: nil, **extra)</span>
+            class="method-args">(id:, description:, links:, title: nil, stac_extensions: [], **extra)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -162,11 +162,11 @@
 
           <div class="method-source-code" id="new-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">description:</span>, <span class="ruby-value">links:</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
-  <span class="ruby-keyword">super</span>(<span class="ruby-value">links:</span> <span class="ruby-identifier">links</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-identifier">stac_extensions</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">description:</span>, <span class="ruby-value">links:</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> [], <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">id</span>
   <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">description</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-identifier">title</span>
+  <span class="ruby-keyword">super</span>(<span class="ruby-value">links:</span> <span class="ruby-identifier">links</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-identifier">stac_extensions</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
