@@ -1,0 +1,20 @@
+module STAC
+  module Extensions
+    module ViewGeometry
+      extend Extension
+
+      attr_reader extra: Hash[String, untyped]
+
+      def view_off_nadir: -> Numeric?
+      def view_off_nadir=: (Numeric) -> void
+      def view_incidence_angle: -> Numeric?
+      def view_incidence_angle=: (Numeric) -> void
+      def view_azimuth: -> Numeric?
+      def view_azimuth=: (Numeric) -> void
+      def view_sun_azimuth: -> Numeric?
+      def view_sun_azimuth=: (Numeric) -> void
+      def view_sun_elevation: -> Numeric?
+      def view_sun_elevation=: (Numeric) -> void
+    end
+  end
+end

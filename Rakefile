@@ -27,6 +27,7 @@ namespace :fixture do
     spec/fixtures/scientific/item.json
     spec/fixtures/scientific/collection.json
     spec/fixtures/scientific/collection-assets.json
+    spec/fixtures/view/item.json
   ]
 
   desc 'Remove spec/fixtures'
@@ -66,5 +67,11 @@ namespace :fixture do
   file 'spec/fixtures/scientific/collection-assets.json' => 'spec/fixtures/scientific' do |t|
     sh 'curl https://raw.githubusercontent.com/stac-extensions/scientific/v1.0.0/examples/collection-assets.json ' \
        "-o #{t.name} -sS"
+  end
+
+  directory 'spec/fixtures/view'
+
+  file 'spec/fixtures/view/item.json' => 'spec/fixtures/view' do |t|
+    sh "curl https://raw.githubusercontent.com/stac-extensions/view/main/examples/item.json -o #{t.name} -sS"
   end
 end
