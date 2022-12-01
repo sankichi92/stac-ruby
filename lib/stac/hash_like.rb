@@ -5,6 +5,7 @@ require 'json'
 module STAC
   # Enables included class to behave like Hash.
   module HashLike
+    # Extra fields that do not belong to the STAC core specification.
     attr_reader :extra
 
     # When there is an attribute with the given name, returns the attribute value.

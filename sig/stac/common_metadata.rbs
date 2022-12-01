@@ -19,7 +19,7 @@ module STAC
     def license: -> String?
     def license=: (String) -> void
     def providers: -> Array[Provider]
-    def providers=: (Array[Provider]) -> void
+    def providers=: (Array[Provider | Hash[String, untyped]]) -> void
     def platform: -> String?
     def platform=: (String) -> void
     def instruments: -> Array[String]?
