@@ -14,10 +14,10 @@ module STAC
 
     class << self
       def from_hash(hash)
-        h = hash.dup
-        h['extent'] = Extent.from_hash(h.fetch('extent'))
-        h['providers'] = h['providers']&.map { |provider| Provider.from_hash(provider) }
-        h['assets'] = h['assets']&.transform_values { |v| Asset.from_hash(v) }
+        h = hash.transform_keys(&:to_sym)
+        h[:extent] = Extent.from_hash(h.fetch(:extent))
+        h[:providers] = h[:providers]&.map { |provider| Provider.from_hash(provider) }
+        h[:assets] = h[:assets]&.transform_values { |v| Asset.from_hash(v) }
         super(h)
       rescue KeyError => e
         raise ArgumentError, "required field not found: #{e.key}"
@@ -31,9 +31,9 @@ module STAC
     def initialize(
       id:,
       description:,
-      links:,
       license:,
       extent:,
+      links: [],
       title: nil,
       keywords: nil,
       providers: nil,

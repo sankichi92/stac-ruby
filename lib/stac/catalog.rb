@@ -12,7 +12,7 @@ module STAC
 
     attr_accessor :id, :description, :title
 
-    def initialize(id:, description:, links:, title: nil, stac_extensions: [], **extra)
+    def initialize(id:, description:, links: [], title: nil, stac_extensions: [], **extra)
       @id = id
       @description = description
       @title = title

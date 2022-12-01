@@ -14,9 +14,9 @@ module STAC
 
     class << self
       def from_hash(hash)
-        h = hash.dup
-        h['properties'] = Properties.from_hash(h.fetch('properties'))
-        h['assets'] = h.fetch('assets').transform_values { |v| Asset.from_hash(v) }
+        h = hash.transform_keys(&:to_sym)
+        h[:properties] = Properties.from_hash(h.fetch(:properties, {}))
+        h[:assets] = h.fetch(:assets, []).transform_values { |v| Asset.from_hash(v) }
         super(h)
       rescue KeyError => e
         raise ArgumentError, "required field not found: #{e.key}"
@@ -28,7 +28,7 @@ module STAC
     attr_reader :properties, :assets
 
     def initialize(
-      id:, geometry:, properties:, links:, assets:, bbox: nil, collection: nil, stac_extensions: [], **extra
+      id:, geometry:, properties:, links: [], assets: {}, bbox: nil, collection: nil, stac_extensions: [], **extra
     )
       @id = id
       @geometry = geometry

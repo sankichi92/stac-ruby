@@ -1,6 +1,6 @@
 module STAC
   class Collection < Catalog
-    def self.from_hash: (Hash[String, untyped] hash) -> Collection
+    def self.from_hash: (Hash[String | Symbol, untyped] hash) -> Collection
 
     attr_accessor license: String
     attr_accessor extent: Extent
@@ -12,9 +12,9 @@ module STAC
     def initialize: (
       id: String,
       description: String,
-      links: Array[Hash[String, String]],
       license: String,
       extent: Extent,
+      ?links: Array[Hash[String, String]],
       ?title: String?,
       ?keywords: Array[String]?,
       ?providers: Array[Provider]?,

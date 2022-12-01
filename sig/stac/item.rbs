@@ -1,6 +1,6 @@
 module STAC
   class Item < STACObject
-    def self.from_hash: (Hash[String, untyped] hash) -> Item
+    def self.from_hash: (Hash[String | Symbol, untyped] hash) -> Item
 
     attr_accessor id: String
     attr_accessor geometry: Hash[String, untyped]?
@@ -14,8 +14,8 @@ module STAC
       id: String,
       geometry: Hash[String, untyped]?,
       properties: Properties,
-      links: Array[Hash[String, String]],
-      assets: Hash[String, Asset],
+      ?links: Array[Hash[String, String]],
+      ?assets: Hash[String, Asset],
       ?bbox: Array[Numeric]?,
       ?collection: String | Collection | nil,
       ?stac_extensions: Array[String],
