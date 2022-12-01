@@ -5,6 +5,17 @@ See [satc-client-ruby](https://github.com/sankichi92/stac-client-ruby) for [STAC
 
 This gem's implementation refers to [PySTAC](https://github.com/stac-utils/pystac).
 
+### STAC Spec Version Support
+
+v1.0.0
+
+### STAC Extension Support
+
+- [Electro-Optical](https://github.com/stac-extensions/eo) v1.0.0
+- [Projection](https://github.com/stac-extensions/projection) v1.0.0
+- [Scientific Citation](https://github.com/stac-extensions/scientific) v1.0.0
+- [View Geometry](https://github.com/stac-extensions/view) v1.0.0
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
