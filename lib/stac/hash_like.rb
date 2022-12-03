@@ -62,7 +62,9 @@ module STAC
 
     # Returns a copy of self by serializes self to a JSON and desirializes it by `.from_hash`.
     def deep_dup
-      raise NotImplementedError unless self.class.respond_to?(:from_hash)
+      unless self.class.respond_to?(:from_hash)
+        raise NotImplementedError, "#{self.class} must implement `.from_hash(hash)` to use `HashLike#deep_copy`"
+      end
 
       hash = JSON.parse(to_json)
       self.class.from_hash(hash)
