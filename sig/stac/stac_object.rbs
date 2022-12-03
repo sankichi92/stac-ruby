@@ -1,5 +1,7 @@
 module STAC
   class STACObject
+    include HashLike
+
     @@extendables: Hash[String, Extension]
     
     attr_accessor self.type: String
@@ -9,7 +11,6 @@ module STAC
     def self.from_hash: (Hash[String, untyped]) -> STACObject
     
     attr_accessor stac_extensions: Array[String]
-    attr_accessor extra: Hash[String, untyped]
     attr_accessor http_client: _HTTPClient
     attr_reader links: Array[Link]
 
@@ -20,8 +21,6 @@ module STAC
     ) -> void
 
     def type: -> String
-    def to_h: -> Hash[String, untyped]
-    def to_json: -> String
     def extended: -> Array[Extension]
     def add_extension: (Extension | String) -> void
     def add_link: (rel: String, href: String, ?type: String?, ?title: String?, **untyped) -> void

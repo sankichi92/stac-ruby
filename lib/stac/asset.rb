@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 require_relative 'common_metadata'
+require_relative 'hash_like'
 
 module STAC
   # Represents \STAC asset object, which contains a link to data associated with an Item or Collection that can be
   # downloaded or streamed.
   class Asset
+    include HashLike
     include CommonMetadata
 
     class << self

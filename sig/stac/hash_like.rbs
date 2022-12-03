@@ -1,0 +1,13 @@
+module STAC
+  module HashLike
+    attr_reader extra: Hash[String, untyped]
+
+    def []: (String | Symbol key) -> untyped
+    def []=: (String | Symbol key, untyped value) -> untyped
+    def update: (**untyped) -> self
+    def to_hash: -> Hash[String, untyped]
+    def to_h: -> Hash[String, untyped]
+    def to_json: -> String
+    def deep_dup: -> self
+  end
+end

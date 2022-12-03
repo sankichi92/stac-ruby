@@ -1,5 +1,6 @@
 module STAC
   class Asset
+    include HashLike
     include CommonMetadata
 
     def self.from_hash: (Hash[String, untyped] hash) -> Asset
@@ -9,12 +10,9 @@ module STAC
     attr_accessor description: String?
     attr_accessor type: String?
     attr_accessor roles: Array[String]?
-    attr_accessor extra: Hash[String, untyped]
 
     def initialize: (
       href: String, ?title: String?, ?description: String?, ?type: String?, ?roles: Array[String]?, **untyped
     ) -> void
-
-    def to_h: -> Hash[String, untyped]
   end
 end

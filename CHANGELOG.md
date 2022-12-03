@@ -2,6 +2,7 @@
 
 - Add extension modules from the current stable extensions (`ElectroOptical`, `Projection`, `ScientificCitation` and `ViewGeometry`).
 - Make `STACObject` extend extension modules from `stac_extensions` value automatically.
+- Introduce `HashLike` module and make STAC Object classes include it.
 
 ## [0.2.0] - 2022-11-02
 

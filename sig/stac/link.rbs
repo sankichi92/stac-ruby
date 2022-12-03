@@ -1,12 +1,13 @@
 module STAC
   class Link
+    include HashLike
+
     def self.from_hash: (Hash[String, untyped]) -> Link
 
     attr_accessor rel: String
     attr_accessor href: String
     attr_accessor type: String?
     attr_accessor title: String?
-    attr_accessor extra: Hash[String, untyped]
     attr_accessor owner: STACObject | nil
     attr_accessor http_client: _HTTPClient
     @target: Catalog | Collection | Item | nil
@@ -14,7 +15,6 @@ module STAC
 
     def initialize: (rel: String, href: String, ?type: String?, ?title: String?, **untyped) -> void
 
-    def to_h: -> Hash[String, untyped]
     def absolute_href: -> String?
     def target: (?http_client: _HTTPClient) -> (Catalog | Collection | Item | nil)
   end

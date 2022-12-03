@@ -24,7 +24,6 @@ module STAC
       **untyped
     ) -> void
 
-    def to_h: -> Hash[String, untyped]
     def add_asset: (
       key: String,
       href: String,

@@ -44,6 +44,15 @@ module STAC
       super(links: links, stac_extensions: stac_extensions, **extra)
     end
 
+    def [](key)
+      value = super
+      if value.nil?
+        properties[key]
+      else
+        value
+      end
+    end
+
     def to_h
       super.merge(
         {
