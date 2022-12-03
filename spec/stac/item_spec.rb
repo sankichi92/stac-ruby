@@ -79,4 +79,10 @@ RSpec.describe STAC::Item do
       end
     end
   end
+
+  describe '#method_missing' do
+    it "calls properties' method" do
+      expect(item.datetime).to be_nil
+    end
+  end
 end

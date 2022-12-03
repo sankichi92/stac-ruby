@@ -22,7 +22,6 @@ module STAC
       **untyped
     ) -> void
 
-    def datetime: -> Time?
     def collection: -> Collection?
     def collection=: (Collection collection) -> void
     def add_asset: (
