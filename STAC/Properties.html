@@ -166,7 +166,7 @@
             <pre><span class="ruby-comment"># File lib/stac/properties.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">datetime:</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@datetime</span> = <span class="ruby-identifier">datetime</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">extra</span> = <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
+  <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
