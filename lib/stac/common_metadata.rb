@@ -10,7 +10,7 @@ module STAC
   #
   # Specification: https://github.com/radiantearth/stac-spec/blob/master/item-spec/common-metadata.md
   module CommonMetadata
-    attr_accessor :extra
+    attr_reader :extra
 
     def title
       extra['title']

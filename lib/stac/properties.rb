@@ -23,7 +23,7 @@ module STAC
 
     def initialize(datetime:, **extra)
       @datetime = datetime
-      self.extra = extra.transform_keys(&:to_s)
+      @extra = extra.transform_keys(&:to_s)
     end
 
     # Serializes self to a Hash.

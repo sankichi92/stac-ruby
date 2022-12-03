@@ -23,7 +23,7 @@ module STAC
       @description = description
       @type = type
       @roles = roles
-      self.extra = extra.transform_keys(&:to_s)
+      @extra = extra.transform_keys(&:to_s)
     end
 
     # Serializes self to a Hash.

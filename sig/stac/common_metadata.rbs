@@ -1,6 +1,6 @@
 module STAC
   module CommonMetadata
-    attr_accessor extra: Hash[String, untyped]
+    attr_reader extra: Hash[String, untyped]
     
     def title: -> String?
     def title=: (String) -> void
