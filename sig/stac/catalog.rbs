@@ -11,7 +11,9 @@ module STAC
     ) -> void
 
     def children: -> Enumerator::Lazy[Catalog | Collection, void]
+    def all_children: -> Enumerator::Lazy[Catalog | Collection, void]
     def collections: -> Enumerator::Lazy[Collection, void]
+    def all_collections: -> Enumerator::Lazy[Collection, void]
     def find_child: (String id, ?recursive: bool) -> (Catalog | Collection | nil)
     def items: -> Enumerator::Lazy[Item, void]
     def all_items: -> Enumerator::Lazy[Item, void]

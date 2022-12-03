@@ -35,17 +35,28 @@ module STAC
       links.select { |link| link.rel == 'child' }.lazy.map(&:target)
     end
 
+    def all_children # :nodoc:
+      children.chain(children.flat_map(&:all_children)).lazy
+    end
+
     # Filters only collections from #children.
     def collections
       children.select { |child| child.type == 'Collection' }
+    end
+
+    # Returns all collections from this catalog and its child catalogs/collections recursively.
+    def all_collections
+      # The last `.lazy` is not necessary with Ruby 3.1.
+      # But with Ruby 3.0, it is necessary because Enumerator::Lazy#chain returns Enumerator::Chain
+      # and RBS type check fails.
+      collections.chain(children.flat_map(&:all_collections)).lazy
     end
 
     # Returns the child catalog/collection with the given ID if it exists.
     #
     # With option `recusive: true`, it will traverse all child catalogs/collections recursively.
     def find_child(id, recursive: false)
-      targets = recursive ? children.chain(children.flat_map(&:children)) : children
-      targets.find { |child| child.id == id }
+      (recursive ? all_children : children).find { |child| child.id == id }
     end
 
     # Returns item objects from rel="item" links of this catalog.
@@ -58,7 +69,7 @@ module STAC
       # The last `.lazy` is not necessary with Ruby 3.1.
       # But with Ruby 3.0, it is necessary because Enumerator::Lazy#chain returns Enumerator::Chain
       # and RBS type check fails.
-      items.chain(children.flat_map(&:items)).lazy
+      items.chain(children.flat_map(&:all_items)).lazy
     end
 
     # Returns the item with the given ID if it exists.

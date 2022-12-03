@@ -86,6 +86,18 @@ RSpec.describe STAC::Catalog do
     end
   end
 
+  describe '#all_collections' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    it 'returns all catalogs/collections from this catalog and its child catalogs recursively' do
+      collections = catalog.all_collections
+
+      expect(collections.map(&:id)).to contain_exactly 'extensions-collection', 'sentinel-2', 'sentinel-2'
+    end
+  end
+
   describe '#find_child' do
     before do
       catalog.self_href = "file://#{catalog_path}"
