@@ -33,8 +33,9 @@ module STAC
 
   self.default_http_client = SimpleHTTPClient.new
 
-  STACObject.add_extendable(Extensions::ElectroOptical)
-  STACObject.add_extendable(Extensions::Projection)
-  STACObject.add_extendable(Extensions::ScientificCitation)
-  STACObject.add_extendable(Extensions::ViewGeometry)
+  STACObject
+    .add_extendable(Extensions::ElectroOptical)
+    .add_extendable(Extensions::Projection)
+    .add_extendable(Extensions::ScientificCitation)
+    .add_extendable(Extensions::ViewGeometry)
 end

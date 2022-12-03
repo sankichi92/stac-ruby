@@ -93,6 +93,7 @@ module STAC
         asset.extend(extension::Asset) if extension.const_defined?(:Asset)
       end
       assets[key] = asset
+      self
     end
 
     private

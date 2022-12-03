@@ -20,6 +20,7 @@ module STAC
     # Adds the given extension module to .extendables.
     def self.add_extendable(extendable)
       @@extendables[extendable.identifier] = extendable
+      self
     end
 
     class << self
@@ -91,6 +92,7 @@ module STAC
           apply_extension!(extension)
         end
       end
+      self
     end
 
     # Adds a link with setting Link#owner as self.
@@ -98,6 +100,7 @@ module STAC
       link = Link.new(rel: rel, href: href, type: type, title: title, **extra)
       link.owner = self
       links << link
+      self
     end
 
     # Reterns HREF of the rel="self" link.

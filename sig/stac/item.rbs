@@ -32,6 +32,6 @@ module STAC
       ?type: String?,
       ?roles: Array[String]?,
       **untyped
-    ) -> void
+    ) -> self
   end
 end

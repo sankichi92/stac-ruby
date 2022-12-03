@@ -78,6 +78,7 @@ module STAC
       else
         @assets = { key => asset }
       end
+      self
     end
 
     private
