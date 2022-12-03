@@ -65,6 +65,14 @@
 </div>
 
     
+<div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+    <li><a class="include" href="HashLike.html">STAC::HashLike</a>
+  </ul>
+</div>
+
     
     
 <!-- Method Quickref -->
@@ -103,16 +111,6 @@
         <h3>Attributes</h3>
       </header>
 
-      <div id="attribute-i-extra" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">extra</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
       <div id="attribute-i-href" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">href</span><span
@@ -182,7 +180,7 @@
           <p>Deserializes a <a href="Link.html"><code>Link</code></a> from a Hash.</p>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 12</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>))
 <span class="ruby-keyword">end</span></pre>
@@ -203,7 +201,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 22</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">rel:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@rel</span> = <span class="ruby-identifier">rel</span>
   <span class="ruby-ivar">@href</span> = <span class="ruby-identifier">href</span>
@@ -237,7 +235,7 @@
 <p>When it could not assemble the absolute HREF, it returns nil.</p>
 
           <div class="method-source-code" id="absolute_href-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">absolute_href</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">URI</span>(<span class="ruby-identifier">href</span>).<span class="ruby-identifier">absolute?</span>
     <span class="ruby-identifier">href</span>
@@ -264,7 +262,7 @@
 <p>When it could not assemble the absolute HREF, it returns nil.</p>
 
           <div class="method-source-code" id="target-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">target</span>(<span class="ruby-value">http_client:</span> <span class="ruby-identifier">owner</span>&amp;.<span class="ruby-identifier">http_client</span> <span class="ruby-operator">||</span> <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">default_http_client</span>)
   <span class="ruby-ivar">@target</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">if</span> (<span class="ruby-identifier">url</span> = <span class="ruby-identifier">absolute_href</span>)
                 <span class="ruby-identifier">object</span> = <span class="ruby-constant">ObjectResolver</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">http_client:</span> <span class="ruby-identifier">http_client</span>).<span class="ruby-identifier">resolve</span>(<span class="ruby-identifier">url</span>)
@@ -289,7 +287,7 @@
           <p>Serializes self to a Hash.</p>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 31</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;rel&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">rel</span>,

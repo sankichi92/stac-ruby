@@ -65,6 +65,14 @@
 </div>
 
     
+<div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+    <li><a class="include" href="HashLike.html">STAC::HashLike</a>
+  </ul>
+</div>
+
     
     
 <!-- Method Quickref -->
@@ -106,16 +114,6 @@
       <div id="attribute-i-description" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">description</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
-      <div id="attribute-i-extra" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">extra</span><span
             class="attribute-access-type">[RW]</span>
         </div>
 
@@ -172,7 +170,7 @@
           <p>Deserializes a <a href="Provider.html"><code>Provider</code></a> from a Hash.</p>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/provider.rb, line 10</span>
+            <pre><span class="ruby-comment"># File lib/stac/provider.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>))
 <span class="ruby-keyword">end</span></pre>
@@ -193,7 +191,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/provider.rb, line 17</span>
+            <pre><span class="ruby-comment"># File lib/stac/provider.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">name:</span>, <span class="ruby-value">description:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">roles:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">url:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
   <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">description</span>
@@ -225,7 +223,7 @@
           <p>Serializes self to a Hash.</p>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/provider.rb, line 26</span>
+            <pre><span class="ruby-comment"># File lib/stac/provider.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;name&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">name</span>,

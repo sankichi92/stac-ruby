@@ -65,6 +65,14 @@
 </div>
 
     
+<div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+    <li><a class="include" href="../HashLike.html">STAC::HashLike</a>
+  </ul>
+</div>
+
     
     
 <!-- Method Quickref -->
@@ -101,16 +109,6 @@
         <h3>Attributes</h3>
       </header>
 
-      <div id="attribute-i-extra" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">extra</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
       <div id="attribute-i-interval" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">interval</span><span
@@ -140,7 +138,7 @@
           <p>Deserializes a <a href="Temporal.html"><code>Temporal</code></a> from a Hash.</p>
 
           <div class="method-source-code" id="from_hash-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 33</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 67</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">new</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>))
 <span class="ruby-keyword">end</span></pre>
@@ -161,7 +159,7 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 73</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">interval:</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@interval</span> = <span class="ruby-identifier">interval</span>
   <span class="ruby-ivar">@extra</span> = <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
@@ -190,7 +188,7 @@
           <p>Serializes self to a Hash.</p>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 45</span>
+            <pre><span class="ruby-comment"># File lib/stac/extent.rb, line 79</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;interval&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">interval</span>,
