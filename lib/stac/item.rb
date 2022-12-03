@@ -92,7 +92,7 @@ module STAC
       if properties.respond_to?(symbol)
         true
       else
-        super(symbol, include_all)
+        super
       end
     end
 
@@ -100,7 +100,7 @@ module STAC
       if properties.respond_to?(symbol)
         properties.public_send(symbol, *args, **options, &block)
       else
-        super(symbol, *args, **options, &block)
+        super
       end
     end
 
