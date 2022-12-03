@@ -77,7 +77,6 @@
     <li ><a href="#method-i-add_asset">#add_asset</a>
     <li ><a href="#method-i-collection">#collection</a>
     <li ><a href="#method-i-collection-3D">#collection=</a>
-    <li ><a href="#method-i-datetime">#datetime</a>
     <li class="calls-super" ><a href="#method-i-to_h">#to_h</a>
   </ul>
 </div>
@@ -263,7 +262,7 @@
 <p>When the item has extendable stac_extensions, make the asset extend the extension modules.</p>
 
           <div class="method-source-code" id="add_asset-source">
-            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 86</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_asset</span>(<span class="ruby-value">key:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">description:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">roles:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-identifier">asset</span> = <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">href:</span> <span class="ruby-identifier">href</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">title</span>, <span class="ruby-value">description:</span> <span class="ruby-identifier">description</span>, <span class="ruby-value">type:</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">roles:</span> <span class="ruby-identifier">roles</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-identifier">extensions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">extension</span><span class="ruby-operator">|</span>
@@ -288,7 +287,7 @@
           <p>Returns a rel=“collection” link as a collection object if it exists.</p>
 
           <div class="method-source-code" id="collection-source">
-            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 69</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collection</span>
   <span class="ruby-identifier">link</span> = <span class="ruby-identifier">find_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>)
   <span class="ruby-identifier">link</span>&amp;.<span class="ruby-identifier">target</span>
@@ -310,34 +309,13 @@
           <p>Overwrites rel=“collection” link and <a href="Item.html#attribute-i-collection_id"><code>collection_id</code></a> attribute.</p>
 
           <div class="method-source-code" id="collection-3D-source">
-            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 75</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collection=</span>(<span class="ruby-identifier">collection</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;collection must have a rel=&quot;self&quot; link&#39;</span> <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">collection_href</span> = <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">self_href</span>)
 
   <span class="ruby-ivar">@collection_id</span> = <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">id</span>
   <span class="ruby-identifier">remove_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>)
   <span class="ruby-identifier">add_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>, <span class="ruby-value">href:</span> <span class="ruby-identifier">collection_href</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">title</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-        </div>
-
-
-      </div>
-
-      <div id="method-i-datetime" class="method-detail ">
-        <div class="method-heading">
-          <span class="method-name">datetime</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-
-        <div class="method-description">
-          <p>Returns datetime from <a href="Item.html#attribute-i-properties"><code>properties</code></a>.</p>
-
-          <div class="method-source-code" id="datetime-source">
-            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 64</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">datetime</span>
-  <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">datetime</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
