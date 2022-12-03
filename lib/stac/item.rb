@@ -60,11 +60,6 @@ module STAC
       )
     end
 
-    # Returns datetime from #properties.
-    def datetime
-      properties.datetime
-    end
-
     # Returns a rel="collection" link as a collection object if it exists.
     def collection
       link = find_link(rel: 'collection')
@@ -92,6 +87,22 @@ module STAC
     end
 
     private
+
+    def respond_to_missing?(symbol, include_all)
+      if properties.respond_to?(symbol)
+        true
+      else
+        super(symbol, include_all)
+      end
+    end
+
+    def method_missing(symbol, *args, **options, &block)
+      if properties.respond_to?(symbol)
+        properties.public_send(symbol, *args, **options, &block)
+      else
+        super(symbol, *args, **options, &block)
+      end
+    end
 
     def apply_extension!(extension)
       super
