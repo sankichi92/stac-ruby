@@ -1,15 +1,14 @@
 module STAC
   class Provider
+    include HashLike
+
     def self.from_hash: (Hash[String, untyped] hash) -> Provider
 
     attr_accessor name: String
     attr_accessor description: String?
     attr_accessor roles: Array[String]?
     attr_accessor url: String?
-    attr_accessor extra: Hash[String, untyped]
 
     def initialize: (name: String, ?description: String?, ?roles: Array[String]?, ?url: String?, **untyped) -> void
-
-    def to_h: -> Hash[String, untyped]
   end
 end

@@ -1,14 +1,12 @@
 module STAC
   class Properties
+    include HashLike
     include CommonMetadata
 
     def self.from_hash: (Hash[String, untyped] hash) -> Properties
 
     attr_accessor datetime: Time?
-    attr_accessor extra: Hash[String, untyped]
 
     def initialize: (datetime: Time?, **untyped) -> void
-
-    def to_h: -> Hash[String, untyped]
   end
 end

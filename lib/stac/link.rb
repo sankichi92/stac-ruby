@@ -3,10 +3,13 @@
 require 'pathname'
 require 'uri'
 require_relative 'errors'
+require_relative 'hash_like'
 
 module STAC
   # Represents \STAC link object, which describes a relationship with another entity.
   class Link
+    include HashLike
+
     class << self
       # Deserializes a Link from a Hash.
       def from_hash(hash)
@@ -14,7 +17,7 @@ module STAC
       end
     end
 
-    attr_accessor :rel, :href, :type, :title, :extra
+    attr_accessor :rel, :href, :type, :title
 
     # Owner object of this link.
     attr_accessor :owner

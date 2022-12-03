@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
-require 'json'
 require_relative 'errors'
+require_relative 'hash_like'
 require_relative 'link'
 require_relative 'spec_version'
 
 module STAC
   # Base class for \STAC objects (i.e. Catalog, Collection and Item).
   class STACObject
+    include HashLike
+
     @@extendables = {} # rubocop:disable Style/ClassVars
 
     # Returns available extension modules.
@@ -34,8 +36,6 @@ module STAC
       end
     end
 
-    attr_accessor :extra
-
     # HTTP Client to fetch objects from HTTP HREF links.
     attr_accessor :http_client
 
@@ -52,10 +52,6 @@ module STAC
       apply_extensions!
     end
 
-    def type
-      self.class.type
-    end
-
     # Serializes self to a Hash.
     def to_h
       {
@@ -66,9 +62,14 @@ module STAC
       }.merge(extra).compact
     end
 
-    # Serializes self to a JSON string.
-    def to_json(...)
-      to_h.to_json(...)
+    def deep_dup
+      super.tap do |obj|
+        obj.http_client = http_client.dup
+      end
+    end
+
+    def type
+      self.class.type
     end
 
     # Returns extended extension modules.

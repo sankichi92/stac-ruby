@@ -2,12 +2,14 @@
 
 require 'time'
 require_relative 'common_metadata'
+require_relative 'hash_like'
 
 module STAC
   # Represents \STAC properties object, which is additional metadata for Item.
   #
   # Specification: https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#properties-object
   class Properties
+    include HashLike
     include CommonMetadata
 
     class << self

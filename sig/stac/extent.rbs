@@ -1,35 +1,32 @@
 module STAC
   class Extent
-    class Spatial
-      def self.from_hash: (Hash[String, untyped] hash) -> Spatial
-
-      attr_accessor bbox: Array[Array[Numeric]]
-      attr_accessor extra: Hash[String, untyped]
-
-      def initialize: (bbox: Array[Array[Numeric]], **untyped) -> void
-
-      def to_h: -> Hash[String, untyped]
-    end
-
-    class Temporal
-      def self.from_hash: (Hash[String, untyped] hash) -> Temporal
-
-      attr_accessor interval: Array[Array[String?]]
-      attr_accessor extra: Hash[String, untyped]
-
-      def initialize: (interval: Array[Array[String?]], **untyped) -> void
-
-      def to_h: -> Hash[String, untyped]
-    end
+    include HashLike
 
     def self.from_hash: (Hash[String, untyped] hash) -> Extent
 
     attr_accessor spatial: Spatial
     attr_accessor temporal: Temporal
-    attr_accessor extra: Hash[String, untyped]
 
     def initialize: (spatial: Spatial, temporal: Temporal, **untyped) -> void
+    
+    class Spatial
+      include HashLike
 
-    def to_h: -> Hash[String, untyped]
+      def self.from_hash: (Hash[String, untyped] hash) -> Spatial
+
+      attr_accessor bbox: Array[Array[Numeric]]
+
+      def initialize: (bbox: Array[Array[Numeric]], **untyped) -> void
+    end
+
+    class Temporal
+      include HashLike
+
+      def self.from_hash: (Hash[String, untyped] hash) -> Temporal
+
+      attr_accessor interval: Array[Array[String?]]
+
+      def initialize: (interval: Array[Array[String?]], **untyped) -> void
+    end
   end
 end
