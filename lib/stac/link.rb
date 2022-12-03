@@ -19,8 +19,6 @@ module STAC
     # Owner object of this link.
     attr_accessor :owner
 
-    attr_writer :resolver # :nodoc:
-
     def initialize(rel:, href:, type: nil, title: nil, **extra)
       @rel = rel
       @href = href
