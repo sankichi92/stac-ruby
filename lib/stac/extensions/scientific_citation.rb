@@ -12,8 +12,8 @@ module STAC
     module ScientificCitation
       extend Extension
 
-      self.identifier = 'https://stac-extensions.github.io/scientific/v1.0.0/schema.json'
-      self.scope = [Item, Collection]
+      identifier 'https://stac-extensions.github.io/scientific/v1.0.0/schema.json'
+      scope STAC::Item, STAC::Collection
 
       module Properties # rubocop:disable Style/Documentation
         attr_reader :extra

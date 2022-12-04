@@ -10,7 +10,7 @@ module STAC
   #
   # \STAC \Item Specification: https://github.com/radiantearth/stac-spec/tree/master/item-spec
   class Item < STAC::STACObject
-    self.type = 'Feature'
+    @type = 'Feature'
 
     class << self
       def from_hash(hash)
@@ -47,7 +47,7 @@ module STAC
     def [](key)
       value = super
       if value.nil?
-        properties[key]
+        properties.extra[key.to_s]
       else
         value
       end

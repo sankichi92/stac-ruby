@@ -11,8 +11,8 @@ module STAC
     module Projection
       extend Extension
 
-      self.identifier = 'https://stac-extensions.github.io/projection/v1.0.0/schema.json'
-      self.scope = [Item]
+      identifier 'https://stac-extensions.github.io/projection/v1.0.0/schema.json'
+      scope STAC::Item
 
       module Properties # rubocop:disable Style/Documentation
         attr_reader :extra

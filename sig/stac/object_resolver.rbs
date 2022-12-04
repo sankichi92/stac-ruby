@@ -2,7 +2,7 @@ module STAC
   class ObjectResolver
     RESOLVABLES: Array[_STACObjectClass]
 
-    attr_accessor self.resolvables: Array[_STACObjectClass]
+    attr_reader self.resolvables: Array[_STACObjectClass]
 
     def self.default_http_client: -> _HTTPClient
 

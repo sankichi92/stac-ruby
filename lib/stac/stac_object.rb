@@ -24,7 +24,7 @@ module STAC
     end
 
     class << self
-      attr_accessor :type # :nodoc:
+      attr_reader :type # :nodoc:
 
       # Base method to deserialize shared fields from a Hash.
       #

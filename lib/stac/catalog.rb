@@ -8,7 +8,7 @@ module STAC
   #
   # \STAC \Catalog Specification: https://github.com/radiantearth/stac-spec/tree/master/catalog-spec
   class Catalog < STAC::STACObject
-    self.type = 'Catalog'
+    @type = 'Catalog'
 
     attr_accessor :id, :description, :title
 

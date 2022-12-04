@@ -12,8 +12,7 @@ RSpec.describe STAC::STACObject do
       Module.new do
         extend STAC::Extension
 
-        self.identifier = 'extension'
-        self.scope = []
+        identifier 'extension'
       end
     end
 

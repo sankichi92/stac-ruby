@@ -12,4 +12,7 @@ module STAC
 
   # Raised when a HTTP request failed.
   class HTTPError < Error; end
+
+  # Raised when an extension module does have identifier.
+  class ExtensionWithoutIdentifierError < Error; end
 end

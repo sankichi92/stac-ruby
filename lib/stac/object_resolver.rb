@@ -11,10 +11,10 @@ module STAC
   class ObjectResolver
     class << self
       # Resolvable classes. Default is Catalog, Collection and Item.
-      attr_accessor :resolvables
+      attr_reader :resolvables
     end
 
-    self.resolvables = [Catalog, Collection, Item]
+    @resolvables = [Catalog, Collection, Item]
 
     attr_reader :http_client
 

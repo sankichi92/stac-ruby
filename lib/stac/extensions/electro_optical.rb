@@ -11,8 +11,8 @@ module STAC
     module ElectroOptical
       extend Extension
 
-      self.identifier = 'https://stac-extensions.github.io/eo/v1.0.0/schema.json'
-      self.scope = [Item]
+      identifier 'https://stac-extensions.github.io/eo/v1.0.0/schema.json'
+      scope STAC::Item
 
       module Properties # rubocop:disable Style/Documentation
         attr_reader :extra

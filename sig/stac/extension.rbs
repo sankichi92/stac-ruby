@@ -1,6 +1,9 @@
 module STAC
   module Extension
-    attr_accessor identifier: String
-    attr_accessor scope: Array[Class]
+    @identifier: String?
+    @scope: Array[Class]?
+
+    def identifier: -> String | (String) -> String
+    def scope: -> Array[Class] | (*Class) -> Array[Class]
   end
 end

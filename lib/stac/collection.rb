@@ -10,7 +10,7 @@ module STAC
   #
   # \STAC \Collection Specification: https://github.com/radiantearth/stac-spec/tree/master/collection-spec
   class Collection < Catalog
-    self.type = 'Collection'
+    @type = 'Collection'
 
     class << self
       def from_hash(hash)

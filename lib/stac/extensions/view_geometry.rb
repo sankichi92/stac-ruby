@@ -11,8 +11,8 @@ module STAC
     module ViewGeometry
       extend Extension
 
-      self.identifier = 'https://stac-extensions.github.io/view/v1.0.0/schema.json'
-      self.scope = [Item]
+      identifier 'https://stac-extensions.github.io/view/v1.0.0/schema.json'
+      scope STAC::Item
 
       module Properties # rubocop:disable Style/Documentation
         attr_reader :extra

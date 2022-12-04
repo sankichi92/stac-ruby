@@ -4,7 +4,7 @@ module STAC
 
     @@extendables: Hash[String, Extension]
     
-    attr_accessor self.type: String
+    attr_reader self.type: String
     
     def self.extendables: -> Array[Extension]
     def self.add_extendable: (Extension) -> self

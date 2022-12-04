@@ -10,4 +10,7 @@ module STAC
 
   class HTTPError < Error
   end
+
+  class ExtensionWithoutIdentifierError < Error
+  end
 end
