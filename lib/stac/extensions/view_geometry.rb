@@ -7,7 +7,7 @@ module STAC
   module Extensions
     # Utilities for View Geometry extension.
     #
-    # View Geometry Extension Specification: https://github.com/stac-extensions/scientific/
+    # View Geometry \Extension Specification: https://github.com/stac-extensions/scientific/
     module ViewGeometry
       extend Extension
 

@@ -3,7 +3,7 @@
 require_relative 'errors'
 
 module STAC
-  # Extension modules must extend this module.
+  # \Extension modules must extend this module.
   module Extension
     # Returns extension id for `stac_extensions` field.
     #

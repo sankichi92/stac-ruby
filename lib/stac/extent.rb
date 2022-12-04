@@ -3,7 +3,7 @@
 require_relative 'hash_like'
 
 module STAC
-  # Represents \STAC extent object, which describes the spatio-temporal extents of a Collection.
+  # Represents \STAC extent object, which describes the spatio-temporal extents of a collection.
   #
   # Specification: https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#extent-object
   class Extent
@@ -35,7 +35,7 @@ module STAC
       }.merge(extra)
     end
 
-    # Describes the spatial extents of a Collection
+    # Describes the spatial extents of a collection
     class Spatial
       include HashLike
 
@@ -59,7 +59,7 @@ module STAC
       end
     end
 
-    # Describes the temporal extents of a Collection.
+    # Describes the temporal extents of a collection.
     class Temporal
       include HashLike
 

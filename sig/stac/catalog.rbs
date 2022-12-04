@@ -1,13 +1,13 @@
 module STAC
   class Catalog < STACObject
-    def self.from_hash: (Hash[String, untyped] hash) -> Catalog
+    def self.from_hash: (Hash[String | Symbol, untyped] hash) -> Catalog
 
     attr_accessor id: String
     attr_accessor description: String
     attr_accessor title: String?
     
     def initialize: (
-      id: String, description: String, links: Array[Hash[String, String]], ?title: String?, ?stac_extensions: Array[String], **untyped
+      id: String, description: String, ?links: Array[Hash[String, String]], ?title: String?, ?stac_extensions: Array[String], **untyped
     ) -> void
 
     def children: -> Enumerator::Lazy[Catalog | Collection, void]

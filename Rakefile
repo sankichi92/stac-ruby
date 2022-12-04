@@ -14,7 +14,7 @@ task default: %i[spec rubocop]
 RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'doc'
   rdoc.title = 'stac-ruby API docs'
-  rdoc.rdoc_files.include('README.md', 'CHANGELOG.md', 'lib/**/*.rb')
+  rdoc.rdoc_files.include('README.md', 'CHANGELOG.md', 'GETTING_STARTED.md', 'lib/**/*.rb')
   rdoc.main = 'README.md'
 end
 

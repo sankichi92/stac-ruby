@@ -8,25 +8,25 @@ module STAC
     
     def self.extendables: -> Array[Extension]
     def self.add_extendable: (Extension) -> self
-    def self.from_hash: (Hash[String, untyped]) -> STACObject
+    def self.from_hash: (Hash[String | Symbol, untyped]) -> STACObject
     
-    attr_accessor stac_extensions: Array[String]
     attr_accessor http_client: _HTTPClient
+    attr_reader stac_extensions: Array[String]
     attr_reader links: Array[Link]
 
     @extended: Array[Extension]
 
     def initialize: (
-      links: Array[Hash[String, String]], ?stac_extensions: Array[String], **untyped
+      ?links: Array[Hash[String, String]], ?stac_extensions: Array[String], **untyped
     ) -> void
 
     def type: -> String
     def extended: -> Array[Extension]
     def add_extension: (Extension | String) -> self
+    def find_link: (rel: String, ?type: String?) -> Link?
     def add_link: (rel: String, href: String, ?type: String?, ?title: String?, **untyped) -> self
     def self_href: -> String?
     def self_href=: (String) -> void
-    def find_link: (rel: String, ?type: String?) -> Link?
 
     private
 

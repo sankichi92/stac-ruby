@@ -5,9 +5,9 @@ require_relative '../item'
 
 module STAC
   module Extensions
-    # Utilities for Projection extension.
+    # Utilities for \Projection extension.
     #
-    # Projection Extension Specification: https://github.com/stac-extensions/projection/
+    # \Projection \Extension Specification: https://github.com/stac-extensions/projection/
     module Projection
       extend Extension
 

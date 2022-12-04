@@ -6,7 +6,7 @@ require_relative 'link'
 require_relative 'spec_version'
 
 module STAC
-  # Base class for \STAC objects (i.e. Catalog, Collection and Item).
+  # Base class for \STAC objects (i.e. Catalog, Collection, and Item).
   class STACObject
     include HashLike
 
@@ -30,10 +30,10 @@ module STAC
       #
       # Raises ArgumentError when any required fields are missing.
       def from_hash(hash)
-        raise TypeError, "type field is not '#{type}': #{hash['type']}" if hash.fetch('type') != type
+        h = hash.transform_keys(&:to_sym)
+        raise TypeError, "type field is not '#{type}': #{h[:type]}" if h.fetch(:type) != type
 
-        transformed = hash.transform_keys(&:to_sym).except(:type, :stac_version)
-        new(**transformed)
+        new(**h.except(:type, :stac_version))
       end
     end
 
@@ -42,7 +42,7 @@ module STAC
 
     attr_reader :stac_extensions, :links
 
-    def initialize(links:, stac_extensions: [], **extra)
+    def initialize(links: [], stac_extensions: [], **extra)
       @links = []
       links.each do |link|
         add_link(**link.transform_keys(&:to_sym)) # to set `owner`
@@ -95,6 +95,17 @@ module STAC
       self
     end
 
+    # Returns a link matching the arguments.
+    def find_link(rel:, type: nil)
+      links.find do |link|
+        if type
+          link.rel == rel && link.type == type
+        else
+          link.rel == rel
+        end
+      end
+    end
+
     # Adds a link with setting Link#owner as self.
     def add_link(rel:, href:, type: nil, title: nil, **extra)
       link = Link.new(rel: rel, href: href, type: type, title: title, **extra)
@@ -114,17 +125,6 @@ module STAC
     def self_href=(absolute_href)
       remove_link(rel: 'self')
       add_link(rel: 'self', href: absolute_href, type: 'application/json')
-    end
-
-    # Returns a link matching the arguments.
-    def find_link(rel:, type: nil)
-      links.find do |link|
-        if type
-          link.rel == rel && link.type == type
-        else
-          link.rel == rel
-        end
-      end
     end
 
     private

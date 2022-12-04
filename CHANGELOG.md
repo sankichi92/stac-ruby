@@ -4,6 +4,7 @@
 - Make `STACObject` extend extension modules from `stac_extensions` value automatically.
 - Introduce `HashLike` module and make STAC Object classes include it.
 - Fix a bug that `Catalog#all_items` returns only direct children's items.
+- Improve documentation.
 
 ## [0.2.0] - 2022-11-02
 
