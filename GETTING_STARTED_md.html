@@ -370,12 +370,14 @@
 
 <p>These methods are also shorthand accessors of <code>extra</code> hash same as <code>STAC::CommonMetadata</code>.</p>
 
-<pre class="ruby"><span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">extra</span> <span class="ruby-comment">#=&gt; {}</span>
+<pre class="ruby"><span class="ruby-identifier">item</span>.<span class="ruby-identifier">stac_extensions</span> <span class="ruby-comment">#=&gt; []</span>
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">extra</span> <span class="ruby-comment">#=&gt; {}</span>
 <span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">eo_cloud_cover</span> <span class="ruby-comment">#=&gt; raises NoMethodError</span>
 
 <span class="ruby-identifier">item</span>.<span class="ruby-identifier">add_extension</span>(<span class="ruby-string">&#39;https://stac-extensions.github.io/eo/v1.0.0/schema.json&#39;</span>)
 <span class="ruby-comment"># same as `item.add_extension(STAC::Extensions::ElectroOptical)`</span>
 
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">stac_extensions</span> <span class="ruby-comment">#=&gt; [&quot;https://stac-extensions.github.io/eo/v1.0.0/schema.json&quot;]</span>
 <span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">eo_cloud_cover</span> = <span class="ruby-value">1.2</span>
 <span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">eo_cloud_cover</span> <span class="ruby-comment">#=&gt; 1.2</span>
 <span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">extra</span> <span class="ruby-comment">#=&gt; {&quot;eo:cloud_cover&quot;=&gt;1.2}</span>
