@@ -9,7 +9,7 @@ module STAC
     attr_reader :extra
 
     # When there is an attribute with the given name, returns the attribute value.
-    # Otherwise, calls `extra[key]`.
+    # Otherwise, calls `extra\[key]`.
     def [](key)
       if respond_to?(key) && method(key).arity.zero?
         public_send(key)
@@ -52,7 +52,7 @@ module STAC
       to_h.to_json(...)
     end
 
-    # Returns `true` if all of the following are true:
+    # Returns `true` if all of the followings are true:
     # - the given object is an instance of tha same class
     # - `self.to_hash == other.to_hash`
     #

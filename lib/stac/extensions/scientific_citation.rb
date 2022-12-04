@@ -8,7 +8,7 @@ module STAC
   module Extensions
     # Utilities for Scientific Citation extension.
     #
-    # Scientific Citation Extension Specification: https://github.com/stac-extensions/scientific/
+    # Scientific Citation \Extension Specification: https://github.com/stac-extensions/scientific/
     module ScientificCitation
       extend Extension
 
@@ -51,7 +51,7 @@ module STAC
         include Properties
       end
 
-      # Represents Publication object of Scientific Citation extension.
+      # Represents \Publication object of Scientific Citation extension.
       class Publication
         attr_reader :raw_hash # :nodoc:
 

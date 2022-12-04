@@ -7,7 +7,7 @@ module STAC
   module Extensions
     # Utilities for Electro-Optical extension.
     #
-    # Electro-Optical Extension Specification: https://github.com/stac-extensions/eo/
+    # Electro-Optical \Extension Specification: https://github.com/stac-extensions/eo/
     module ElectroOptical
       extend Extension
 

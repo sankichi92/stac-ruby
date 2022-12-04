@@ -6,7 +6,7 @@ require_relative 'link'
 require_relative 'spec_version'
 
 module STAC
-  # Base class for \STAC objects (i.e. Catalog, Collection and Item).
+  # Base class for \STAC objects (i.e. Catalog, Collection, and Item).
   class STACObject
     include HashLike
 
