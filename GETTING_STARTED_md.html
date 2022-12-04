@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>GETTING_STARTED - stac-ruby API docs</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#label-Getting+Started">Getting Started</a>
+    <li><a href="#label-Reading+STAC+Objects">Reading STAC Objects</a>
+    <li><a href="#label-STAC+Object+Classes">STAC Object Classes</a>
+    <li><a href="#label-STAC-3A-3ACatalog">STAC::Catalog</a>
+    <li><a href="#label-Crawling+Catalog+Links">Crawling Catalog Links</a>
+    <li><a href="#label-STAC-3A-3ACollection">STAC::Collection</a>
+    <li><a href="#label-STAC-3A-3AItem">STAC::Item</a>
+    <li><a href="#label-Common+Metadata">Common Metadata</a>
+    <li><a href="#label-Extensions">Extensions</a>
+    <li><a href="#label-Adding+Extensions">Adding Extensions</a>
+    <li><a href="#label-Using+Custom+HTTP+Client">Using Custom HTTP Client</a>
+  </ul>
+</div>
+
+
+  <div id="project-metadata">
+    
+<div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+    <li><a href="./CHANGELOG_md.html">CHANGELOG</a>
+    <li><a href="./GETTING_STARTED_md.html">GETTING_STARTED</a>
+    <li><a href="./README_md.html">README</a>
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page GETTING_STARTED.md">
+
+<h1 id="label-Getting+Started">Getting Started<span><a href="#label-Getting+Started">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<ul><li>
+<p><a href="#reading-stac-objects">Reading STAC Objects</a></p>
+</li><li>
+<p><a href="#stac-object-classes">STAC Object Classes</a></p>
+</li><li>
+<p><a href="#staccatalog">STAC::Catalog</a></p>
+<ul><li>
+<p><a href="#crawling-catalog-links">Crawling Catalog Links</a></p>
+</li></ul>
+</li><li>
+<p><a href="#staccollection">STAC::Collection</a></p>
+</li><li>
+<p><a href="#stacitem">STAC::Item</a></p>
+<ul><li>
+<p><a href="#common-metadata">Common Metadata</a></p>
+</li></ul>
+</li><li>
+<p><a href="#extensions">Extensions</a></p>
+</li><li>
+<p><a href="#adding-extensions">Adding Extensions</a></p>
+</li><li>
+<p><a href="#using-custom-http-client">Using Custom HTTP Client</a></p>
+</li></ul>
+
+<h2 id="label-Reading+STAC+Objects">Reading <a href="STAC.html"><code>STAC</code></a> Objects<span><a href="#label-Reading+STAC+Objects">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>You can read any <a href="STAC.html"><code>STAC</code></a> objects from URL by <code>STAC.from_url</code>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">catalog</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_url</span>(<span class="ruby-string">&#39;https://raw.githubusercontent.com/radiantearth/stac-spec/master/examples/catalog.json&#39;</span>)
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">class</span> <span class="ruby-comment">#=&gt; STAC::Catalog</span>
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">type</span> <span class="ruby-comment">#=&gt; &quot;Catalog&quot;</span>
+
+<span class="ruby-identifier">collection</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_url</span>(<span class="ruby-string">&#39;https://raw.githubusercontent.com/radiantearth/stac-spec/master/examples/collection.json&#39;</span>)
+<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">class</span> <span class="ruby-comment">#=&gt; STAC::Collection</span>
+<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">type</span> <span class="ruby-comment">#=&gt; &quot;Collection&quot;</span>
+
+<span class="ruby-identifier">item</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_item</span>(<span class="ruby-string">&#39;https://raw.githubusercontent.com/radiantearth/stac-spec/master/examples/core-item.json&#39;</span>)
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">class</span> <span class="ruby-comment">#=&gt; STAC::Item</span>
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">type</span> <span class="ruby-comment">#=&gt; &quot;Feature&quot;</span>
+</pre>
+
+<p>Also, from a local file by <code>STAC.from_file</code>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">catalog</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_file</span>(<span class="ruby-string">&#39;/path/to/local/catalog.json&#39;</span>)
+<span class="ruby-identifier">collection</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_file</span>(<span class="ruby-string">&#39;/path/to/local/collection.json&#39;</span>)
+<span class="ruby-identifier">item</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_file</span>(<span class="ruby-string">&#39;/path/to/local/item.json&#39;</span>)
+</pre>
+
+<h2 id="label-STAC+Object+Classes"><a href="STAC.html"><code>STAC</code></a> Object Classes<span><a href="#label-STAC+Object+Classes">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>There are 3 core <a href="STAC.html"><code>STAC</code></a> object classes: <code>STAC::Catalog</code>, <code>STAC::Collection</code>, and <code>STAC::Item</code>.</p>
+
+<p>They have a class method <code>from_hash(hash)</code>, which returns its instance converted from the given Hash.</p>
+
+<pre class="ruby"><span class="ruby-identifier">catalog</span> = <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">from_hash</span>(
+  {
+    <span class="ruby-string">&#39;stac_version&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;1.0.0&#39;</span>,
+    <span class="ruby-string">&#39;type&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;Catalog&#39;</span>,
+    <span class="ruby-string">&#39;id&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;20201211_223832_CS2&#39;</span>,
+    <span class="ruby-string">&#39;description&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;A simple catalog example&#39;</span>,
+    <span class="ruby-string">&#39;links&#39;</span> <span class="ruby-operator">=&gt;</span> [],
+  }
+)
+</pre>
+
+<p>And they have the following instance methods in common:</p>
+<ul><li>
+<p><code>extra: -&gt; Hash[String, untyped]</code> returns extra fields that do not belong to the core specification like <a href="STAC.html"><code>STAC</code></a> extensions fields</p>
+</li><li>
+<p><code>to_h: -&gt; Hash[String, untyped]</code></p>
+</li><li>
+<p><code>to_json: -&gt; String</code></p>
+</li><li>
+<p><code>deep_dup: -&gt; self</code> returns a deep copy of self.</p>
+</li><li>
+<p><code>stac_extensions: -&gt; Array[String]</code></p>
+</li><li>
+<p><code>add_extension: (String extension_id) -&gt; self | (Module extension) -&gt; self</code></p>
+</li><li>
+<p><code>links: -&gt; Array[STAC::Link]</code></p>
+</li><li>
+<p><code>find_link: (rel: String, ?type: String?) -&gt; STAC::Link?</code></p>
+</li><li>
+<p><code>add_link: (rel: String, href: String, ?type: String?, ?title: String?) -&gt; self</code></p>
+</li><li>
+<p><code>self_href: -&gt; String?</code> returns rel=“self” link’s href value</p>
+</li><li>
+<p><code>self_href=: (String absolute_href) -&gt; void</code> adds rel=“self” link with the given href</p>
+</li></ul>
+
+<h3 id="label-STAC-3A-3ACatalog"><a href="STAC/Catalog.html"><code>STAC::Catalog</code></a><span><a href="#label-STAC-3A-3ACatalog">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p><code>STAC::Catalog</code> has the following attributes:</p>
+<ul><li>
+<p><code>attr_accessor id: String</code></p>
+</li><li>
+<p><code>attr_accessor description: String</code></p>
+</li><li>
+<p><code>attr_accessor title: String?</code></p>
+</li></ul>
+
+<pre class="ruby"><span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">id</span> = <span class="ruby-string">&#39;awesome_catalog&#39;</span>
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">id</span> <span class="ruby-comment">#=&gt; &quot;awesome_catalog&quot;</span>
+</pre>
+
+<p>See <a href="https://github.com/radiantearth/stac-spec/blob/master/catalog-spec/catalog-spec.md">STAC Catalog Specification</a> for the details.</p>
+
+<h4 id="label-Crawling+Catalog+Links">Crawling Catalog Links<span><a href="#label-Crawling+Catalog+Links">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p><code>STAC::Catalog</code> also has methods to crawl its <code>links</code>:</p>
+<ul><li>
+<p><code>children: -&gt; Enumerator::Lazy[Catalog | Collection, void]</code> returns catalog/collection objects from rel=“child” links</p>
+</li><li>
+<p><code>collections: -&gt; Enumerator::Lazy[Collection, void]</code> filters only collections from children</p>
+</li><li>
+<p><code>all_collections: -&gt; Enumerator::Lazy[Catalog | Collection, void]</code> returns all collections from the catalog and its children recursively</p>
+</li><li>
+<p><code>items: -&gt; Enumerator::Lazy[Item, void]</code> returns item objects from rel=“items” links</p>
+</li><li>
+<p><code>all_items: -&gt; Enumerator::Lazy[Item, void]</code> returns all items from the catalog and its children recursively</p>
+</li><li>
+<p><code>find_child: (String id, ?recursive: bool) -&gt; (Catalog | Collection)?</code></p>
+</li><li>
+<p><code>find_item: (String id, ?recursive: bool) -&gt; Item?</code></p>
+</li></ul>
+
+<p>Note that the first 5 methods return {<code>Enumerator::Lazy</code><a href="https://rubyapi.org/3.1/o/enumerator/lazy">}</a>. This is to prevent making a large number of HTTP requests when calling the methods.</p>
+
+<pre class="ruby"><span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">collections</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collection</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-identifier">collection</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">find_child</span>(<span class="ruby-string">&#39;awesome_collection&#39;</span>)
+
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">all_items</span>.<span class="ruby-identifier">first</span>(<span class="ruby-value">100</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-identifier">item</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">find_item</span>(<span class="ruby-string">&#39;awesome_item&#39;</span>, <span class="ruby-value">recursive:</span> <span class="ruby-keyword">true</span>)
+</pre>
+
+<h3 id="label-STAC-3A-3ACollection"><a href="STAC/Collection.html"><code>STAC::Collection</code></a><span><a href="#label-STAC-3A-3ACollection">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p><code>STAC::Collection</code> inherits <code>STAC::Catalog</code>.</p>
+
+<p>The followings are <code>STAC::Collection</code> specific attributes:</p>
+<ul><li>
+<p><code>attr_accessor license: String</code></p>
+</li><li>
+<p><code>attr_accessor extent: STAC::Extent</code></p>
+</li><li>
+<p><code>attr_accessor keywords: Array[String]?</code></p>
+</li><li>
+<p><code>attr_accessor providers: Array[STAC::Provider]?</code></p>
+</li><li>
+<p><code>attr_accessor summaries: Hash[String, untyped]?</code></p>
+</li><li>
+<p><code>attr_reader assets: Hash[String, STAC::Asset]?</code></p>
+</li></ul>
+
+<p>To add an asset, use:</p>
+<ul><li>
+<p><code>add_asset: (key: String, href: String, ?title: String?, ?description: String?, ?type: String?, ?roles: Array[String]?) -&gt; self</code></p>
+</li></ul>
+
+<p><code>STAC::Extent</code>, <code>STAC::Provider</code>, and <code>STAC::Asset</code> provide accessors for the corresponding object’s fields.</p>
+
+<pre class="ruby"><span class="ruby-identifier">collection</span>.<span class="ruby-identifier">extent</span>.<span class="ruby-identifier">spatial</span>.<span class="ruby-identifier">bbox</span> = [<span class="ruby-value">-180</span>, <span class="ruby-value">-90</span>, <span class="ruby-value">180</span>, <span class="ruby-value">90</span>]
+<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">extent</span>.<span class="ruby-identifier">spatial</span>.<span class="ruby-identifier">bbox</span> <span class="ruby-comment">#=&gt; [-180, -90, 180, 90]</span>
+<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">extent</span>.<span class="ruby-identifier">temporal</span>.<span class="ruby-identifier">interval</span> = [<span class="ruby-string">&#39;2022-12-01T00:00:00Z&#39;</span>, <span class="ruby-identifier">null</span>]
+<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">extent</span>.<span class="ruby-identifier">temporal</span>.<span class="ruby-identifier">interval</span> <span class="ruby-comment">#=&gt; [&quot;2022-12-01T00:00:00Z&quot;, null]</span>
+
+<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">providers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">Provider</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">name:</span> <span class="ruby-string">&#39;sankichi92&#39;</span>)
+<span class="ruby-identifier">collection</span>.<span class="ruby-identifier">providers</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">name</span> <span class="ruby-comment">#=&gt; &quot;sankichi92&quot;</span>
+</pre>
+
+<p>See <a href="https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md">STAC Collection Specification</a> for the details.</p>
+
+<h3 id="label-STAC-3A-3AItem"><a href="STAC/Item.html"><code>STAC::Item</code></a><span><a href="#label-STAC-3A-3AItem">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p><code>STAC::Item</code> has the following attributes:</p>
+<ul><li>
+<p><code>attr_accessor id: String</code></p>
+</li><li>
+<p><code>attr_reader properties: STAC::Properties</code></p>
+</li><li>
+<p><code>attr_reader assets: Hash[String, STAC::Asset]</code></p>
+</li><li>
+<p><code>attr_accessor geometry: Hash[String, untyped]?</code></p>
+</li><li>
+<p><code>attr_accessor bbox: Array[Numeric]?</code></p>
+</li><li>
+<p><code>attr_accessor collection_id: String?</code></p>
+</li></ul>
+
+<p>And has the following methods:</p>
+<ul><li>
+<p><code>add_asset: (key: String, href: String, ?title: String?, ?description: String?, ?type: String?, ?roles: Array[String]?) -&gt; self</code></p>
+</li><li>
+<p><code>collection: -&gt; Collection?</code> returns a rel=“collection” link as a collection object</p>
+</li><li>
+<p><code>collection=: (Collection collection) -&gt; void</code> overwrites rel=“collection” link and collection_id attribute</p>
+</li></ul>
+
+<p>See <a href="https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md">STAC Item Specification</a> for the details.</p>
+
+<h4 id="label-Common+Metadata">Common Metadata<span><a href="#label-Common+Metadata">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p><code>STAC::Properties</code> and <code>STAC::Asset</code> includes <code>STAC::CommonMetadata</code>, which provides read/write methods for <a href="https://github.com/radiantearth/stac-spec/blob/master/item-spec/common-metadata.md">STAC Common Metadata</a> fields:</p>
+<ul><li>
+<p><code>title: -&gt; String?</code></p>
+</li><li>
+<p><code>title=: (String) -&gt; void</code></p>
+</li><li>
+<p><code>description: -&gt; String?</code></p>
+</li><li>
+<p><code>description=: (String) -&gt; void</code></p>
+</li><li>
+<p><code>created: -&gt; Time?</code></p>
+</li><li>
+<p><code>created=: (Time | String) -&gt; void</code></p>
+</li><li>
+<p><code>updated: -&gt; Time?</code></p>
+</li><li>
+<p><code>updated=: (Time | String) -&gt; void</code></p>
+</li><li>
+<p><code>start_datetime: -&gt; Time?</code></p>
+</li><li>
+<p><code>start_datetime=: (Time | String) -&gt; void</code></p>
+</li><li>
+<p><code>end_datetime: -&gt; Time?</code></p>
+</li><li>
+<p><code>end_datetime=: (Time | String) -&gt; void</code></p>
+</li><li>
+<p><code>datetime_range: -&gt; Range[Time]?</code> returns a range from start_datetime to end_datetime</p>
+</li><li>
+<p><code>datetime_range=: (Range[Time]) -&gt; void</code> sets start_datetime and end_datetime by the given range</p>
+</li><li>
+<p><code>license: -&gt; String?</code></p>
+</li><li>
+<p><code>license=: (String) -&gt; void</code></p>
+</li><li>
+<p><code>providers: -&gt; Array[Provider]</code></p>
+</li><li>
+<p><code>providers=: (Array[Provider | Hash[String, untyped]]) -&gt; void</code></p>
+</li><li>
+<p><code>platform: -&gt; String?</code></p>
+</li><li>
+<p><code>platform=: (String) -&gt; void</code></p>
+</li><li>
+<p><code>instruments: -&gt; Array[String]?</code></p>
+</li><li>
+<p><code>instruments=: (Array[String]) -&gt; void</code></p>
+</li><li>
+<p><code>constellation: -&gt; String?</code></p>
+</li><li>
+<p><code>constellation=: (String) -&gt; void</code></p>
+</li><li>
+<p><code>mission: -&gt; String?</code></p>
+</li><li>
+<p><code>mission=: (String) -&gt; void</code></p>
+</li><li>
+<p><code>gsd: -&gt; Numeric</code></p>
+</li><li>
+<p><code>gsd=: (Numeric) -&gt; void</code></p>
+</li></ul>
+
+<p>These methods are shorthand accessors of <code>#extra</code> hash:</p>
+
+<pre class="ruby"><span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">extra</span> <span class="ruby-comment">#=&gt; {}</span>
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">title</span> = <span class="ruby-string">&#39;Awesome Item&#39;</span> <span class="ruby-comment"># same as `item.properties.extra[&#39;title&#39;] = &#39;Awesome Item&#39;`</span>
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">title</span> <span class="ruby-comment">#=&gt; &quot;Awesome Item&quot;</span>
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">extra</span> <span class="ruby-comment">#=&gt; {&quot;title&quot;=&gt;&quot;Awesome Item&quot;}</span>
+</pre>
+
+<h2 id="label-Extensions">Extensions<span><a href="#label-Extensions">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>When an extension is added to a <a href="STAC.html"><code>STAC</code></a> object, methods corresponding to the extension will be added <strong>dynamically</strong> by {<code>Object#extend</code><a href="https://rubyapi.org/3.1/o/object#method-i-extend">}</a>.</p>
+
+<p>These methods are also shorthand accessors of <code>extra</code> hash same as <code>STAC::CommonMetadata</code>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">extra</span> <span class="ruby-comment">#=&gt; {}</span>
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">eo_cloud_cover</span> <span class="ruby-comment">#=&gt; raises NoMethodError</span>
+
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">add_extension</span>(<span class="ruby-string">&#39;https://stac-extensions.github.io/eo/v1.0.0/schema.json&#39;</span>)
+<span class="ruby-comment"># same as `item.add_extension(STAC::Extensions::ElectroOptical)`</span>
+
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">eo_cloud_cover</span> = <span class="ruby-value">1.2</span>
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">eo_cloud_cover</span> <span class="ruby-comment">#=&gt; 1.2</span>
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">extra</span> <span class="ruby-comment">#=&gt; {&quot;eo:cloud_cover&quot;=&gt;1.2}</span>
+
+<span class="ruby-comment"># item.properties extends STAC::Extensions::ElectroOptical::Properties</span>
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">Extensions</span><span class="ruby-operator">::</span><span class="ruby-constant">ElectroOptical</span><span class="ruby-operator">::</span><span class="ruby-constant">Properties</span>) <span class="ruby-comment">#=&gt; true</span>
+</pre>
+
+<p>Currently, only 4 stable extensions have been implemented:</p>
+
+<pre class="ruby"><span class="ruby-identifier">puts</span> <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">STACObject</span>.<span class="ruby-identifier">extendables</span>
+<span class="ruby-comment"># STAC::Extensions::ElectroOptical</span>
+<span class="ruby-comment"># STAC::Extensions::Projection</span>
+<span class="ruby-comment"># STAC::Extensions::ScientificCitation</span>
+<span class="ruby-comment"># STAC::Extensions::ViewGeometry</span>
+</pre>
+
+<h3 id="label-Adding+Extensions">Adding Extensions<span><a href="#label-Adding+Extensions">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>You can add custom extensions.</p>
+
+<p>Extension modules must extend <code>STAC::Extension</code> and set <code>identifier</code> and <code>scope</code>. And you must register it by <code>STAC::STACObject.add_extendable(extension_module)</code>.</p>
+
+<pre class="ruby"><span class="ruby-keyword">module</span> <span class="ruby-constant">MyExtension</span>
+  <span class="ruby-identifier">extend</span> <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">Extension</span>
+
+  <span class="ruby-identifier">identifier</span> <span class="ruby-string">&#39;https://sankichi92.github.io/my_extension/v1.0.0/schema.json&#39;</span>
+  <span class="ruby-identifier">scope</span> <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">Item</span>, <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">Collection</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">STACObject</span>.<span class="ruby-identifier">add_extendable</span>(<span class="ruby-constant">MyExtension</span>)
+</pre>
+
+<p>Then you can add methods to <code>STAC::Properties</code>, <code>STAC::Asset</code>, and <code>STAC::Collection</code> by defining modules with corresponding names <strong>under the extension namespace</strong>:</p>
+
+<pre class="ruby"><span class="ruby-keyword">module</span> <span class="ruby-constant">MyExtension</span>
+  <span class="ruby-keyword">module</span> <span class="ruby-constant">Properties</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">my_field</span>
+      <span class="ruby-identifier">extra</span>[<span class="ruby-string">&#39;my:field&#39;</span>]
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">my_field</span>(<span class="ruby-identifier">val</span>)
+      <span class="ruby-identifier">extra</span>[<span class="ruby-string">&#39;my:field&#39;</span>] = <span class="ruby-identifier">val</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">module</span> <span class="ruby-constant">Asset</span>
+    <span class="ruby-identifier">include</span> <span class="ruby-constant">Properties</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>See {<code>lib/stac/extensions</code><a href="https://github.com/sankichi92/stac-ruby/tree/main/lib/stac/extensions">}</a> for examples.</p>
+
+<h2 id="label-Using+Custom+HTTP+Client">Using Custom HTTP Client<span><a href="#label-Using+Custom+HTTP+Client">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Custom HTTP client class must implement <code>get: (URI | String url) -&gt; Hash[String, untyped]</code>, which returns response JSON as a Hash:</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">MyHTTPClient</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get</span>(<span class="ruby-identifier">url</span>)
+    <span class="ruby-comment"># ...</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>You can pass the custom HTTP client to <code>STAC.from_url</code> for a specific <a href="STAC.html"><code>STAC</code></a> object instance:</p>
+
+<pre class="ruby"><span class="ruby-identifier">catalog</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_url</span>(<span class="ruby-string">&#39;https://example.com/catalog.json&#39;</span>, <span class="ruby-value">http_client:</span> <span class="ruby-constant">MyHTTPClient</span>.<span class="ruby-identifier">new</span>)
+</pre>
+
+<p>Or you can set it as the global default by <code>STAC.default_http_client=</code>:</p>
+
+<pre class="ruby"><span class="ruby-constant">STAC</span>.<span class="ruby-identifier">default_http_client</span> = <span class="ruby-constant">MyHTTPClient</span>.<span class="ruby-identifier">new</span>
+</pre>
+
+<p>If you want to only add custom HTTP headers, you can use <code>STAC::SimpleHTTPClient</code>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">http_client</span> = <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">SimpleHTTPClient</span>.<span class="ruby-identifier">new</span>({ <span class="ruby-string">&#39;X-Foo&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;Bar&#39;</span> })
+<span class="ruby-identifier">catalog</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_url</span>(<span class="ruby-string">&#39;https://example.com/catalog.json&#39;</span>, <span class="ruby-value">http_client:</span>)
+<span class="ruby-constant">STAC</span>.<span class="ruby-identifier">default_http_client</span> = <span class="ruby-identifier">http_client</span>
+</pre>
+
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.4.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

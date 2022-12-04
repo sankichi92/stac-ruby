@@ -192,9 +192,9 @@
           <div class="method-source-code" id="from_hash-source">
             <pre><span class="ruby-comment"># File lib/stac/item.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
-  <span class="ruby-identifier">h</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">dup</span>
-  <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;properties&#39;</span>] = <span class="ruby-constant">Properties</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;properties&#39;</span>))
-  <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;assets&#39;</span>] = <span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;assets&#39;</span>).<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>) }
+  <span class="ruby-identifier">h</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>)
+  <span class="ruby-identifier">h</span>[<span class="ruby-value">:properties</span>] = <span class="ruby-constant">Properties</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:properties</span>, {}))
+  <span class="ruby-identifier">h</span>[<span class="ruby-value">:assets</span>] = <span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:assets</span>, []).<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>) }
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">h</span>)
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">KeyError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required field not found: #{e.key}&quot;</span>
@@ -208,7 +208,7 @@
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">( id:, geometry:, properties:, links:, assets:, bbox: nil, collection: nil, stac_extensions: [], **extra )</span>
+            class="method-args">( id:, geometry:, properties:, links: [], assets: {}, bbox: nil, collection: nil, stac_extensions: [], **extra )</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -222,7 +222,7 @@
           <div class="method-source-code" id="new-source">
             <pre><span class="ruby-comment"># File lib/stac/item.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(
-  <span class="ruby-value">id:</span>, <span class="ruby-value">geometry:</span>, <span class="ruby-value">properties:</span>, <span class="ruby-value">links:</span>, <span class="ruby-value">assets:</span>, <span class="ruby-value">bbox:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">collection:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> [], <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>
+  <span class="ruby-value">id:</span>, <span class="ruby-value">geometry:</span>, <span class="ruby-value">properties:</span>, <span class="ruby-value">links:</span> [], <span class="ruby-value">assets:</span> {}, <span class="ruby-value">bbox:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">collection:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> [], <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>
 )
   <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">id</span>
   <span class="ruby-ivar">@geometry</span> = <span class="ruby-identifier">geometry</span>

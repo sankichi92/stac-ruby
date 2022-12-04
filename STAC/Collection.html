@@ -189,10 +189,10 @@
           <div class="method-source-code" id="from_hash-source">
             <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">from_hash</span>(<span class="ruby-identifier">hash</span>)
-  <span class="ruby-identifier">h</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">dup</span>
-  <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;extent&#39;</span>] = <span class="ruby-constant">Extent</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&#39;extent&#39;</span>))
-  <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;providers&#39;</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;providers&#39;</span>]&amp;.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">provider</span><span class="ruby-operator">|</span> <span class="ruby-constant">Provider</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">provider</span>) }
-  <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;assets&#39;</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-string">&#39;assets&#39;</span>]&amp;.<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>) }
+  <span class="ruby-identifier">h</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>)
+  <span class="ruby-identifier">h</span>[<span class="ruby-value">:extent</span>] = <span class="ruby-constant">Extent</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:extent</span>))
+  <span class="ruby-identifier">h</span>[<span class="ruby-value">:providers</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-value">:providers</span>]&amp;.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">provider</span><span class="ruby-operator">|</span> <span class="ruby-constant">Provider</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">provider</span>) }
+  <span class="ruby-identifier">h</span>[<span class="ruby-value">:assets</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-value">:assets</span>]&amp;.<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>) }
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">h</span>)
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">KeyError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required field not found: #{e.key}&quot;</span>
@@ -206,7 +206,7 @@
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">( id:, description:, links:, license:, extent:, title: nil, keywords: nil, providers: nil, summaries: nil, assets: nil, stac_extensions: [], **extra )</span>
+            class="method-args">( id:, description:, license:, extent:, links: [], title: nil, keywords: nil, providers: nil, summaries: nil, assets: nil, stac_extensions: [], **extra )</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -222,9 +222,9 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(
   <span class="ruby-value">id:</span>,
   <span class="ruby-value">description:</span>,
-  <span class="ruby-value">links:</span>,
   <span class="ruby-value">license:</span>,
   <span class="ruby-value">extent:</span>,
+  <span class="ruby-value">links:</span> [],
   <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>,
   <span class="ruby-value">keywords:</span> <span class="ruby-keyword">nil</span>,
   <span class="ruby-value">providers:</span> <span class="ruby-keyword">nil</span>,

@@ -106,7 +106,7 @@
         </div>
 
         <div class="method-description">
-        
+        <p>Extra fields that do not belong to the <a href="../STAC.html"><code>STAC</code></a> core specification.</p>
         </div>
       </div>
     </section>
@@ -125,7 +125,7 @@
         </div>
 
         <div class="method-description">
-          <p>Returns ‘true` if all of the following are true:</p>
+          <p>Returns ‘true` if all of the followings are true:</p>
 <ul><li>
 <p>the given object is an instance of tha same class</p>
 </li><li>
@@ -135,7 +135,7 @@
 <p>Otherwise, returns ‘false`.</p>
 
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 59</span>
+            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">==</span>(<span class="ruby-identifier">other</span>)
   <span class="ruby-identifier">other</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">to_hash</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">to_hash</span>
 <span class="ruby-keyword">end</span></pre>
@@ -156,7 +156,7 @@
           <p>When there is an attribute with the given name, returns the attribute value. Otherwise, calls ‘<a href="key">extra</a>`.</p>
 
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 12</span>
+            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">[]</span>(<span class="ruby-identifier">key</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">key</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">method</span>(<span class="ruby-identifier">key</span>).<span class="ruby-identifier">arity</span>.<span class="ruby-identifier">zero?</span>
     <span class="ruby-identifier">public_send</span>(<span class="ruby-identifier">key</span>)
@@ -181,7 +181,7 @@
           <p>When there is an attribute writer with the given name, assigns the value to the attribute. Otherwise, adds the given key-value pair to ‘extra` hash.</p>
 
           <div class="method-source-code" id="5B-5D-3D-source">
-            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 22</span>
+            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">[]=</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
   <span class="ruby-identifier">method</span> = <span class="ruby-node">&quot;#{key}=&quot;</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>)
@@ -207,7 +207,7 @@
           <p>Returns a copy of self by serializes self to a JSON and desirializes it by ‘.from_hash`.</p>
 
           <div class="method-source-code" id="deep_dup-source">
-            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 64</span>
+            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 65</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">deep_dup</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:from_hash</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-node">&quot;#{self.class} must implement `.from_hash(hash)` to use `HashLike#deep_copy`&quot;</span>
@@ -233,7 +233,7 @@
           <p>Serializes self to a Hash.</p>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 45</span>
+            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   <span class="ruby-identifier">extra</span>
 <span class="ruby-keyword">end</span></pre>
@@ -254,7 +254,7 @@
           <p>Serializes self to a JSON string.</p>
 
           <div class="method-source-code" id="to_json-source">
-            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 50</span>
+            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 51</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_json</span>(<span class="ruby-operator">...</span>)
   <span class="ruby-identifier">to_h</span>.<span class="ruby-identifier">to_json</span>(<span class="ruby-operator">...</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -275,7 +275,7 @@
           <p>Sets the attributes (like ActiveModel::AttributeAssignment#assign_attributes) or merges the args into ‘extra` hash (like Hash#update).</p>
 
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 33</span>
+            <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">update</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">options</span>)
   <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">self</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">value</span>

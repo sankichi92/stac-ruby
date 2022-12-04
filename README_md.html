@@ -59,6 +59,8 @@
 
   <ul class="link-list" role="directory">
     <li><a href="#label-stac-ruby">stac-ruby</a>
+    <li><a href="#label-STAC+Spec+Version+Support">STAC Spec Version Support</a>
+    <li><a href="#label-STAC+Extension+Support">STAC Extension Support</a>
     <li><a href="#label-Installation">Installation</a>
     <li><a href="#label-Getting+Started">Getting Started</a>
     <li><a href="#label-Documentation">Documentation</a>
@@ -77,6 +79,7 @@
 
   <ul class="link-list">
     <li><a href="./CHANGELOG_md.html">CHANGELOG</a>
+    <li><a href="./GETTING_STARTED_md.html">GETTING_STARTED</a>
     <li><a href="./README_md.html">README</a>
   </ul>
 </div>
@@ -92,6 +95,21 @@
 
 <p>This gem’s implementation refers to <a href="https://github.com/stac-utils/pystac">PySTAC</a>.</p>
 
+<h3 id="label-STAC+Spec+Version+Support"><a href="STAC.html"><code>STAC</code></a> Spec Version Support<span><a href="#label-STAC+Spec+Version+Support">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>v1.0.0</p>
+
+<h3 id="label-STAC+Extension+Support"><a href="STAC.html"><code>STAC</code></a> Extension Support<span><a href="#label-STAC+Extension+Support">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p><a href="https://github.com/stac-extensions/eo">Electro-Optical</a> v1.0.0</p>
+</li><li>
+<p><a href="https://github.com/stac-extensions/projection">Projection</a> v1.0.0</p>
+</li><li>
+<p><a href="https://github.com/stac-extensions/scientific">Scientific Citation</a> v1.0.0</p>
+</li><li>
+<p><a href="https://github.com/stac-extensions/view">View Geometry</a> v1.0.0</p>
+</li></ul>
+
 <h2 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
 <p>Install the gem and add to the application’s Gemfile by executing:</p>
@@ -104,64 +122,7 @@
 
 <h2 id="label-Getting+Started">Getting Started<span><a href="#label-Getting+Started">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;stac&#39;</span>
-
-<span class="ruby-comment"># Reading a Catalog</span>
-<span class="ruby-comment"># ================</span>
-
-<span class="ruby-comment"># Read the example catalog.</span>
-<span class="ruby-identifier">catalog</span> = <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">from_url</span>(<span class="ruby-string">&#39;https://raw.githubusercontent.com/radiantearth/stac-spec/master/examples/catalog.json&#39;</span>)
-
-<span class="ruby-comment"># Print some basic metadata.</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;ID: #{catalog.id}&quot;</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Title: #{catalog.title}&quot;</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Description: #{catalog.description}&quot;</span>
-
-<span class="ruby-comment"># Crawling Child Catalogs/Collections</span>
-<span class="ruby-comment"># ================</span>
-
-<span class="ruby-comment"># List Collections in the Catalog.</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Collections IDs:&#39;</span>
-<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">collections</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collection</span><span class="ruby-operator">|</span>
-  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;- #{collection.id}&quot;</span>
-<span class="ruby-keyword">end</span>
-
-<span class="ruby-comment"># Get a child Catalog or Collection by ID.</span>
-<span class="ruby-identifier">_collection</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">find_child</span>(<span class="ruby-string">&#39;extensions-collection&#39;</span>)
-
-<span class="ruby-comment"># Crawling Items</span>
-<span class="ruby-comment"># ================</span>
-
-<span class="ruby-comment"># List all items associated with the Catalog recursively.</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Item IDs:&#39;</span>
-<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">all_items</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
-  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;- #{item.id}&quot;</span>
-<span class="ruby-keyword">end</span>
-
-<span class="ruby-comment"># Item Metadata</span>
-<span class="ruby-comment"># ================</span>
-
-<span class="ruby-comment"># Get an Item by ID.</span>
-<span class="ruby-identifier">item</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">find_item</span>(<span class="ruby-string">&#39;CS3-20160503_132131_08&#39;</span>)
-
-<span class="ruby-comment"># Print core Item metadeata.</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;geometry:&#39;</span>
-<span class="ruby-identifier">p</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">geometry</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;bbox:&#39;</span>
-<span class="ruby-identifier">p</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">bbox</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;datetime:&#39;</span>
-<span class="ruby-identifier">p</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">datetime</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;collection_id:&#39;</span>
-<span class="ruby-identifier">p</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">collection_id</span>
-
-<span class="ruby-comment"># Get actual Collection instance instead of ID.</span>
-<span class="ruby-identifier">_collection</span> = <span class="ruby-identifier">item</span>.<span class="ruby-identifier">collection</span>
-
-<span class="ruby-comment"># Print common metadata.</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;instruments: #{item.properties.instruments}&quot;</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;platform: #{item.properties.platform}&quot;</span>
-<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;gsd: #{item.properties.gsd}&quot;</span>
-</pre>
+<p><a href="GETTING_STARTED_md.html">GETTING_STARTED.md</a></p>
 
 <h2 id="label-Documentation">Documentation<span><a href="#label-Documentation">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
