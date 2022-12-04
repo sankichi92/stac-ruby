@@ -9,7 +9,7 @@ module STAC
     attr_reader :extra
 
     # When there is an attribute with the given name, returns the attribute value.
-    # Otherwise, calls `extra\[key]`.
+    # Otherwise, calls `extra [key]`.
     def [](key)
       if respond_to?(key) && method(key).arity.zero?
         public_send(key)

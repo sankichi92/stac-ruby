@@ -62,7 +62,7 @@ And they have the following instance methods in common:
 - `to_json: -> String`
 - `deep_dup: -> self` returns a deep copy of self.
 - `stac_extensions: -> Array[String]`
-- `add_extension: (String extension_id) -> self | (Module extension) -> self`
+- `add_extension: (String extension_id) -> self | (Module extension) -> self` (see [Extensions](#extensions))
 - `links: -> Array[STAC::Link]`
 - `find_link: (rel: String, ?type: String?) -> STAC::Link?`
 - `add_link: (rel: String, href: String, ?type: String?, ?title: String?) -> self`
@@ -210,12 +210,14 @@ When an extension is added to a STAC object, methods corresponding to the extens
 These methods are also shorthand accessors of `extra` hash same as `STAC::CommonMetadata`.
 
 ```ruby
+item.stac_extensions #=> []
 item.properties.extra #=> {}
 item.properties.eo_cloud_cover #=> raises NoMethodError
 
 item.add_extension('https://stac-extensions.github.io/eo/v1.0.0/schema.json')
 # same as `item.add_extension(STAC::Extensions::ElectroOptical)`
 
+item.stac_extensions #=> ["https://stac-extensions.github.io/eo/v1.0.0/schema.json"]
 item.properties.eo_cloud_cover = 1.2
 item.properties.eo_cloud_cover #=> 1.2
 item.properties.extra #=> {"eo:cloud_cover"=>1.2}
