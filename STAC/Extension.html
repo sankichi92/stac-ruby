@@ -61,6 +61,16 @@
     
     
     
+<!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    <li ><a href="#method-i-identifier">#identifier</a>
+    <li ><a href="#method-i-scope">#scope</a>
+  </ul>
+</div>
+
   </div>
 </nav>
 
@@ -79,33 +89,68 @@
 
 
 
-    <section class="attribute-method-details" class="method-section">
-      <header>
-        <h3>Attributes</h3>
-      </header>
 
-      <div id="attribute-i-identifier" class="method-detail">
-        <div class="method-heading attribute-method-heading">
+
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+      <div id="method-i-identifier" class="method-detail ">
+        <div class="method-heading">
           <span class="method-name">identifier</span><span
-            class="attribute-access-type">[RW]</span>
+            class="method-args">(identifier = nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
-        <p><a href="Extension.html"><code>Extension</code></a> ID for ‘stac_extensions` field.</p>
+          <p>Returns extension id for ‘stac_extensions` field.</p>
+
+<p>When given an argument, sets the given value as its identifier.</p>
+
+          <div class="method-source-code" id="identifier-source">
+            <pre><span class="ruby-comment"># File lib/stac/extension.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">identifier</span>(<span class="ruby-identifier">identifier</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">identifier</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-ivar">@identifier</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">ExtensionWithoutIdentifierError</span>, <span class="ruby-string">&#39;extension module must be set identifier&#39;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@identifier</span> = <span class="ruby-identifier">identifier</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
         </div>
+
+
       </div>
-      <div id="attribute-i-scope" class="method-detail">
-        <div class="method-heading attribute-method-heading">
+
+      <div id="method-i-scope" class="method-detail ">
+        <div class="method-heading">
           <span class="method-name">scope</span><span
-            class="attribute-access-type">[RW]</span>
+            class="method-args">(*scope)</span>
+          <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
-        <p>Extendable STAC Object classes.</p>
-        </div>
-      </div>
-    </section>
+          <p>Returns extendable STAC Object classes.</p>
 
+<p>When given arguments, sets the given values as its scope.</p>
+
+          <div class="method-source-code" id="scope-source">
+            <pre><span class="ruby-comment"># File lib/stac/extension.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">scope</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">scope</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-ivar">@scope</span> <span class="ruby-operator">||=</span> []
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@scope</span> = <span class="ruby-identifier">scope</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
 
   </section>
 </main>
