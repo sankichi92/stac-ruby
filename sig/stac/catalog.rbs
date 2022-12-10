@@ -10,11 +10,11 @@ module STAC
       id: String, description: String, ?links: Array[Hash[String, String]], ?title: String?, ?stac_extensions: Array[String], **untyped
     ) -> void
 
-    def children: -> Enumerator::Lazy[Catalog | Collection, void]
-    def all_children: -> Enumerator::Lazy[Catalog | Collection, void]
+    def children: -> Enumerator::Lazy[Catalog, void]
+    def all_children: -> Enumerator::Lazy[Catalog, void]
     def collections: -> Enumerator::Lazy[Collection, void]
     def all_collections: -> Enumerator::Lazy[Collection, void]
-    def find_child: (String id, ?recursive: bool) -> (Catalog | Collection | nil)
+    def find_child: (String id, ?recursive: bool) -> Catalog?
     def items: -> Enumerator::Lazy[Item, void]
     def all_items: -> Enumerator::Lazy[Item, void]
     def find_item: (String id, ?recursive: bool) -> Item?

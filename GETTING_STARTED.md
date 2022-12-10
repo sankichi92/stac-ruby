@@ -88,12 +88,12 @@ See [STAC Catalog Specification](https://github.com/radiantearth/stac-spec/blob/
 
 `STAC::Catalog` also has methods to crawl its `links`:
 
-- `children: -> Enumerator::Lazy[Catalog | Collection, void]` returns catalog/collection objects from rel="child" links
+- `children: -> Enumerator::Lazy[Catalog, void]` returns catalog/collection objects from rel="child" links
 - `collections: -> Enumerator::Lazy[Collection, void]` filters only collections from #children
 - `all_collections: -> Enumerator::Lazy[Catalog | Collection, void]` returns all collections from the catalog and its children recursively
 - `items: -> Enumerator::Lazy[Item, void]` returns item objects from rel="items" links
 - `all_items: -> Enumerator::Lazy[Item, void]` returns all items from the catalog and its children recursively
-- `find_child: (String id, ?recursive: bool) -> (Catalog | Collection)?`
+- `find_child: (String id, ?recursive: bool) -> Catalog?`
 - `find_item: (String id, ?recursive: bool) -> Item?`
 
 Note that the first 5 methods return [`Enumerator::Lazy`](https://rubyapi.org/3.1/o/enumerator/lazy).

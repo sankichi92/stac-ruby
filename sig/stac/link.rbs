@@ -8,14 +8,14 @@ module STAC
     attr_accessor href: String
     attr_accessor type: String?
     attr_accessor title: String?
-    attr_accessor owner: STACObject | nil
+    attr_accessor owner: STACObject?
     attr_accessor http_client: _HTTPClient
-    @target: Catalog | Collection | Item | nil
+    @target: STACObject?
     @resolver: ObjectResolver
 
     def initialize: (rel: String, href: String, ?type: String?, ?title: String?, **untyped) -> void
 
     def absolute_href: -> String?
-    def target: (?http_client: _HTTPClient) -> (Catalog | Collection | Item | nil)
+    def target: (?http_client: _HTTPClient) -> STACObject?
   end
 end
