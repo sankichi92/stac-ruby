@@ -202,7 +202,7 @@
 
 <p><code>STAC::Catalog</code> also has methods to crawl its <code>links</code>:</p>
 <ul><li>
-<p><code>children: -&gt; Enumerator::Lazy[Catalog | Collection, void]</code> returns catalog/collection objects from rel=“child” links</p>
+<p><code>children: -&gt; Enumerator::Lazy[Catalog, void]</code> returns catalog/collection objects from rel=“child” links</p>
 </li><li>
 <p><code>collections: -&gt; Enumerator::Lazy[Collection, void]</code> filters only collections from children</p>
 </li><li>
@@ -212,7 +212,7 @@
 </li><li>
 <p><code>all_items: -&gt; Enumerator::Lazy[Item, void]</code> returns all items from the catalog and its children recursively</p>
 </li><li>
-<p><code>find_child: (String id, ?recursive: bool) -&gt; (Catalog | Collection)?</code></p>
+<p><code>find_child: (String id, ?recursive: bool) -&gt; Catalog?</code></p>
 </li><li>
 <p><code>find_item: (String id, ?recursive: bool) -&gt; Item?</code></p>
 </li></ul>
