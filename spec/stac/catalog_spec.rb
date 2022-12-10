@@ -54,6 +54,12 @@ RSpec.describe STAC::Catalog do
       expect(link).not_to be_nil
       expect(link.owner).to eq catalog
     end
+
+    context 'without target and href' do
+      it 'raises ArgumentError' do
+        expect { catalog.add_link(rel: 'test', type: 'application/json') }.to raise_error ArgumentError
+      end
+    end
   end
 
   describe '#self_href' do

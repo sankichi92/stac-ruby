@@ -107,8 +107,12 @@ module STAC
     end
 
     # Adds a link with setting Link#owner as self.
-    def add_link(rel:, href:, type: nil, title: nil, **extra)
-      link = Link.new(rel: rel, href: href, type: type, title: title, **extra)
+    #
+    # Raises ArgumentError when both target and href are not given.
+    def add_link(target = nil, rel:, href: nil, type: nil, title: nil, **extra)
+      raise ArgumentError, 'target or href must be given' if target.nil? && href.nil?
+
+      link = Link.new(target, rel: rel, href: href, type: type, title: title, **extra)
       link.owner = self
       links << link
       self
@@ -123,7 +127,7 @@ module STAC
     #
     # When any ref="self" links already exist, removes them.
     def self_href=(absolute_href)
-      remove_link(rel: 'self')
+      remove_links(rel: 'self')
       add_link(rel: 'self', href: absolute_href, type: 'application/json')
     end
 
@@ -146,7 +150,7 @@ module STAC
       extended << extension
     end
 
-    def remove_link(rel:)
+    def remove_links(rel:)
       links.reject! { |link| link.rel == rel }
     end
   end

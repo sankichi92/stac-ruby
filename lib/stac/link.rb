@@ -17,17 +17,24 @@ module STAC
       end
     end
 
-    attr_accessor :rel, :href, :type, :title
+    attr_accessor :rel, :type, :title
+
+    attr_writer :href
 
     # Owner object of this link.
     attr_accessor :owner
 
-    def initialize(rel:, href:, type: nil, title: nil, **extra)
+    def initialize(target = nil, rel:, href:, type: nil, title: nil, **extra)
+      @target = target
       @rel = rel
       @href = href
       @type = type
       @title = title
       @extra = extra.transform_keys(&:to_s)
+    end
+
+    def href
+      @href || target&.self_href
     end
 
     # Serializes self to a Hash.
@@ -44,10 +51,10 @@ module STAC
     #
     # When it could not assemble the absolute HREF, it returns nil.
     def absolute_href
-      if URI(href).absolute?
+      if URI(href.to_s).absolute?
         href
       elsif (base_href = owner&.self_href)
-        Pathname(base_href).dirname.join(href).to_s
+        Pathname(base_href).dirname.join(href.to_s).to_s
       end
     end
 

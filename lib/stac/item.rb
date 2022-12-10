@@ -77,11 +77,9 @@ module STAC
 
     # Overwrites rel="collection" link and #collection_id attribute.
     def collection=(collection)
-      raise ArgumentError, 'collection must have a rel="self" link' unless (collection_href = collection.self_href)
-
       @collection_id = collection.id
-      remove_link(rel: 'collection')
-      add_link(rel: 'collection', href: collection_href, type: 'application/json', title: collection.title)
+      remove_links(rel: 'collection')
+      add_link(collection, rel: 'collection', type: 'application/json', title: collection.title)
     end
 
     # Adds an asset with the given key.
