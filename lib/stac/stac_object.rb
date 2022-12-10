@@ -123,12 +123,34 @@ module STAC
       find_link(rel: 'self')&.href
     end
 
-    # Adds a link with the give HREF as rel="self".
+    # Overwrites rel="self" link with the given HREF.
     #
     # When any ref="self" links already exist, removes them.
     def self_href=(absolute_href)
       remove_links(rel: 'self')
       add_link(rel: 'self', href: absolute_href, type: 'application/json')
+    end
+
+    # Returns a rel="root" link as a catalog/collection object if it exists.
+    def root
+      find_link(rel: 'root')&.target
+    end
+
+    # Overwrites rel="root" link.
+    def root=(catalog)
+      remove_links(rel: 'root')
+      add_link(catalog, rel: 'root', type: 'application/json', title: catalog.title) if catalog
+    end
+
+    # Returns a rel="parent" link as a catalog/collection object if it exists.
+    def parent
+      find_link(rel: 'parent')&.target
+    end
+
+    # Overwrites rel="parent" link.
+    def parent=(catalog)
+      remove_links(rel: 'parent')
+      add_link(catalog, rel: 'parent', type: 'application/json', title: catalog.title) if catalog
     end
 
     private

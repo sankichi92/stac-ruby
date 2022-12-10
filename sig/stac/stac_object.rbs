@@ -27,6 +27,10 @@ module STAC
     def add_link: (?STACObject? target, rel: String, ?href: String?, ?type: String?, ?title: String?, **untyped) -> self
     def self_href: -> String?
     def self_href=: (String) -> void
+    def root: -> Catalog?
+    def root=: (Catalog? catalog) -> void
+    def parent: -> Catalog?
+    def parent=: (Catalog? catalog) -> void
 
     private
 

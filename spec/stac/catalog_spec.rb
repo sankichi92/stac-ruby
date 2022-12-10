@@ -68,6 +68,22 @@ RSpec.describe STAC::Catalog do
     end
   end
 
+  describe '#root' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    it 'returns a rel="root" link as a catalog/collection object' do
+      expect(catalog.root).to eq catalog
+    end
+  end
+
+  describe '#parent' do
+    it 'returns a rel="parent" link as a catalog/collection object' do
+      expect(catalog.parent).to be_nil
+    end
+  end
+
   describe '#children' do
     before do
       catalog.self_href = "file://#{catalog_path}"
