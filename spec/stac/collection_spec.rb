@@ -79,4 +79,18 @@ RSpec.describe STAC::Collection do
       end
     end
   end
+
+  describe '#add_item' do
+    before do
+      collection.self_href = "file://#{collection_path}"
+    end
+
+    let(:item) { STAC.from_file(fixture_path('stac-spec/simple-item.json')) }
+
+    it 'adds a item link with setting `collection` as self' do
+      collection.add_item(item)
+
+      expect(item.collection).to be collection
+    end
+  end
 end

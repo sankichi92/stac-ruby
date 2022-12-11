@@ -66,8 +66,15 @@ And they have the following instance methods in common:
 - `links: -> Array[STAC::Link]`
 - `find_link: (rel: String, ?type: String?) -> STAC::Link?`
 - `add_link: (rel: String, href: String, ?type: String?, ?title: String?) -> self`
+
+Followings are shorthand methods to manipulate links:
+
 - `self_href: -> String?` returns rel="self" link's href value
 - `self_href=: (String absolute_href) -> void` adds rel="self" link with the given href
+- `root: -> Catalog?` returns rel="root" link as a catalog object
+- `root=: (Catalog? catalog) -> void` overwrites rel="root" link
+- `parent: -> Catalog?` returns rel="parent" link as a catalog object
+- `parent=: (Catalog? catalog) -> void` overwrites rel="parent" link
 
 ### STAC::Catalog
 
@@ -88,13 +95,13 @@ See [STAC Catalog Specification](https://github.com/radiantearth/stac-spec/blob/
 
 `STAC::Catalog` also has methods to crawl its `links`:
 
-- `children: -> Enumerator::Lazy[Catalog, void]` returns catalog/collection objects from rel="child" links
-- `collections: -> Enumerator::Lazy[Collection, void]` filters only collections from #children
-- `all_collections: -> Enumerator::Lazy[Catalog | Collection, void]` returns all collections from the catalog and its children recursively
-- `items: -> Enumerator::Lazy[Item, void]` returns item objects from rel="items" links
-- `all_items: -> Enumerator::Lazy[Item, void]` returns all items from the catalog and its children recursively
-- `find_child: (String id, ?recursive: bool) -> Catalog?`
-- `find_item: (String id, ?recursive: bool) -> Item?`
+- `children: -> Enumerator::Lazy[STAC::Catalog, void]` returns catalog/collection objects from rel="child" links
+- `collections: -> Enumerator::Lazy[STAC::Collection, void]` filters only collections from #children
+- `all_collections: -> Enumerator::Lazy[STAC::Collection, void]` returns all collections from the catalog and its children recursively
+- `items: -> Enumerator::Lazy[STAC::Item, void]` returns item objects from rel="items" links
+- `all_items: -> Enumerator::Lazy[STAC::Item, void]` returns all items from the catalog and its children recursively
+- `find_child: (String id, ?recursive: bool) -> STAC::Catalog?`
+- `find_item: (String id, ?recursive: bool) -> STAC::Item?`
 
 Note that the first 5 methods return [`Enumerator::Lazy`](https://rubyapi.org/3.1/o/enumerator/lazy).
 This is to prevent making a large number of HTTP requests when calling the methods.

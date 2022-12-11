@@ -40,28 +40,6 @@ RSpec.describe STAC::Catalog do
     end
   end
 
-  describe '#to_json' do
-    it 'serializes self to a JSON string' do
-      expect { JSON.parse(catalog.to_json) }.not_to raise_error
-    end
-  end
-
-  describe '#add_link' do
-    it 'adds a link with setting its `owner` as self' do
-      catalog.add_link(rel: 'test', href: './test.json', type: 'application/json')
-
-      link = catalog.find_link(rel: 'test')
-      expect(link).not_to be_nil
-      expect(link.owner).to eq catalog
-    end
-  end
-
-  describe '#self_href' do
-    it 'returns HREF of the rel="self" link' do
-      expect(catalog.self_href).to eq 'https://raw.githubusercontent.com/radiantearth/stac-spec/v1.0.0/examples/catalog.json'
-    end
-  end
-
   describe '#children' do
     before do
       catalog.self_href = "file://#{catalog_path}"
@@ -159,6 +137,40 @@ RSpec.describe STAC::Catalog do
 
         expect(item.id).to eq 'proj-example'
       end
+    end
+  end
+
+  describe '#add_child' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    let(:child) { STAC::Catalog.new(id: 'child_id', description: 'description') }
+
+    it 'adds a child link with setting the same root and `parent` as self' do
+      catalog.add_child(child)
+
+      expect(catalog.links.map(&:target)).to include child
+      expect(child.self_href).to end_with 'child_id/catalog.json'
+      expect(child.root).to be catalog.root
+      expect(child.parent).to be catalog
+    end
+  end
+
+  describe '#add_item' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    let(:item) { STAC.from_file(fixture_path('stac-spec/simple-item.json')) }
+
+    it 'adds a item link with setting the same root and `parent` as self' do
+      catalog.add_item(item)
+
+      expect(catalog.links.map(&:target)).to include item
+      expect(item.self_href).to end_with '20201211_223832_CS2.json'
+      expect(item.root).to be catalog.root
+      expect(item.parent).to be catalog
     end
   end
 end

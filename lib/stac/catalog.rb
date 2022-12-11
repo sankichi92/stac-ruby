@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pathname'
 require_relative 'errors'
 require_relative 'stac_object'
 
@@ -77,6 +78,26 @@ module STAC
     # With option `recursive: true`, it will traverse all child catalogs/collections recursively.
     def find_item(id, recursive: false)
       (recursive ? all_items : items).find { |item| item.id == id }
+    end
+
+    # Adds a rel="child" link to self and adds "self", "root", and "parent" links to the child catalog.
+    def add_child(catalog, href: "#{catalog.id}/#{catalog.type.downcase}.json", title: catalog.title)
+      if (base = self_href)
+        catalog.self_href = Pathname(base).dirname.join(href).to_s
+      end
+      catalog.root = root
+      catalog.parent = self
+      add_link(catalog, rel: 'child', type: 'application/json', title: title)
+    end
+
+    # Adds a rel="item" link to self and adds "self", "root", and "parent" links to the given item.
+    def add_item(item, href: "#{item.id}.json", title: item.properties.title)
+      if (base = self_href)
+        item.self_href = Pathname(base).dirname.join(href).to_s
+      end
+      item.root = root
+      item.parent = self
+      add_link(item, rel: 'item', type: 'application/geo+json', title: title)
     end
   end
 end
