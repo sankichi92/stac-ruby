@@ -40,50 +40,6 @@ RSpec.describe STAC::Catalog do
     end
   end
 
-  describe '#to_json' do
-    it 'serializes self to a JSON string' do
-      expect { JSON.parse(catalog.to_json) }.not_to raise_error
-    end
-  end
-
-  describe '#add_link' do
-    it 'adds a link with setting its `owner` as self' do
-      catalog.add_link(rel: 'test', href: './test.json', type: 'application/json')
-
-      link = catalog.find_link(rel: 'test')
-      expect(link).not_to be_nil
-      expect(link.owner).to eq catalog
-    end
-
-    context 'without target and href' do
-      it 'raises ArgumentError' do
-        expect { catalog.add_link(rel: 'test', type: 'application/json') }.to raise_error ArgumentError
-      end
-    end
-  end
-
-  describe '#self_href' do
-    it 'returns HREF of the rel="self" link' do
-      expect(catalog.self_href).to eq 'https://raw.githubusercontent.com/radiantearth/stac-spec/v1.0.0/examples/catalog.json'
-    end
-  end
-
-  describe '#root' do
-    before do
-      catalog.self_href = "file://#{catalog_path}"
-    end
-
-    it 'returns a rel="root" link as a catalog/collection object' do
-      expect(catalog.root).to eq catalog
-    end
-  end
-
-  describe '#parent' do
-    it 'returns a rel="parent" link as a catalog/collection object' do
-      expect(catalog.parent).to be_nil
-    end
-  end
-
   describe '#children' do
     before do
       catalog.self_href = "file://#{catalog_path}"
