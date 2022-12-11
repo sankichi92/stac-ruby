@@ -183,4 +183,38 @@ RSpec.describe STAC::Catalog do
       end
     end
   end
+
+  describe '#add_child' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    let(:child) { STAC::Catalog.new(id: 'child_id', description: 'description') }
+
+    it 'adds a child link with setting the same root and `parent` as self' do
+      catalog.add_child(child)
+
+      expect(catalog.links.map(&:target)).to include child
+      expect(child.self_href).to end_with 'child_id/catalog.json'
+      expect(child.root).to be catalog.root
+      expect(child.parent).to be catalog
+    end
+  end
+
+  describe '#add_item' do
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+    end
+
+    let(:item) { STAC.from_file(fixture_path('stac-spec/simple-item.json')) }
+
+    it 'adds a item link with setting the same root and `parent` as self' do
+      catalog.add_item(item)
+
+      expect(catalog.links.map(&:target)).to include item
+      expect(item.self_href).to end_with '20201211_223832_CS2.json'
+      expect(item.root).to be catalog.root
+      expect(item.parent).to be catalog
+    end
+  end
 end

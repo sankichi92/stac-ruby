@@ -81,6 +81,13 @@ module STAC
       self
     end
 
+    # Adds a rel="item" link to self and adds "self", "root", "parent", and "collection" links to the given item.
+    def add_item(item, href: "#{item.id}.json", title: item.properties.title)
+      super
+      item.collection = self
+      self
+    end
+
     private
 
     def apply_extension!(extension)

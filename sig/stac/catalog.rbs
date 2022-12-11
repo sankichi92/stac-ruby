@@ -18,5 +18,7 @@ module STAC
     def items: -> Enumerator::Lazy[Item, void]
     def all_items: -> Enumerator::Lazy[Item, void]
     def find_item: (String id, ?recursive: bool) -> Item?
+    def add_child: (Catalog catalog, ?href: String, ?title: String?) -> self
+    def add_item: (Item item, ?href: String, ?title: String?) -> self
   end
 end
