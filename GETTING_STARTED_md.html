@@ -175,10 +175,21 @@
 <p><code>find_link: (rel: String, ?type: String?) -&gt; STAC::Link?</code></p>
 </li><li>
 <p><code>add_link: (rel: String, href: String, ?type: String?, ?title: String?) -&gt; self</code></p>
-</li><li>
+</li></ul>
+
+<p>Followings are shorthand methods to manipulate links:</p>
+<ul><li>
 <p><code>self_href: -&gt; String?</code> returns rel=“self” link’s href value</p>
 </li><li>
 <p><code>self_href=: (String absolute_href) -&gt; void</code> adds rel=“self” link with the given href</p>
+</li><li>
+<p><code>root: -&gt; Catalog?</code> returns rel=“root” link as a catalog object</p>
+</li><li>
+<p><code>root=: (Catalog? catalog) -&gt; void</code> overwrites rel=“root” link</p>
+</li><li>
+<p><code>parent: -&gt; Catalog?</code> returns rel=“parent” link as a catalog object</p>
+</li><li>
+<p><code>parent=: (Catalog? catalog) -&gt; void</code> overwrites rel=“parent” link</p>
 </li></ul>
 
 <h3 id="label-STAC-3A-3ACatalog"><a href="STAC/Catalog.html"><code>STAC::Catalog</code></a><span><a href="#label-STAC-3A-3ACatalog">&para;</a> <a href="#top">&uarr;</a></span></h3>
@@ -202,19 +213,19 @@
 
 <p><code>STAC::Catalog</code> also has methods to crawl its <code>links</code>:</p>
 <ul><li>
-<p><code>children: -&gt; Enumerator::Lazy[Catalog, void]</code> returns catalog/collection objects from rel=“child” links</p>
+<p><code>children: -&gt; Enumerator::Lazy[STAC::Catalog, void]</code> returns catalog/collection objects from rel=“child” links</p>
 </li><li>
-<p><code>collections: -&gt; Enumerator::Lazy[Collection, void]</code> filters only collections from children</p>
+<p><code>collections: -&gt; Enumerator::Lazy[STAC::Collection, void]</code> filters only collections from children</p>
 </li><li>
-<p><code>all_collections: -&gt; Enumerator::Lazy[Catalog | Collection, void]</code> returns all collections from the catalog and its children recursively</p>
+<p><code>all_collections: -&gt; Enumerator::Lazy[STAC::Collection, void]</code> returns all collections from the catalog and its children recursively</p>
 </li><li>
-<p><code>items: -&gt; Enumerator::Lazy[Item, void]</code> returns item objects from rel=“items” links</p>
+<p><code>items: -&gt; Enumerator::Lazy[STAC::Item, void]</code> returns item objects from rel=“items” links</p>
 </li><li>
-<p><code>all_items: -&gt; Enumerator::Lazy[Item, void]</code> returns all items from the catalog and its children recursively</p>
+<p><code>all_items: -&gt; Enumerator::Lazy[STAC::Item, void]</code> returns all items from the catalog and its children recursively</p>
 </li><li>
-<p><code>find_child: (String id, ?recursive: bool) -&gt; Catalog?</code></p>
+<p><code>find_child: (String id, ?recursive: bool) -&gt; STAC::Catalog?</code></p>
 </li><li>
-<p><code>find_item: (String id, ?recursive: bool) -&gt; Item?</code></p>
+<p><code>find_item: (String id, ?recursive: bool) -&gt; STAC::Item?</code></p>
 </li></ul>
 
 <p>Note that the first 5 methods return {<code>Enumerator::Lazy</code><a href="https://rubyapi.org/3.1/o/enumerator/lazy">}</a>. This is to prevent making a large number of HTTP requests when calling the methods.</p>

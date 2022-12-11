@@ -89,6 +89,10 @@
     <li class="calls-super" ><a href="#method-i-deep_dup">#deep_dup</a>
     <li ><a href="#method-i-extended">#extended</a>
     <li ><a href="#method-i-find_link">#find_link</a>
+    <li ><a href="#method-i-parent">#parent</a>
+    <li ><a href="#method-i-parent-3D">#parent=</a>
+    <li ><a href="#method-i-root">#root</a>
+    <li ><a href="#method-i-root-3D">#root=</a>
     <li ><a href="#method-i-self_href">#self_href</a>
     <li ><a href="#method-i-self_href-3D">#self_href=</a>
     <li ><a href="#method-i-to_h">#to_h</a>
@@ -297,17 +301,21 @@
       <div id="method-i-add_link" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">add_link</span><span
-            class="method-args">(rel:, href:, type: nil, title: nil, **extra)</span>
+            class="method-args">(target = nil, rel:, href: nil, type: nil, title: nil, **extra)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
           <p>Adds a link with setting <a href="Link.html#attribute-i-owner"><code>Link#owner</code></a> as self.</p>
 
+<p>Raises ArgumentError when both target and href are not given.</p>
+
           <div class="method-source-code" id="add_link-source">
-            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 110</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_link</span>(<span class="ruby-value">rel:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
-  <span class="ruby-identifier">link</span> = <span class="ruby-constant">Link</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">rel:</span> <span class="ruby-identifier">rel</span>, <span class="ruby-value">href:</span> <span class="ruby-identifier">href</span>, <span class="ruby-value">type:</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">title</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_link</span>(<span class="ruby-identifier">target</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-value">rel:</span>, <span class="ruby-value">href:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;target or href must be given&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">href</span>.<span class="ruby-identifier">nil?</span>
+
+  <span class="ruby-identifier">link</span> = <span class="ruby-constant">Link</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">target</span>, <span class="ruby-value">rel:</span> <span class="ruby-identifier">rel</span>, <span class="ruby-value">href:</span> <span class="ruby-identifier">href</span>, <span class="ruby-value">type:</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">title</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-identifier">link</span>.<span class="ruby-identifier">owner</span> = <span class="ruby-keyword">self</span>
   <span class="ruby-identifier">links</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">link</span>
   <span class="ruby-keyword">self</span>
@@ -393,6 +401,92 @@
 
       </div>
 
+      <div id="method-i-parent" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">parent</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns a rel=“parent” link as a catalog/collection object if it exists.</p>
+
+          <div class="method-source-code" id="parent-source">
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 146</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">parent</span>
+  <span class="ruby-identifier">find_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;parent&#39;</span>)&amp;.<span class="ruby-identifier">target</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-parent-3D" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">parent=</span><span
+            class="method-args">(catalog)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Overwrites rel=“parent” link.</p>
+
+          <div class="method-source-code" id="parent-3D-source">
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 151</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">parent=</span>(<span class="ruby-identifier">catalog</span>)
+  <span class="ruby-identifier">remove_links</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;parent&#39;</span>)
+  <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">catalog</span>, <span class="ruby-value">rel:</span> <span class="ruby-string">&#39;parent&#39;</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">title</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">catalog</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-root" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">root</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Returns a rel=“root” link as a catalog/collection object if it exists.</p>
+
+          <div class="method-source-code" id="root-source">
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">root</span>
+  <span class="ruby-identifier">find_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;root&#39;</span>)&amp;.<span class="ruby-identifier">target</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-root-3D" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">root=</span><span
+            class="method-args">(catalog)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Overwrites rel=“root” link.</p>
+
+          <div class="method-source-code" id="root-3D-source">
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">root=</span>(<span class="ruby-identifier">catalog</span>)
+  <span class="ruby-identifier">remove_links</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;root&#39;</span>)
+  <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">catalog</span>, <span class="ruby-value">rel:</span> <span class="ruby-string">&#39;root&#39;</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">title</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">catalog</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
       <div id="method-i-self_href" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">self_href</span><span
@@ -404,7 +498,7 @@
           <p>Reterns HREF of the rel=“self” link.</p>
 
           <div class="method-source-code" id="self_href-source">
-            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 118</span>
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 122</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href</span>
   <span class="ruby-identifier">find_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>)&amp;.<span class="ruby-identifier">href</span>
 <span class="ruby-keyword">end</span></pre>
@@ -422,14 +516,14 @@
         </div>
 
         <div class="method-description">
-          <p>Adds a link with the give HREF as rel=“self”.</p>
+          <p>Overwrites rel=“self” link with the given HREF.</p>
 
 <p>When any ref=“self” links already exist, removes them.</p>
 
           <div class="method-source-code" id="self_href-3D-source">
-            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 125</span>
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 129</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">self_href=</span>(<span class="ruby-identifier">absolute_href</span>)
-  <span class="ruby-identifier">remove_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>)
+  <span class="ruby-identifier">remove_links</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>)
   <span class="ruby-identifier">add_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;self&#39;</span>, <span class="ruby-value">href:</span> <span class="ruby-identifier">absolute_href</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>

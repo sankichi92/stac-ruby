@@ -210,7 +210,7 @@
             <pre><span class="ruby-comment"># File lib/stac/hash_like.rb, line 65</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">deep_dup</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:from_hash</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-node">&quot;#{self.class} must implement `.from_hash(hash)` to use `HashLike#deep_copy`&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>, <span class="ruby-node">&quot;#{self.class} must implement `.from_hash(hash)` to use `HashLike#deep_dup`&quot;</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">hash</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">to_json</span>)

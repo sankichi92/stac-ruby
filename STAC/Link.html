@@ -83,6 +83,7 @@
     <li ><a href="#method-c-from_hash">::from_hash</a>
     <li ><a href="#method-c-new">::new</a>
     <li ><a href="#method-i-absolute_href">#absolute_href</a>
+    <li ><a href="#method-i-href">#href</a>
     <li ><a href="#method-i-target">#target</a>
     <li ><a href="#method-i-to_h">#to_h</a>
   </ul>
@@ -114,7 +115,7 @@
       <div id="attribute-i-href" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">href</span><span
-            class="attribute-access-type">[RW]</span>
+            class="attribute-access-type">[W]</span>
         </div>
 
         <div class="method-description">
@@ -193,7 +194,7 @@
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(rel:, href:, type: nil, title: nil, **extra)</span>
+            class="method-args">(target = nil, rel:, href:, type: nil, title: nil, **extra)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -201,8 +202,9 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 25</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">rel:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">target</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-value">rel:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+  <span class="ruby-ivar">@target</span> = <span class="ruby-identifier">target</span>
   <span class="ruby-ivar">@rel</span> = <span class="ruby-identifier">rel</span>
   <span class="ruby-ivar">@href</span> = <span class="ruby-identifier">href</span>
   <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">type</span>
@@ -235,13 +237,34 @@
 <p>When it could not assemble the absolute HREF, it returns nil.</p>
 
           <div class="method-source-code" id="absolute_href-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 46</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">absolute_href</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">URI</span>(<span class="ruby-identifier">href</span>).<span class="ruby-identifier">absolute?</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">URI</span>(<span class="ruby-identifier">href</span>.<span class="ruby-identifier">to_s</span>).<span class="ruby-identifier">absolute?</span>
     <span class="ruby-identifier">href</span>
   <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">base_href</span> = <span class="ruby-identifier">owner</span>&amp;.<span class="ruby-identifier">self_href</span>)
-    <span class="ruby-constant">Pathname</span>(<span class="ruby-identifier">base_href</span>).<span class="ruby-identifier">dirname</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">href</span>).<span class="ruby-identifier">to_s</span>
+    <span class="ruby-constant">Pathname</span>(<span class="ruby-identifier">base_href</span>).<span class="ruby-identifier">dirname</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">href</span>.<span class="ruby-identifier">to_s</span>).<span class="ruby-identifier">to_s</span>
   <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-href" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">href</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+
+          <div class="method-source-code" id="href-source">
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">href</span>
+  <span class="ruby-ivar">@href</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">target</span>&amp;.<span class="ruby-identifier">self_href</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -262,7 +285,7 @@
 <p>When it could not assemble the absolute HREF, it returns nil.</p>
 
           <div class="method-source-code" id="target-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 57</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">target</span>(<span class="ruby-value">http_client:</span> <span class="ruby-identifier">owner</span>&amp;.<span class="ruby-identifier">http_client</span> <span class="ruby-operator">||</span> <span class="ruby-constant">STAC</span>.<span class="ruby-identifier">default_http_client</span>)
   <span class="ruby-ivar">@target</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">if</span> (<span class="ruby-identifier">url</span> = <span class="ruby-identifier">absolute_href</span>)
                 <span class="ruby-identifier">object</span> = <span class="ruby-constant">ObjectResolver</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">http_client:</span> <span class="ruby-identifier">http_client</span>).<span class="ruby-identifier">resolve</span>(<span class="ruby-identifier">url</span>)
@@ -287,7 +310,7 @@
           <p>Serializes self to a Hash.</p>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 34</span>
+            <pre><span class="ruby-comment"># File lib/stac/link.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   {
     <span class="ruby-string">&#39;rel&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">rel</span>,

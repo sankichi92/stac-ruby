@@ -293,7 +293,7 @@
 <p>When the item has extendable stac_extensions, make the asset extend the extension modules.</p>
 
           <div class="method-source-code" id="add_asset-source">
-            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/stac/item.rb, line 88</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_asset</span>(<span class="ruby-value">key:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">description:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">roles:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-identifier">asset</span> = <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">href:</span> <span class="ruby-identifier">href</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">title</span>, <span class="ruby-value">description:</span> <span class="ruby-identifier">description</span>, <span class="ruby-value">type:</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">roles:</span> <span class="ruby-identifier">roles</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-identifier">extensions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">extension</span><span class="ruby-operator">|</span>
@@ -343,11 +343,9 @@
           <div class="method-source-code" id="collection-3D-source">
             <pre><span class="ruby-comment"># File lib/stac/item.rb, line 79</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collection=</span>(<span class="ruby-identifier">collection</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;collection must have a rel=&quot;self&quot; link&#39;</span> <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">collection_href</span> = <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">self_href</span>)
-
   <span class="ruby-ivar">@collection_id</span> = <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">id</span>
-  <span class="ruby-identifier">remove_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>)
-  <span class="ruby-identifier">add_link</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>, <span class="ruby-value">href:</span> <span class="ruby-identifier">collection_href</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">title</span>)
+  <span class="ruby-identifier">remove_links</span>(<span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>)
+  <span class="ruby-identifier">add_link</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-value">rel:</span> <span class="ruby-string">&#39;collection&#39;</span>, <span class="ruby-value">type:</span> <span class="ruby-string">&#39;application/json&#39;</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">title</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>

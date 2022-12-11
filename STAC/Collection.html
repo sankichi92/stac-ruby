@@ -75,6 +75,7 @@
     <li class="calls-super" ><a href="#method-c-from_hash">::from_hash</a>
     <li class="calls-super" ><a href="#method-c-new">::new</a>
     <li ><a href="#method-i-add_asset">#add_asset</a>
+    <li class="calls-super" ><a href="#method-i-add_item">#add_item</a>
     <li class="calls-super" ><a href="#method-i-to_h">#to_h</a>
   </ul>
 </div>
@@ -278,6 +279,33 @@
   <span class="ruby-keyword">else</span>
     <span class="ruby-ivar">@assets</span> = { <span class="ruby-identifier">key</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">asset</span> }
   <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-add_item" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">add_item</span><span
+            class="method-args">(item, href: &quot;</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Adds a rel=“item” link to self and adds “self”, “root”, “parent”, and “collection” links to the given item.</p>
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="Catalog.html#method-i-add_item"><code>STAC::Catalog#add_item</code></a>
+            </div>
+
+          <div class="method-source-code" id="add_item-source">
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_item</span>(<span class="ruby-identifier">item</span>, <span class="ruby-value">href:</span> <span class="ruby-node">&quot;#{item.id}.json&quot;</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">title</span>)
+  <span class="ruby-keyword">super</span>
+  <span class="ruby-identifier">item</span>.<span class="ruby-identifier">collection</span> = <span class="ruby-keyword">self</span>
   <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
