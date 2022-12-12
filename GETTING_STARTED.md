@@ -137,11 +137,9 @@ item = STAC::Item.from_hash(
     'stac_version' => '1.0.0',
     'type' => 'Feature',
     'id' => 'item',
-    'geometry' => {
-      # ...
-    },
+    'geometry' => nil,
     'properties' => {
-      # ...
+      'datetime' => Time.now.iso8601
     },
     'links' => [],
     'assets' => {}
@@ -168,7 +166,7 @@ sub_catalog.links.each { |l| puts "#{l.rel}: #{l.href}" }
 # self: https://example.com/sub-catalog/catalog.json
 # root: https://example.com/catalog.json
 # parent: https://example.com/catalog.json
-# item: https://example.com/item.json
+# item: https://example.com/sub-catalog/sub-item.json
 
 catalog.links.each { |l| puts "#{l.rel}: #{l.href}" }
 # self: https://example.com/catalog.json
