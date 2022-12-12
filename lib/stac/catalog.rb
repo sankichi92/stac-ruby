@@ -33,7 +33,7 @@ module STAC
 
     # Returns catalog/collection objects from rel="child" links of this catalog.
     def children
-      links.select { |link| link.rel == 'child' }.lazy.map(&:target)
+      child_links.lazy.map(&:target)
     end
 
     def all_children # :nodoc:
@@ -62,7 +62,7 @@ module STAC
 
     # Returns item objects from rel="item" links of this catalog.
     def items
-      links.select { |link| link.rel == 'item' }.lazy.map(&:target)
+      item_links.lazy.map(&:target)
     end
 
     # Returns all items from this catalog and its child catalogs/collections recursively.
@@ -98,6 +98,33 @@ module STAC
       item.root = root
       item.parent = self
       add_link(item, rel: 'item', type: 'application/geo+json', title: title)
+    end
+
+    # Exports this catalog and all its children and items to the specified dir or each self href.
+    def export(dest_dir = nil, writer: FileWriter.new)
+      dest_pathname = Pathname(dest_dir) if dest_dir
+      self_dest = dest_pathname.join(File.basename(self_href!)).to_s if dest_pathname
+      save(self_dest, writer: writer)
+
+      item_links.select(&:resolved?).each do |item_link|
+        item_dest = dest_pathname.join(item_link.relative_href!).to_s if dest_pathname
+        item_link.target.save(item_dest, writer: writer)
+      end
+
+      child_links.select(&:resolved?).each do |child_link|
+        child_dest_dir = dest_pathname.join(child_link.relative_href!).dirname.to_s if dest_pathname
+        child_link.target.export(child_dest_dir, writer: writer)
+      end
+    end
+
+    private
+
+    def child_links
+      links.select { |link| link.rel == 'child' }
+    end
+
+    def item_links
+      links.select { |link| link.rel == 'item' }
     end
   end
 end

@@ -173,4 +173,44 @@ RSpec.describe STAC::Catalog do
       expect(item.parent).to be catalog
     end
   end
+
+  describe '#export' do
+    let(:dist_dir) { 'dest' }
+    let(:writer) { instance_spy(STAC::FileWriter) }
+
+    before do
+      catalog.self_href = "file://#{catalog_path}"
+      catalog.all_children.force
+      catalog.all_items.force
+    end
+
+    it 'exports the catalog to the give dest_dir' do
+      catalog.export(dist_dir, writer: writer)
+
+      expect(writer).to have_received(:write).with(
+        hash_including('type' => 'Catalog', 'id' => 'examples'),
+        dest: 'dest/catalog.json',
+      )
+      expect(writer).to have_received(:write).with(
+        hash_including('type' => 'Feature', 'id' => 'CS3-20160503_132131_08'),
+        dest: 'dest/collectionless-item.json',
+      )
+      expect(writer).to have_received(:write).with(
+        hash_including('type' => 'Collection', 'id' => 'extensions-collection'),
+        dest: 'dest/extensions-collection/collection.json',
+      )
+      expect(writer).to have_received(:write).with(
+        hash_including('type' => 'Feature', 'id' => 'proj-example'),
+        dest: 'dest/extensions-collection/proj-example/proj-example.json',
+      )
+      expect(writer).to have_received(:write).with(
+        hash_including('type' => 'Collection', 'id' => 'sentinel-2'),
+        dest: 'dest/collection-only/collection.json',
+      )
+      expect(writer).to have_received(:write).with(
+        hash_including('type' => 'Collection', 'id' => 'sentinel-2'),
+        dest: 'dest/collection-only/collection-with-schemas.json',
+      )
+    end
+  end
 end

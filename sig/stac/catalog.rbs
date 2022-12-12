@@ -20,5 +20,11 @@ module STAC
     def find_item: (String id, ?recursive: bool) -> Item?
     def add_child: (Catalog catalog, ?href: String, ?title: String?) -> self
     def add_item: (Item item, ?href: String, ?title: String?) -> self
+    def export: (?String? dest_dir, ?writer: _Writer) -> void
+
+    private
+
+    def child_links: -> Array[Link]
+    def item_links: -> Array[Link]
   end
 end
