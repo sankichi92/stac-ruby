@@ -6,6 +6,9 @@ require_relative 'errors'
 require_relative 'version'
 
 module STAC
+  # Raised when a HTTP request failed.
+  class HTTPError < Error; end
+
   # Simple HTTP Client using OpenURI.
   class SimpleHTTPClient
     attr_reader :options

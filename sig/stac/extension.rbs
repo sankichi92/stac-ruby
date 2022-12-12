@@ -1,4 +1,7 @@
 module STAC
+  class ExtensionWithoutIdentifierError < Error
+  end
+
   module Extension
     @identifier: String?
     @scope: Array[Class]?

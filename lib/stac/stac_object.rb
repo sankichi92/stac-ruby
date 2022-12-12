@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'errors'
+require_relative 'file_writer'
 require_relative 'hash_like'
 require_relative 'link'
 require_relative 'spec_version'

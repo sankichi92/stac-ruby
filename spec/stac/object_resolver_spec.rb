@@ -33,8 +33,8 @@ RSpec.describe STAC::ObjectResolver do
     context 'with unsupported scheme URL' do
       let(:url) { 'ftp://example.com' }
 
-      it 'raises STAC::UnknownURISchemeError' do
-        expect { resolver.resolve(url) }.to raise_error STAC::UnknownURISchemeError
+      it 'raises STAC::NotSupportedURISchemeError' do
+        expect { resolver.resolve(url) }.to raise_error STAC::NotSupportedURISchemeError
       end
     end
 
