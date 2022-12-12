@@ -45,6 +45,7 @@
       <li><a href="GETTING_STARTED_md.html#label-STAC+Object+Classes">STAC Object Classes</a>
       <li><a href="GETTING_STARTED_md.html#label-STAC-3A-3ACatalog">STAC::Catalog</a>
       <li><a href="GETTING_STARTED_md.html#label-Crawling+Catalog+Links">Crawling Catalog Links</a>
+      <li><a href="GETTING_STARTED_md.html#label-Exporting+Catalog">Exporting Catalog</a>
       <li><a href="GETTING_STARTED_md.html#label-STAC-3A-3ACollection">STAC::Collection</a>
       <li><a href="GETTING_STARTED_md.html#label-STAC-3A-3AItem">STAC::Item</a>
       <li><a href="GETTING_STARTED_md.html#label-Common+Metadata">Common Metadata</a>
@@ -59,7 +60,7 @@
     <ul>
       <li><a href="README_md.html#label-stac-ruby">stac-ruby</a>
       <li><a href="README_md.html#label-STAC+Spec+Version+Support">STAC Spec Version Support</a>
-      <li><a href="README_md.html#label-STAC+Extension+Support">STAC Extension Support</a>
+      <li><a href="README_md.html#label-STAC+Extensions+Support">STAC Extensions Support</a>
       <li><a href="README_md.html#label-Installation">Installation</a>
       <li><a href="README_md.html#label-Getting+Started">Getting Started</a>
       <li><a href="README_md.html#label-Documentation">Documentation</a>
@@ -152,6 +153,9 @@
     <a href="STAC/Extent/Temporal.html">STAC::Extent::Temporal</a>
   </li>
   <li class="class">
+    <a href="STAC/FileWriter.html">STAC::FileWriter</a>
+  </li>
+  <li class="class">
     <a href="STAC/HTTPError.html">STAC::HTTPError</a>
   </li>
   <li class="module">
@@ -162,6 +166,15 @@
   </li>
   <li class="class">
     <a href="STAC/Link.html">STAC::Link</a>
+  </li>
+  <li class="class">
+    <a href="STAC/LinkHrefError.html">STAC::LinkHrefError</a>
+  </li>
+  <li class="class">
+    <a href="STAC/NoSelfHrefError.html">STAC::NoSelfHrefError</a>
+  </li>
+  <li class="class">
+    <a href="STAC/NotSupportedURISchemeError.html">STAC::NotSupportedURISchemeError</a>
   </li>
   <li class="class">
     <a href="STAC/ObjectResolver.html">STAC::ObjectResolver</a>
@@ -180,9 +193,6 @@
   </li>
   <li class="class">
     <a href="STAC/TypeError.html">STAC::TypeError</a>
-  </li>
-  <li class="class">
-    <a href="STAC/UnknownURISchemeError.html">STAC::UnknownURISchemeError</a>
   </li>
 </ul>
 
@@ -300,9 +310,19 @@
     <span class="container">STAC::Extent::Temporal</span>
 
   <li class="method">
+    <a href="STAC/FileWriter.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">STAC::FileWriter</span>
+
+  <li class="method">
     <a href="STAC/Item.html#method-c-new">::new</a>
     &mdash;
     <span class="container">STAC::Item</span>
+
+  <li class="method">
+    <a href="STAC/LinkHrefError.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">STAC::LinkHrefError</span>
 
   <li class="method">
     <a href="STAC/Link.html#method-c-new">::new</a>
@@ -328,6 +348,11 @@
     <a href="STAC/SimpleHTTPClient.html#method-c-new">::new</a>
     &mdash;
     <span class="container">STAC::SimpleHTTPClient</span>
+
+  <li class="method">
+    <a href="STAC/NoSelfHrefError.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">STAC::NoSelfHrefError</span>
 
   <li class="method">
     <a href="STAC/STACObject.html#method-c-new">::new</a>
@@ -525,6 +550,11 @@
     <span class="container">STAC::Extensions::ElectroOptical::Properties</span>
 
   <li class="method">
+    <a href="STAC/Catalog.html#method-i-export">#export</a>
+    &mdash;
+    <span class="container">STAC::Catalog</span>
+
+  <li class="method">
     <a href="STAC/STACObject.html#method-i-extended">#extended</a>
     &mdash;
     <span class="container">STAC::STACObject</span>
@@ -635,9 +665,19 @@
     <span class="container">STAC::CommonMetadata</span>
 
   <li class="method">
+    <a href="STAC/Link.html#method-i-relative_href">#relative_href</a>
+    &mdash;
+    <span class="container">STAC::Link</span>
+
+  <li class="method">
     <a href="STAC/ObjectResolver.html#method-i-resolve">#resolve</a>
     &mdash;
     <span class="container">STAC::ObjectResolver</span>
+
+  <li class="method">
+    <a href="STAC/Link.html#method-i-resolved-3F">#resolved?</a>
+    &mdash;
+    <span class="container">STAC::Link</span>
 
   <li class="method">
     <a href="STAC/STACObject.html#method-i-root">#root</a>
@@ -646,6 +686,11 @@
 
   <li class="method">
     <a href="STAC/STACObject.html#method-i-root-3D">#root=</a>
+    &mdash;
+    <span class="container">STAC::STACObject</span>
+
+  <li class="method">
+    <a href="STAC/STACObject.html#method-i-save">#save</a>
     &mdash;
     <span class="container">STAC::STACObject</span>
 
@@ -686,6 +731,11 @@
 
   <li class="method">
     <a href="STAC/STACObject.html#method-i-self_href">#self_href</a>
+    &mdash;
+    <span class="container">STAC::STACObject</span>
+
+  <li class="method">
+    <a href="STAC/STACObject.html#method-i-self_href-21">#self_href!</a>
     &mdash;
     <span class="container">STAC::STACObject</span>
 
@@ -813,6 +863,11 @@
     <a href="STAC/CommonMetadata.html#method-i-updated-3D">#updated=</a>
     &mdash;
     <span class="container">STAC::CommonMetadata</span>
+
+  <li class="method">
+    <a href="STAC/FileWriter.html#method-i-write">#write</a>
+    &mdash;
+    <span class="container">STAC::FileWriter</span>
 </ul>
 </main>
 

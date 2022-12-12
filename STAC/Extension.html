@@ -109,10 +109,11 @@
 <p>When given an argument, sets the given value as its identifier.</p>
 
           <div class="method-source-code" id="identifier-source">
-            <pre><span class="ruby-comment"># File lib/stac/extension.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/stac/extension.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">identifier</span>(<span class="ruby-identifier">identifier</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-comment"># @type self: Module</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">identifier</span>.<span class="ruby-identifier">nil?</span>
-    <span class="ruby-ivar">@identifier</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">ExtensionWithoutIdentifierError</span>, <span class="ruby-string">&#39;extension module must be set identifier&#39;</span>
+    <span class="ruby-ivar">@identifier</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">ExtensionWithoutIdentifierError</span>, <span class="ruby-node">&quot;extension module must be set identifier: #{name}&quot;</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-ivar">@identifier</span> = <span class="ruby-identifier">identifier</span>
   <span class="ruby-keyword">end</span>
@@ -136,7 +137,7 @@
 <p>When given arguments, sets the given values as its scope.</p>
 
           <div class="method-source-code" id="scope-source">
-            <pre><span class="ruby-comment"># File lib/stac/extension.rb, line 22</span>
+            <pre><span class="ruby-comment"># File lib/stac/extension.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">scope</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">scope</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">empty?</span>
     <span class="ruby-ivar">@scope</span> <span class="ruby-operator">||=</span> []

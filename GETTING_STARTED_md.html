@@ -63,6 +63,7 @@
     <li><a href="#label-STAC+Object+Classes">STAC Object Classes</a>
     <li><a href="#label-STAC-3A-3ACatalog">STAC::Catalog</a>
     <li><a href="#label-Crawling+Catalog+Links">Crawling Catalog Links</a>
+    <li><a href="#label-Exporting+Catalog">Exporting Catalog</a>
     <li><a href="#label-STAC-3A-3ACollection">STAC::Collection</a>
     <li><a href="#label-STAC-3A-3AItem">STAC::Item</a>
     <li><a href="#label-Common+Metadata">Common Metadata</a>
@@ -99,6 +100,8 @@
 <p><a href="#staccatalog">STAC::Catalog</a></p>
 <ul><li>
 <p><a href="#crawling-catalog-links">Crawling Catalog Links</a></p>
+</li><li>
+<p><a href="#exporting-catalog">Exporting Catalog</a></p>
 </li></ul>
 </li><li>
 <p><a href="#staccollection">STAC::Collection</a></p>
@@ -177,7 +180,7 @@
 <p><code>add_link: (rel: String, href: String, ?type: String?, ?title: String?) -&gt; self</code></p>
 </li></ul>
 
-<p>Followings are shorthand methods to manipulate links:</p>
+<p>Followings are shorthand methods for core links:</p>
 <ul><li>
 <p><code>self_href: -&gt; String?</code> returns rel=“self” link’s href value</p>
 </li><li>
@@ -239,6 +242,77 @@
   <span class="ruby-identifier">puts</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">id</span>
 <span class="ruby-keyword">end</span>
 <span class="ruby-identifier">item</span> = <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">find_item</span>(<span class="ruby-string">&#39;awesome_item&#39;</span>, <span class="ruby-value">recursive:</span> <span class="ruby-keyword">true</span>)
+</pre>
+
+<h4 id="label-Exporting+Catalog">Exporting Catalog<span><a href="#label-Exporting+Catalog">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p>Furthermore, <code>STAC::Catalog</code> has methods to create a new static <a href="STAC.html"><code>STAC</code></a> catalog:</p>
+<ul><li>
+<p><code>add_child: (Catalog catalog, ?href: String, ?title: String?) -&gt; self</code></p>
+</li><li>
+<p><code>add_item: (Item item, ?href: String, ?title: String?) -&gt; self</code></p>
+</li><li>
+<p><code>export: (?String? dest_dir) -&gt; void</code></p>
+</li></ul>
+
+<pre class="ruby"><span class="ruby-identifier">catalog</span> = <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">id:</span> <span class="ruby-string">&#39;root&#39;</span>, <span class="ruby-value">description:</span> <span class="ruby-string">&#39;The root catalog&#39;</span>)
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-string">&#39;https://example.com/catalog.json&#39;</span>
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">root</span> = <span class="ruby-identifier">catalog</span>
+
+<span class="ruby-identifier">item</span> = <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">Item</span>.<span class="ruby-identifier">from_hash</span>(
+  {
+    <span class="ruby-string">&#39;stac_version&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;1.0.0&#39;</span>,
+    <span class="ruby-string">&#39;type&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;Feature&#39;</span>,
+    <span class="ruby-string">&#39;id&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;item&#39;</span>,
+    <span class="ruby-string">&#39;geometry&#39;</span> <span class="ruby-operator">=&gt;</span> {
+      <span class="ruby-comment"># ...</span>
+    },
+    <span class="ruby-string">&#39;properties&#39;</span> <span class="ruby-operator">=&gt;</span> {
+      <span class="ruby-comment"># ...</span>
+    },
+    <span class="ruby-string">&#39;links&#39;</span> <span class="ruby-operator">=&gt;</span> [],
+    <span class="ruby-string">&#39;assets&#39;</span> <span class="ruby-operator">=&gt;</span> {}
+  }
+)
+
+<span class="ruby-comment"># Add rel=&quot;item&quot; link to catalog with href=&quot;#{item.id}.json&quot; (based on best practice).</span>
+<span class="ruby-comment"># And add rel=&quot;self&quot;, rel=&quot;root&quot;, and rel=&quot;parent&quot; links to item.</span>
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">add_item</span>(<span class="ruby-identifier">item</span>)
+
+<span class="ruby-identifier">item</span>.<span class="ruby-identifier">links</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{l.rel}: #{l.href}&quot;</span> }
+<span class="ruby-comment"># self: https://example.com/item.json</span>
+<span class="ruby-comment"># root: https://example.com/catalog.json</span>
+<span class="ruby-comment"># parent: https://example.com/catalog.json</span>
+
+<span class="ruby-identifier">sub_catalog</span> = <span class="ruby-constant">STAC</span><span class="ruby-operator">::</span><span class="ruby-constant">Catalog</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">id:</span> <span class="ruby-string">&#39;sub-catalog&#39;</span>, <span class="ruby-value">description:</span> <span class="ruby-string">&#39;The sub catalog&#39;</span>)
+
+<span class="ruby-comment"># Add rel=&quot;child&quot; link to catalog with href=&quot;#{catalog.id}/catalog.json&quot;.</span>
+<span class="ruby-comment"># Also add rel=&quot;self&quot;, rel=&quot;root&quot;, and rel=&quot;parent&quot; links to sub-catalog.</span>
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">add_child</span>(<span class="ruby-identifier">sub_catalog</span>)
+
+<span class="ruby-identifier">sub_catalog</span>.<span class="ruby-identifier">add_item</span>(<span class="ruby-identifier">item</span>.<span class="ruby-identifier">deep_dup</span>.<span class="ruby-identifier">update</span>(<span class="ruby-value">id:</span> <span class="ruby-string">&#39;sub-item&#39;</span>))
+<span class="ruby-identifier">sub_catalog</span>.<span class="ruby-identifier">links</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{l.rel}: #{l.href}&quot;</span> }
+<span class="ruby-comment"># self: https://example.com/sub-catalog/catalog.json</span>
+<span class="ruby-comment"># root: https://example.com/catalog.json</span>
+<span class="ruby-comment"># parent: https://example.com/catalog.json</span>
+<span class="ruby-comment"># item: https://example.com/item.json</span>
+
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">links</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{l.rel}: #{l.href}&quot;</span> }
+<span class="ruby-comment"># self: https://example.com/catalog.json</span>
+<span class="ruby-comment"># root: https://example.com/catalog.json</span>
+<span class="ruby-comment"># item: https://example.com/item.json</span>
+<span class="ruby-comment"># child: https://example.com/sub-catalog/catalog.json</span>
+
+<span class="ruby-comment"># Exports the catalog and its children/item recursively to the given directory.</span>
+<span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">export</span>(<span class="ruby-string">&#39;path/to/dest&#39;</span>)
+
+<span class="ruby-comment"># $ tree path/to/dest</span>
+<span class="ruby-comment"># path/to/dest</span>
+<span class="ruby-comment"># ├── catalog.json</span>
+<span class="ruby-comment"># ├── item.json</span>
+<span class="ruby-comment"># └── sub-catalog</span>
+<span class="ruby-comment">#     ├── catalog.json</span>
+<span class="ruby-comment">#     └── sub-item.json</span>
 </pre>
 
 <h3 id="label-STAC-3A-3ACollection"><a href="STAC/Collection.html"><code>STAC::Collection</code></a><span><a href="#label-STAC-3A-3ACollection">&para;</a> <a href="#top">&uarr;</a></span></h3>

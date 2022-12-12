@@ -79,6 +79,7 @@
     <li ><a href="#method-i-all_items">#all_items</a>
     <li ><a href="#method-i-children">#children</a>
     <li ><a href="#method-i-collections">#collections</a>
+    <li ><a href="#method-i-export">#export</a>
     <li ><a href="#method-i-find_child">#find_child</a>
     <li ><a href="#method-i-find_item">#find_item</a>
     <li ><a href="#method-i-items">#items</a>
@@ -297,7 +298,7 @@
           <div class="method-source-code" id="children-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">children</span>
-  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;child&#39;</span> }.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:target</span>)
+  <span class="ruby-identifier">child_links</span>.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:target</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -319,6 +320,39 @@
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collections</span>
   <span class="ruby-identifier">children</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Collection&#39;</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-i-export" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">export</span><span
+            class="method-args">(dest_dir = nil, writer: FileWriter.new)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          <p>Exports this catalog and all its children and items to the specified dir or each self href.</p>
+
+          <div class="method-source-code" id="export-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">export</span>(<span class="ruby-identifier">dest_dir</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-value">writer:</span> <span class="ruby-constant">FileWriter</span>.<span class="ruby-identifier">new</span>)
+  <span class="ruby-identifier">dest_pathname</span> = <span class="ruby-constant">Pathname</span>(<span class="ruby-identifier">dest_dir</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">dest_dir</span>
+  <span class="ruby-identifier">self_dest</span> = <span class="ruby-identifier">dest_pathname</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">self_href!</span>)).<span class="ruby-identifier">to_s</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">dest_pathname</span>
+  <span class="ruby-identifier">save</span>(<span class="ruby-identifier">self_dest</span>, <span class="ruby-value">writer:</span> <span class="ruby-identifier">writer</span>)
+
+  <span class="ruby-identifier">item_links</span>.<span class="ruby-identifier">select</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:resolved?</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item_link</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">item_dest</span> = <span class="ruby-identifier">dest_pathname</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">item_link</span>.<span class="ruby-identifier">relative_href!</span>).<span class="ruby-identifier">to_s</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">dest_pathname</span>
+    <span class="ruby-identifier">item_link</span>.<span class="ruby-identifier">target</span>.<span class="ruby-identifier">save</span>(<span class="ruby-identifier">item_dest</span>, <span class="ruby-value">writer:</span> <span class="ruby-identifier">writer</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">child_links</span>.<span class="ruby-identifier">select</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:resolved?</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">child_link</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">child_dest_dir</span> = <span class="ruby-identifier">dest_pathname</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">child_link</span>.<span class="ruby-identifier">relative_href!</span>).<span class="ruby-identifier">dirname</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">dest_pathname</span>
+    <span class="ruby-identifier">child_link</span>.<span class="ruby-identifier">target</span>.<span class="ruby-identifier">export</span>(<span class="ruby-identifier">child_dest_dir</span>, <span class="ruby-value">writer:</span> <span class="ruby-identifier">writer</span>)
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -385,7 +419,7 @@
           <div class="method-source-code" id="items-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">items</span>
-  <span class="ruby-identifier">links</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">link</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link</span>.<span class="ruby-identifier">rel</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;item&#39;</span> }.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:target</span>)
+  <span class="ruby-identifier">item_links</span>.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:target</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>

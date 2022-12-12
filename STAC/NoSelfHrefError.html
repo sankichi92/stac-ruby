@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class STAC::SimpleHTTPClient - stac-ruby API docs</title>
+<title>class STAC::NoSelfHrefError - stac-ruby API docs</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -61,7 +61,7 @@
 <div id="parent-class-section" class="nav-section">
   <h3>Parent</h3>
 
-  <p class="link">Object
+  <p class="link"><a href="Error.html">STAC::Error</a>
 </div>
 
     
@@ -72,22 +72,21 @@
   <h3>Methods</h3>
 
   <ul class="link-list" role="directory">
-    <li ><a href="#method-c-new">::new</a>
-    <li ><a href="#method-i-get">#get</a>
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
   </ul>
 </div>
 
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-STAC::SimpleHTTPClient">
-  <h1 id="class-STAC::SimpleHTTPClient" class="class">
-    class STAC::SimpleHTTPClient
+<main role="main" aria-labelledby="class-STAC::NoSelfHrefError">
+  <h1 id="class-STAC::NoSelfHrefError" class="class">
+    class STAC::NoSelfHrefError
   </h1>
 
   <section class="description">
     
-<p>Simple HTTP Client using OpenURI.</p>
+<p>Raised when a <a href="../STAC.html"><code>STAC</code></a> object does not have rel=“self” link HREF.</p>
 
   </section>
 
@@ -100,9 +99,9 @@
         <h3>Attributes</h3>
       </header>
 
-      <div id="attribute-i-options" class="method-detail">
+      <div id="attribute-i-stac_object" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">options</span><span
+          <span class="method-name">stac_object</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -121,50 +120,22 @@
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(options = { &#39;User-Agent&#39; =&gt; &quot;stac-ruby v</span>
+            class="method-args">(msg = nil, stac_object:)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
           
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/simple_http_client.rb, line 16</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">options</span> = { <span class="ruby-string">&#39;User-Agent&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;stac-ruby v#{VERSION}&quot;</span> })
-  <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-        </div>
-
-
-      </div>
-
-    </section>
-
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Instance Methods</h3>
-       </header>
-
-      <div id="method-i-get" class="method-detail ">
-        <div class="method-heading">
-          <span class="method-name">get</span><span
-            class="method-args">(url)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-
-        <div class="method-description">
-          <p>Makes a HTTP request and returns the responded JSON as Hash.</p>
-
-<p>Raises <a href="HTTPError.html"><code>STAC::HTTPError</code></a> when the response status is not 2XX.</p>
-
-          <div class="method-source-code" id="get-source">
-            <pre><span class="ruby-comment"># File lib/stac/simple_http_client.rb, line 23</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get</span>(<span class="ruby-identifier">url</span>)
-  <span class="ruby-identifier">body</span> = <span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>).<span class="ruby-identifier">read</span>(<span class="ruby-identifier">options</span>)
-  <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">body</span>)
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">OpenURI</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">HTTPError</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>
+            <pre><span class="ruby-comment"># File lib/stac/stac_object.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">msg</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_object:</span>)
+  <span class="ruby-keyword">super</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-ivar">@stac_object</span> = <span class="ruby-identifier">stac_object</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class STAC::SimpleHTTPClient - stac-ruby API docs</title>
+<title>class STAC::FileWriter - stac-ruby API docs</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -73,21 +73,21 @@
 
   <ul class="link-list" role="directory">
     <li ><a href="#method-c-new">::new</a>
-    <li ><a href="#method-i-get">#get</a>
+    <li ><a href="#method-i-write">#write</a>
   </ul>
 </div>
 
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-STAC::SimpleHTTPClient">
-  <h1 id="class-STAC::SimpleHTTPClient" class="class">
-    class STAC::SimpleHTTPClient
+<main role="main" aria-labelledby="class-STAC::FileWriter">
+  <h1 id="class-STAC::FileWriter" class="class">
+    class STAC::FileWriter
   </h1>
 
   <section class="description">
     
-<p>Simple HTTP Client using OpenURI.</p>
+<p>Class to write a hash as JSON on a file.</p>
 
   </section>
 
@@ -100,9 +100,9 @@
         <h3>Attributes</h3>
       </header>
 
-      <div id="attribute-i-options" class="method-detail">
+      <div id="attribute-i-json_options" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">options</span><span
+          <span class="method-name">json_options</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -121,7 +121,7 @@
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(options = { &#39;User-Agent&#39; =&gt; &quot;stac-ruby v</span>
+            class="method-args">(**json_options)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -129,9 +129,9 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/simple_http_client.rb, line 16</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">options</span> = { <span class="ruby-string">&#39;User-Agent&#39;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;stac-ruby v#{VERSION}&quot;</span> })
-  <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>
+            <pre><span class="ruby-comment"># File lib/stac/file_writer.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">json_options</span>)
+  <span class="ruby-ivar">@json_options</span> = <span class="ruby-identifier">json_options</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -146,25 +146,31 @@
          <h3>Public Instance Methods</h3>
        </header>
 
-      <div id="method-i-get" class="method-detail ">
+      <div id="method-i-write" class="method-detail ">
         <div class="method-heading">
-          <span class="method-name">get</span><span
-            class="method-args">(url)</span>
+          <span class="method-name">write</span><span
+            class="method-args">(hash, dest:)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
         <div class="method-description">
-          <p>Makes a HTTP request and returns the responded JSON as Hash.</p>
+          <p>Creates a file on ‘dest` with the given hash as JSON.</p>
 
-<p>Raises <a href="HTTPError.html"><code>STAC::HTTPError</code></a> when the response status is not 2XX.</p>
+          <div class="method-source-code" id="write-source">
+            <pre><span class="ruby-comment"># File lib/stac/file_writer.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">write</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-value">dest:</span>)
+  <span class="ruby-identifier">dest_uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">dest</span>)
+  <span class="ruby-identifier">path</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">dest_uri</span>.<span class="ruby-identifier">relative?</span>
+           <span class="ruby-identifier">dest</span>
+         <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">dest_uri</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">URI</span><span class="ruby-operator">::</span><span class="ruby-constant">File</span>)
+           <span class="ruby-identifier">dest_uri</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">to_s</span>
+         <span class="ruby-keyword">else</span>
+           <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotSupportedURISchemeError</span>, <span class="ruby-node">&quot;not supported URI scheme: #{dest}&quot;</span>
+         <span class="ruby-keyword">end</span>
 
-          <div class="method-source-code" id="get-source">
-            <pre><span class="ruby-comment"># File lib/stac/simple_http_client.rb, line 23</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get</span>(<span class="ruby-identifier">url</span>)
-  <span class="ruby-identifier">body</span> = <span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>).<span class="ruby-identifier">read</span>(<span class="ruby-identifier">options</span>)
-  <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">body</span>)
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">OpenURI</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">HTTPError</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>
+  <span class="ruby-identifier">pathname</span> = <span class="ruby-constant">Pathname</span>(<span class="ruby-identifier">path</span>)
+  <span class="ruby-identifier">pathname</span>.<span class="ruby-identifier">dirname</span>.<span class="ruby-identifier">mkpath</span>
+  <span class="ruby-identifier">pathname</span>.<span class="ruby-identifier">write</span>(<span class="ruby-constant">JSON</span>.<span class="ruby-identifier">generate</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-identifier">json_options</span>))
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
