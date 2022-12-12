@@ -1,10 +1,16 @@
 module STAC
+  class NoSelfHrefError < Error
+    attr_reader stac_object: STACObject
+
+    def initialize: (?String? msg, stac_object: STACObject) -> void
+  end
+
   class STACObject
     include HashLike
 
     @@extendables: Hash[String, Extension]
     
-    attr_reader self.type: String
+    attr_reader self.type: String?
     
     def self.extendables: -> Array[Extension]
     def self.add_extendable: (Extension) -> self
@@ -31,6 +37,9 @@ module STAC
     def root=: (Catalog? catalog) -> void
     def parent: -> Catalog?
     def parent=: (Catalog? catalog) -> void
+    def save: (?String? dest, ?writer: _Writer) -> void
+
+    def self_href!: -> String
 
     private
 

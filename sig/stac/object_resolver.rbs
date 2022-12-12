@@ -18,7 +18,7 @@ module STAC
   end
 
   interface _STACObjectClass
-    def type: -> String
+    def type: -> String?
     def from_hash: (Hash[String, untyped] hash) -> untyped
   end
 end

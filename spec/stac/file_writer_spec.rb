@@ -6,7 +6,7 @@ RSpec.describe STAC::FileWriter do
   subject(:writer) { STAC::FileWriter.new }
 
   describe '#write' do
-    let(:hash) { { foo: :bar } }
+    let(:hash) { { 'foo' => :bar } }
     let(:dest) { File.join(Dir.mktmpdir, 'foo/bar.json') }
 
     it 'writes the given hash as JSON to dest' do
