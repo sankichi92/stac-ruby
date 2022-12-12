@@ -4,6 +4,7 @@
 - [STAC Object Classes](#stac-object-classes)
   - [STAC::Catalog](#staccatalog)
     - [Crawling Catalog Links](#crawling-catalog-links)
+    - [Exporting Catalog](#exporting-catalog)
   - [STAC::Collection](#staccollection)
   - [STAC::Item](#stacitem)
     - [Common Metadata](#common-metadata)
@@ -67,7 +68,7 @@ And they have the following instance methods in common:
 - `find_link: (rel: String, ?type: String?) -> STAC::Link?`
 - `add_link: (rel: String, href: String, ?type: String?, ?title: String?) -> self`
 
-Followings are shorthand methods to manipulate links:
+Followings are shorthand methods for core links:
 
 - `self_href: -> String?` returns rel="self" link's href value
 - `self_href=: (String absolute_href) -> void` adds rel="self" link with the given href
@@ -116,6 +117,75 @@ catalog.all_items.first(100).each do |item|
   puts item.id
 end
 item = catalog.find_item('awesome_item', recursive: true)
+```
+
+#### Exporting Catalog
+
+Furthermore, `STAC::Catalog` has methods to create a new static STAC catalog:
+
+- `add_child: (Catalog catalog, ?href: String, ?title: String?) -> self`
+- `add_item: (Item item, ?href: String, ?title: String?) -> self`
+- `export: (?String? dest_dir) -> void`
+
+```ruby
+catalog = STAC::Catalog.new(id: 'root', description: 'The root catalog')
+catalog.self_href = 'https://example.com/catalog.json'
+catalog.root = catalog
+
+item = STAC::Item.from_hash(
+  {
+    'stac_version' => '1.0.0',
+    'type' => 'Feature',
+    'id' => 'item',
+    'geometry' => {
+      # ...
+    },
+    'properties' => {
+      # ...
+    },
+    'links' => [],
+    'assets' => {}
+  }
+)
+
+# Add rel="item" link to catalog with href="#{item.id}.json" (based on best practice).
+# And add rel="self", rel="root", and rel="parent" links to item.
+catalog.add_item(item)
+
+item.links.each { |l| puts "#{l.rel}: #{l.href}" }
+# self: https://example.com/item.json
+# root: https://example.com/catalog.json
+# parent: https://example.com/catalog.json
+
+sub_catalog = STAC::Catalog.new(id: 'sub-catalog', description: 'The sub catalog')
+
+# Add rel="child" link to catalog with href="#{catalog.id}/catalog.json".
+# Also add rel="self", rel="root", and rel="parent" links to sub-catalog.
+catalog.add_child(sub_catalog)
+
+sub_catalog.add_item(item.deep_dup.update(id: 'sub-item'))
+sub_catalog.links.each { |l| puts "#{l.rel}: #{l.href}" }
+# self: https://example.com/sub-catalog/catalog.json
+# root: https://example.com/catalog.json
+# parent: https://example.com/catalog.json
+# item: https://example.com/item.json
+
+catalog.links.each { |l| puts "#{l.rel}: #{l.href}" }
+# self: https://example.com/catalog.json
+# root: https://example.com/catalog.json
+# item: https://example.com/item.json
+# child: https://example.com/sub-catalog/catalog.json
+
+# Exports the catalog and its children/item recursively to the given directory.
+catalog.export('path/to/dest')
+
+# $ tree path/to/dest
+# path/to/dest
+# ├── catalog.json
+# ├── item.json
+# └── sub-catalog
+#     ├── catalog.json
+#     └── sub-item.json
 ```
 
 ### STAC::Collection
@@ -238,8 +308,8 @@ Currently, only 4 stable extensions have been implemented:
 ```ruby
 puts STAC::STACObject.extendables
 # STAC::Extensions::ElectroOptical
-# STAC::Extensions::Projection                                                             
-# STAC::Extensions::ScientificCitation                                                     
+# STAC::Extensions::Projection
+# STAC::Extensions::ScientificCitation
 # STAC::Extensions::ViewGeometry
 ```
 

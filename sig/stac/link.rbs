@@ -1,4 +1,10 @@
 module STAC
+  class LinkHrefError < Error
+    attr_reader link: Link
+
+    def initialize: (?String? msg, link: Link) -> void
+  end
+
   class Link
     include HashLike
 
@@ -14,8 +20,14 @@ module STAC
     @resolver: ObjectResolver
 
     def initialize: (?STACObject? target, rel: String, href: String?, ?type: String?, ?title: String?, **untyped) -> void
+    def resolved?: -> bool
     def href: -> String?
     def absolute_href: -> String?
+    def relative_href: -> String?
     def target: (?http_client: _HTTPClient) -> STACObject?
+    
+    def href!: -> String
+    def absolute_href!: -> String
+    def relative_href!: -> String
   end
 end

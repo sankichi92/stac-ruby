@@ -1,11 +1,22 @@
 # frozen_string_literal: true
 
 require_relative 'errors'
+require_relative 'file_writer'
 require_relative 'hash_like'
 require_relative 'link'
 require_relative 'spec_version'
 
 module STAC
+  # Raised when a STAC object does not have rel="self" link HREF.
+  class NoSelfHrefError < Error
+    attr_reader :stac_object
+
+    def initialize(msg = nil, stac_object:)
+      super(msg)
+      @stac_object = stac_object
+    end
+  end
+
   # Base class for \STAC objects (i.e. Catalog, Collection, and Item).
   class STACObject
     include HashLike
@@ -70,7 +81,7 @@ module STAC
     end
 
     def type
-      self.class.type
+      self.class.type.to_s
     end
 
     # Returns extended extension modules.
@@ -151,6 +162,19 @@ module STAC
     def parent=(catalog)
       remove_links(rel: 'parent')
       add_link(catalog, rel: 'parent', type: 'application/json', title: catalog.title) if catalog
+    end
+
+    # Writes self on `dest` with the given writer.
+    #
+    # The default writer is a FileWriter.
+    def save(dest = nil, writer: FileWriter.new)
+      writer.write(to_h, dest: dest || self_href!)
+    end
+
+    protected
+
+    def self_href!
+      self_href or raise NoSelfHrefError.new('no rel="self" link href', stac_object: self)
     end
 
     private

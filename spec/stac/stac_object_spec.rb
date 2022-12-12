@@ -72,4 +72,27 @@ RSpec.describe STAC::STACObject do
       expect(stac_object.parent).to be collection
     end
   end
+
+  describe '#save' do
+    let(:dest) { 'path/to/stac_object.json' }
+    let(:writer) { instance_spy(STAC::FileWriter) }
+
+    it 'calls writer#write with dest' do
+      stac_object.save(dest, writer: writer)
+
+      expect(writer).to have_received(:write).with(hash_including('stac_version'), dest: dest)
+    end
+
+    context 'without dest' do
+      before do
+        stac_object.self_href = 'file:///path/to/stac_object.json'
+      end
+
+      it 'calls writer#write with self_href' do
+        stac_object.save(writer: writer)
+
+        expect(writer).to have_received(:write).with(hash_including('stac_version'), dest: stac_object.self_href)
+      end
+    end
+  end
 end

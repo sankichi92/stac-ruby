@@ -30,7 +30,7 @@ module STAC
     # - file
     #
     # Raises:
-    # - STAC::UnknownURISchemeError when a URL with unsupported scheme was given
+    # - STAC::NotSupportedURISchemeError when a URL with not supported scheme was given
     # - STAC::TypeError when it could not resolve any \STAC objects
     def resolve(url)
       hash = read(url)
@@ -53,7 +53,7 @@ module STAC
         str = File.read(uri.path.to_s)
         JSON.parse(str)
       else
-        raise UnknownURISchemeError, "unknown URI scheme: #{url}"
+        raise NotSupportedURISchemeError, "not supported URI scheme: #{url}"
       end
     end
   end

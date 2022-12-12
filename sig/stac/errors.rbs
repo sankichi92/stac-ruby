@@ -5,12 +5,6 @@ module STAC
   class TypeError < Error
   end
 
-  class UnknownURISchemeError < Error
-  end
-
-  class HTTPError < Error
-  end
-
-  class ExtensionWithoutIdentifierError < Error
+  class NotSupportedURISchemeError < Error
   end
 end

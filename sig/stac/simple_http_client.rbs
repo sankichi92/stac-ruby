@@ -1,4 +1,7 @@
 module STAC
+  class HTTPError < Error
+  end
+  
   class SimpleHTTPClient
     attr_reader options: Hash[String, String]
 

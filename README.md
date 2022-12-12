@@ -9,7 +9,7 @@ This gem's implementation refers to [PySTAC](https://github.com/stac-utils/pysta
 
 v1.0.0
 
-### STAC Extension Support
+### STAC Extensions Support
 
 - [Electro-Optical](https://github.com/stac-extensions/eo) v1.0.0
 - [Projection](https://github.com/stac-extensions/projection) v1.0.0

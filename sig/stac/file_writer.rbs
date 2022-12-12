@@ -1,0 +1,13 @@
+module STAC
+  class FileWriter
+    attr_reader json_options: Hash[Symbol, untyped]
+
+    def initialize: (**untyped) -> void
+
+    def write: (Hash[String, untyped], dest: String) -> void
+  end
+
+  interface _Writer
+    def write: (Hash[String, untyped], dest: String) -> void
+  end
+end

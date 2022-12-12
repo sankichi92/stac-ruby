@@ -6,6 +6,7 @@
 - Fix a bug that `Catalog#all_items` returns only direct children's items.
 - Improve documentation.
 - Add methods `#add_child` and `#add_item` to `STAC::Catalog`
+- Add `STAC::Catalog#export`
 
 ## [0.2.0] - 2022-11-02
 

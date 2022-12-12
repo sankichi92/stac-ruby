@@ -7,12 +7,6 @@ module STAC
   # Raised when unexpected "type" field was given.
   class TypeError < Error; end
 
-  # Raised when URL with unsupported scheme was given.
-  class UnknownURISchemeError < Error; end
-
-  # Raised when a HTTP request failed.
-  class HTTPError < Error; end
-
-  # Raised when an extension module does have identifier.
-  class ExtensionWithoutIdentifierError < Error; end
+  # Raised when URL with not supported scheme was given.
+  class NotSupportedURISchemeError < Error; end
 end
