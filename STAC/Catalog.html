@@ -182,7 +182,7 @@
       <div id="method-c-root" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">root</span><span
-            class="method-args">(id:, description:, self_href:, links: [], title: nil, stac_extensions: [], **extra)</span>
+            class="method-args">(id:, description:, href:, links: [], title: nil, stac_extensions: [], **extra)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -191,11 +191,11 @@
 
           <div class="method-source-code" id="root-source">
             <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">root</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">description:</span>, <span class="ruby-value">self_href:</span>, <span class="ruby-value">links:</span> [], <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> [], <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">root</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">description:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">links:</span> [], <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> [], <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-identifier">catalog</span> = <span class="ruby-identifier">new</span>(
     <span class="ruby-value">id:</span> <span class="ruby-identifier">id</span>, <span class="ruby-value">description:</span> <span class="ruby-identifier">description</span>, <span class="ruby-value">links:</span> <span class="ruby-identifier">links</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">title</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-identifier">stac_extensions</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>,
   )
-  <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-identifier">self_href</span>
+  <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-identifier">href</span>
   <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">root</span> = <span class="ruby-identifier">catalog</span>
   <span class="ruby-identifier">catalog</span>
 <span class="ruby-keyword">end</span></pre>
