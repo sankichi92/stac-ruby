@@ -17,7 +17,8 @@ module STAC
         h = hash.transform_keys(&:to_sym)
         h[:extent] = Extent.from_hash(h.fetch(:extent))
         h[:providers] = h[:providers]&.map { |provider| Provider.from_hash(provider) }
-        h[:assets] = h[:assets]&.transform_values { |v| Asset.from_hash(v) }
+        h[:summaries] = h[:summaries]&.transform_keys(&:to_s)
+        h[:assets] = h[:assets]&.to_h { |k, v| [k.to_s, Asset.from_hash(v)] }
         super(h)
       rescue KeyError => e
         raise ArgumentError, "required field not found: #{e.key}"
