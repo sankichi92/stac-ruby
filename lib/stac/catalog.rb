@@ -11,6 +11,17 @@ module STAC
   class Catalog < STAC::STACObject
     @type = 'Catalog'
 
+    class << self
+      def root(id:, description:, href:, links: [], title: nil, stac_extensions: [], **extra)
+        catalog = new(
+          id: id, description: description, links: links, title: title, stac_extensions: stac_extensions, **extra,
+        )
+        catalog.self_href = href
+        catalog.root = catalog
+        catalog
+      end
+    end
+
     attr_accessor :id, :description, :title
 
     def initialize(id:, description:, links: [], title: nil, stac_extensions: [], **extra)
