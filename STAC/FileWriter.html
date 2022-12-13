@@ -95,22 +95,6 @@
 
 
 
-    <section class="attribute-method-details" class="method-section">
-      <header>
-        <h3>Attributes</h3>
-      </header>
-
-      <div id="attribute-i-json_options" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">json_options</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        </div>
-      </div>
-    </section>
 
 
      <section id="public-class-5Buntitled-5D-method-details" class="method-section">
@@ -121,7 +105,7 @@
       <div id="method-c-new" class="method-detail ">
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(**json_options)</span>
+            class="method-args">(hash_to_json: -&gt;(hash) { JSON.generate(hash) }</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
 
@@ -129,9 +113,9 @@
           
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/file_writer.rb, line 13</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-operator">**</span><span class="ruby-identifier">json_options</span>)
-  <span class="ruby-ivar">@json_options</span> = <span class="ruby-identifier">json_options</span>
+            <pre><span class="ruby-comment"># File lib/stac/file_writer.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">hash_to_json:</span> <span class="ruby-operator">-&gt;</span>(<span class="ruby-identifier">hash</span>) { <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">generate</span>(<span class="ruby-identifier">hash</span>) })
+  <span class="ruby-ivar">@hash_to_json</span> = <span class="ruby-identifier">hash_to_json</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -157,7 +141,7 @@
           <p>Creates a file on ‘dest` with the given hash as JSON.</p>
 
           <div class="method-source-code" id="write-source">
-            <pre><span class="ruby-comment"># File lib/stac/file_writer.rb, line 18</span>
+            <pre><span class="ruby-comment"># File lib/stac/file_writer.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">write</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-value">dest:</span>)
   <span class="ruby-identifier">dest_uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">dest</span>)
   <span class="ruby-identifier">path</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">dest_uri</span>.<span class="ruby-identifier">relative?</span>
@@ -170,7 +154,7 @@
 
   <span class="ruby-identifier">pathname</span> = <span class="ruby-constant">Pathname</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-identifier">pathname</span>.<span class="ruby-identifier">dirname</span>.<span class="ruby-identifier">mkpath</span>
-  <span class="ruby-identifier">pathname</span>.<span class="ruby-identifier">write</span>(<span class="ruby-constant">JSON</span>.<span class="ruby-identifier">generate</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-identifier">json_options</span>))
+  <span class="ruby-identifier">pathname</span>.<span class="ruby-identifier">write</span>(<span class="ruby-ivar">@hash_to_json</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">hash</span>))
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
