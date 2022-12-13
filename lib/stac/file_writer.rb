@@ -8,10 +8,8 @@ require_relative 'errors'
 module STAC
   # Class to write a hash as JSON on a file.
   class FileWriter
-    attr_reader :json_options
-
-    def initialize(**json_options)
-      @json_options = json_options
+    def initialize(hash_to_json: ->(hash) { JSON.generate(hash) })
+      @hash_to_json = hash_to_json
     end
 
     # Creates a file on `dest` with the given hash as JSON.
@@ -27,7 +25,7 @@ module STAC
 
       pathname = Pathname(path)
       pathname.dirname.mkpath
-      pathname.write(JSON.generate(hash, json_options))
+      pathname.write(@hash_to_json.call(hash))
     end
   end
 end
