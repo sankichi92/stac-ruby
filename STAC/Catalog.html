@@ -73,6 +73,7 @@
 
   <ul class="link-list" role="directory">
     <li class="calls-super" ><a href="#method-c-new">::new</a>
+    <li ><a href="#method-c-root">::root</a>
     <li ><a href="#method-i-add_child">#add_child</a>
     <li ><a href="#method-i-add_item">#add_item</a>
     <li ><a href="#method-i-all_collections">#all_collections</a>
@@ -165,12 +166,38 @@
             </div>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 16</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">description:</span>, <span class="ruby-value">links:</span> [], <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> [], <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">id</span>
   <span class="ruby-ivar">@description</span> = <span class="ruby-identifier">description</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-identifier">title</span>
   <span class="ruby-keyword">super</span>(<span class="ruby-value">links:</span> <span class="ruby-identifier">links</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-identifier">stac_extensions</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="method-c-root" class="method-detail ">
+        <div class="method-heading">
+          <span class="method-name">root</span><span
+            class="method-args">(id:, description:, self_href:, links: [], title: nil, stac_extensions: [], **extra)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+
+        <div class="method-description">
+          
+
+          <div class="method-source-code" id="root-source">
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">root</span>(<span class="ruby-value">id:</span>, <span class="ruby-value">description:</span>, <span class="ruby-value">self_href:</span>, <span class="ruby-value">links:</span> [], <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">stac_extensions:</span> [], <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
+  <span class="ruby-identifier">catalog</span> = <span class="ruby-identifier">new</span>(
+    <span class="ruby-value">id:</span> <span class="ruby-identifier">id</span>, <span class="ruby-value">description:</span> <span class="ruby-identifier">description</span>, <span class="ruby-value">links:</span> <span class="ruby-identifier">links</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">title</span>, <span class="ruby-value">stac_extensions:</span> <span class="ruby-identifier">stac_extensions</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>,
+  )
+  <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-identifier">self_href</span>
+  <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">root</span> = <span class="ruby-identifier">catalog</span>
+  <span class="ruby-identifier">catalog</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -196,7 +223,7 @@
           <p>Adds a rel=“child” link to self and adds “self”, “root”, and “parent” links to the child catalog.</p>
 
           <div class="method-source-code" id="add_child-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 84</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 95</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_child</span>(<span class="ruby-identifier">catalog</span>, <span class="ruby-value">href:</span> <span class="ruby-node">&quot;#{catalog.id}/#{catalog.type.downcase}.json&quot;</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">title</span>)
   <span class="ruby-keyword">if</span> (<span class="ruby-identifier">base</span> = <span class="ruby-identifier">self_href</span>)
     <span class="ruby-identifier">catalog</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-constant">Pathname</span>(<span class="ruby-identifier">base</span>).<span class="ruby-identifier">dirname</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">href</span>).<span class="ruby-identifier">to_s</span>
@@ -222,7 +249,7 @@
           <p>Adds a rel=“item” link to self and adds “self”, “root”, and “parent” links to the given item.</p>
 
           <div class="method-source-code" id="add_item-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 94</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 105</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_item</span>(<span class="ruby-identifier">item</span>, <span class="ruby-value">href:</span> <span class="ruby-node">&quot;#{item.id}.json&quot;</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">title</span>)
   <span class="ruby-keyword">if</span> (<span class="ruby-identifier">base</span> = <span class="ruby-identifier">self_href</span>)
     <span class="ruby-identifier">item</span>.<span class="ruby-identifier">self_href</span> = <span class="ruby-constant">Pathname</span>(<span class="ruby-identifier">base</span>).<span class="ruby-identifier">dirname</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">href</span>).<span class="ruby-identifier">to_s</span>
@@ -248,7 +275,7 @@
           <p>Returns all collections from this catalog and its child catalogs/collections recursively.</p>
 
           <div class="method-source-code" id="all_collections-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">all_collections</span>
   <span class="ruby-comment"># The last `.lazy` is not necessary with Ruby 3.1.</span>
   <span class="ruby-comment"># But with Ruby 3.0, it is necessary because Enumerator::Lazy#chain returns Enumerator::Chain</span>
@@ -272,7 +299,7 @@
           <p>Returns all items from this catalog and its child catalogs/collections recursively.</p>
 
           <div class="method-source-code" id="all_items-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 69</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">all_items</span>
   <span class="ruby-comment"># The last `.lazy` is not necessary with Ruby 3.1.</span>
   <span class="ruby-comment"># But with Ruby 3.0, it is necessary because Enumerator::Lazy#chain returns Enumerator::Chain</span>
@@ -296,7 +323,7 @@
           <p>Returns catalog/collection objects from rel=“child” links of this catalog.</p>
 
           <div class="method-source-code" id="children-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 35</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">children</span>
   <span class="ruby-identifier">child_links</span>.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:target</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -317,7 +344,7 @@
           <p>Filters only collections from <a href="Catalog.html#method-i-children"><code>children</code></a>.</p>
 
           <div class="method-source-code" id="collections-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 44</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collections</span>
   <span class="ruby-identifier">children</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;Collection&#39;</span> }
 <span class="ruby-keyword">end</span></pre>
@@ -338,7 +365,7 @@
           <p>Exports this catalog and all its children and items to the specified dir or each self href.</p>
 
           <div class="method-source-code" id="export-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 104</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">export</span>(<span class="ruby-identifier">dest_dir</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-value">writer:</span> <span class="ruby-constant">FileWriter</span>.<span class="ruby-identifier">new</span>)
   <span class="ruby-identifier">dest_pathname</span> = <span class="ruby-constant">Pathname</span>(<span class="ruby-identifier">dest_dir</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">dest_dir</span>
   <span class="ruby-identifier">self_dest</span> = <span class="ruby-identifier">dest_pathname</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">self_href!</span>)).<span class="ruby-identifier">to_s</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">dest_pathname</span>
@@ -373,7 +400,7 @@
 <p>With option ‘recusive: true`, it will traverse all child catalogs/collections recursively.</p>
 
           <div class="method-source-code" id="find_child-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 59</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">find_child</span>(<span class="ruby-identifier">id</span>, <span class="ruby-value">recursive:</span> <span class="ruby-keyword">false</span>)
   (<span class="ruby-identifier">recursive</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">all_children</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">children</span>).<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
 <span class="ruby-keyword">end</span></pre>
@@ -396,7 +423,7 @@
 <p>With option ‘recursive: true`, it will traverse all child catalogs/collections recursively.</p>
 
           <div class="method-source-code" id="find_item-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 79</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 90</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">find_item</span>(<span class="ruby-identifier">id</span>, <span class="ruby-value">recursive:</span> <span class="ruby-keyword">false</span>)
   (<span class="ruby-identifier">recursive</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">all_items</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">items</span>).<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> }
 <span class="ruby-keyword">end</span></pre>
@@ -417,7 +444,7 @@
           <p>Returns item objects from rel=“item” links of this catalog.</p>
 
           <div class="method-source-code" id="items-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 64</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">items</span>
   <span class="ruby-identifier">item_links</span>.<span class="ruby-identifier">lazy</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:target</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -442,7 +469,7 @@
             </div>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 24</span>
+            <pre><span class="ruby-comment"># File lib/stac/catalog.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
     {
