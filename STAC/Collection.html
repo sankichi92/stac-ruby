@@ -193,7 +193,8 @@
   <span class="ruby-identifier">h</span> = <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_sym</span>)
   <span class="ruby-identifier">h</span>[<span class="ruby-value">:extent</span>] = <span class="ruby-constant">Extent</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">h</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:extent</span>))
   <span class="ruby-identifier">h</span>[<span class="ruby-value">:providers</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-value">:providers</span>]&amp;.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">provider</span><span class="ruby-operator">|</span> <span class="ruby-constant">Provider</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">provider</span>) }
-  <span class="ruby-identifier">h</span>[<span class="ruby-value">:assets</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-value">:assets</span>]&amp;.<span class="ruby-identifier">transform_values</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>) }
+  <span class="ruby-identifier">h</span>[<span class="ruby-value">:summaries</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-value">:summaries</span>]&amp;.<span class="ruby-identifier">transform_keys</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:to_s</span>)
+  <span class="ruby-identifier">h</span>[<span class="ruby-value">:assets</span>] = <span class="ruby-identifier">h</span>[<span class="ruby-value">:assets</span>]&amp;.<span class="ruby-identifier">to_h</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">from_hash</span>(<span class="ruby-identifier">v</span>)] }
   <span class="ruby-keyword">super</span>(<span class="ruby-identifier">h</span>)
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">KeyError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;required field not found: #{e.key}&quot;</span>
@@ -219,7 +220,7 @@
             </div>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 31</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(
   <span class="ruby-value">id:</span>,
   <span class="ruby-value">description:</span>,
@@ -268,7 +269,7 @@
 <p>When the item has extendable stac_extensions, make the asset extend the extension modules.</p>
 
           <div class="method-source-code" id="add_asset-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 71</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_asset</span>(<span class="ruby-value">key:</span>, <span class="ruby-value">href:</span>, <span class="ruby-value">title:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">description:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">type:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">roles:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-identifier">asset</span> = <span class="ruby-constant">Asset</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">href:</span> <span class="ruby-identifier">href</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">title</span>, <span class="ruby-value">description:</span> <span class="ruby-identifier">description</span>, <span class="ruby-value">type:</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">roles:</span> <span class="ruby-identifier">roles</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">extra</span>)
   <span class="ruby-identifier">extensions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">extension</span><span class="ruby-operator">|</span>
@@ -302,7 +303,7 @@
             </div>
 
           <div class="method-source-code" id="add_item-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 85</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 86</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_item</span>(<span class="ruby-identifier">item</span>, <span class="ruby-value">href:</span> <span class="ruby-node">&quot;#{item.id}.json&quot;</span>, <span class="ruby-value">title:</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">properties</span>.<span class="ruby-identifier">title</span>)
   <span class="ruby-keyword">super</span>
   <span class="ruby-identifier">item</span>.<span class="ruby-identifier">collection</span> = <span class="ruby-keyword">self</span>
@@ -329,7 +330,7 @@
             </div>
 
           <div class="method-source-code" id="to_h-source">
-            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 55</span>
+            <pre><span class="ruby-comment"># File lib/stac/collection.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_h</span>
   <span class="ruby-keyword">super</span>.<span class="ruby-identifier">merge</span>(
     {
