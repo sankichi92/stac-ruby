@@ -40,7 +40,8 @@ module STAC
 
       # Represents \Band object of Electro-Optical extension.
       class Band
-        attr_reader :raw_hash # :nodoc:
+        # :nodoc:
+        attr_reader :raw_hash
 
         def initialize(raw_hash)
           @raw_hash = raw_hash

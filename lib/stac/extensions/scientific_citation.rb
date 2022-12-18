@@ -53,7 +53,8 @@ module STAC
 
       # Represents \Publication object of Scientific Citation extension.
       class Publication
-        attr_reader :raw_hash # :nodoc:
+        # :nodoc:
+        attr_reader :raw_hash
 
         def initialize(raw_hash)
           @raw_hash = raw_hash
